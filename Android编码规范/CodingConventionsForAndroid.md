@@ -35,6 +35,12 @@
   - [6.3 行宽](#f.3)
   - [6.4 空行](#f.4)
   - [6.5 分行](#f.5)
+- [7. 部分kotlin书写要求](#g)
+  - [7.1 判断语句](#g.1)
+  - [7.2 lambdas表达式](#g.2)
+  - [7.3 全局常量](#g.3)  
+- [8. 参考资料](#h)
+
 
 # <span id="a">1. 前言</span>
 ## <span id="a.1">1.1 编辑规范</span>
@@ -189,7 +195,70 @@ override fun onResume() {
 ## <span id="f.5">6.5 分行</span>
 不允许把多条语句放在一行，不允许把多个变量定义在一行上。
 
+# <span id="g">7. 部分kotlin书写要求</span>
+## <span id="g.1">7.1 判断语句</span>
+对于单条判断语句可使用`if`语句，多条判断语句尽可能使用`when`语句。
+例如：
+```kotlin
+if (type == TYPE_CACHE) {
+    // to do something
+} else if (type == TYPE_DOWNLOAD) {
+    // to do something
+}
+```
+改写：
+```kotlin
+when (tyoe) {
+    TYPE_CACHE -> {
+        // to do something
+    }
+    TYPE_DOWNLOAD -> {
+        // to do something
+    }
+}
+```
+## <span id="g.2">7.2 lambdas表达式</span>
+Lambdas 表达式在减少源文件中代码的总行数的同时，也支持函数式编程。
+例如：
+```kotlin
+button.setOnClickListener { view ->
+    startDetailActivity()
+}
+```
+## <span id="g.3">7.3 全局常量</span>
+Kotlin 允许开发者定义能在整个应用程序的所有地方都能够访问的常量。通常情况下，常量应该尽可能减小它们的作用域，但当需要有全局作用域的常量时，这是一种很好的方法，你不需要实现一个常量类：
+```kotlin
+package com.savvyapps.example
+
+import android.support.annotation.StringDef
+
+// Note that this is not a class, or an object
+const val PRESENTATION_MODE_PRESENTING = "presenting"
+const val PRESENTATION_MODE_EDITING = "editing"
+```
+这些全局常量可以在工程中任何地方访问：
+```kotlin
+import com.savvyapps.example.PRESENTATION_MODE_EDITING
+
+val currentPresentationMode = PRESENTATION_MODE_EDITING
+```
+需要记住的是，为了减小代码复杂性，常量应该尽可能的缩小它的作用域。如果有一个常量值只和 user 类相关，那么应该将这个常量定义在 user 类的 companion 对象中，而不是通过全局常量的方式。
+# <span id="h">8. 参考资料</span>
+1. 《构建之法》（第三版）第四章节
+2. [kotlin官方文档之编码规范][1]
+3. [Google Java Style（英文版）][2]
+4. [Google Java编程风格指南（中文版）][3]
+5. [Kotlin 在 Android 开发中的 16 个建议 ][4]
+
 
 <!-- 引用链接 -->
 <!-- 任务分工及文档编辑规范 -->
 [0]:http://www.cnblogs.com/winforbest/p/7688807.html
+<!-- kotlin官方文档之编码规范 -->
+[1]:http://kotlinlang.org/docs/reference/coding-conventions.html#coding-conventions
+<!-- [Google Java Style（英文版） -->
+[2]:https://google.github.io/styleguide/javaguide.html
+<!-- Google Java编程风格指南（中文版） -->
+[3]:http://www.hawstein.com/posts/google-java-style.html
+<!-- Kotlin 在 Android 开发中的 16 个建议  -->
+[4]:https://mp.weixin.qq.com/s/0kE-u6jH7BbgkRWEgHfRQg
