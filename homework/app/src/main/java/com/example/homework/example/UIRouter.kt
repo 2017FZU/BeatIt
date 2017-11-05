@@ -1,12 +1,12 @@
-package com.example.homework.screen
+package com.example.homework.example
 
 import android.content.Context
 import cn.nekocode.meepo.annotation.Bundle
 import cn.nekocode.meepo.annotation.TargetClass
 import cn.nekocode.meepo.Meepo
 import com.example.homework.data.DO.Meizi
-import com.example.homework.screen.page2.Page2Activity
-import com.example.homework.screen.page2.Page2Presenter
+import com.example.homework.example.page2.Page2Activity
+import com.example.homework.example.page2.Page2Presenter
 
 interface UIRouter {
 

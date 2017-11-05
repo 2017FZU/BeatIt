@@ -1,4 +1,4 @@
-package com.example.homework.screen.main
+package com.example.homework.example.main
 
 import android.os.Bundle
 import cn.nekocode.itempool.Item

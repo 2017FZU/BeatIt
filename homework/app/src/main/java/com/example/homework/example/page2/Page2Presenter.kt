@@ -1,4 +1,4 @@
-package com.example.homework.screen.page2
+package com.example.homework.example.page2
 
 import android.os.Bundle
 import com.example.homework.base.BasePresenter

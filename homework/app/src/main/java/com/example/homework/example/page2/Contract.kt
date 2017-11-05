@@ -1,4 +1,4 @@
-package com.example.homework.screen.page2
+package com.example.homework.example.page2
 
 import com.example.homework.base.IPresenter
 import com.example.homework.base.IView
