@@ -1,10 +1,13 @@
-package com.example.homework.screen.course
+package com.example.homework.screen.course.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
+import com.example.homework.screen.course.notice.NoticeActivity
+import com.example.homework.screen.me.main.MeActivity
 import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.bar_bottom.*
 
@@ -48,6 +51,8 @@ class CourseActivity : BaseActivity(), Contract.View {
 
         tab_me.setOnClickListener {
             toast("go to me activity")
+//            startActivity(Intent(this, MeActivity::class.java))
+            startActivity(Intent(this, NoticeActivity::class.java))
         }
     }
 

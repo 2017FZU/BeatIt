@@ -32,13 +32,16 @@
             android:name=".example.page2.Page2Activity"/>
 
         <activity
-            android:name=".screen.course.CourseActivity">
+            android:name=".screen.course.main.CourseActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".screen.course.notice.NoticeActivity"/>
+        <activity android:name=".screen.me.main.MeActivity"/>
     </application>
 
 </manifest>
