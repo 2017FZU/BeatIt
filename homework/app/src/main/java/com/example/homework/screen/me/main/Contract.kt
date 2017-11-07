@@ -1,4 +1,4 @@
-package com.example.homework.screen.course
+package com.example.homework.screen.me.main
 
 import android.support.v7.widget.RecyclerView
 import com.example.homework.base.IPresenter

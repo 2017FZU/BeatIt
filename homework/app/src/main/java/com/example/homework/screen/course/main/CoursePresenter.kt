@@ -1,54 +1,81 @@
-package com.example.homework.screen.main
+package com.example.homework.screen.course.main
 
 import android.os.Bundle
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.Meizi
-import com.example.homework.data.service.GankService
-import com.example.homework.item.MeiziItem
+import com.example.homework.data.DO.Course
+import com.example.homework.item.CourseItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
-import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxkotlin.zipWith
+import org.jetbrains.anko.toast
 import kotlin.collections.ArrayList
 
-class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
-    var list by state<ArrayList<Meizi>?>(null)
+/**
+ * Created by 59800 on 2017/11/6.
+ */
+class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
+
+
+//    var courseList by state<ArrayList<Course>?>(null)
+    var courseList = ArrayList<Course>()
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
 
-        itemPool.addType(MeiziItem::class.java)
-        itemPool.onEvent(MeiziItem::class.java) { event ->
-            val meizi = (event.data as MeiziItem.VO).DO as Meizi
+        initDate()
+        setupCourse()
+        loadCourse()
+
+    }
+
+    fun initDate(){
+        courseList.clear()
+        for (i in 0..20) {
+            val test = i.toString()
+            courseList.add(Course(test, test, test))
+        }
+    }
+
+    fun setupCourse() {
+        itemPool.addType(CourseItem::class.java)
+        itemPool.onEvent(CourseItem::class.java) { event ->
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    gotoPage2(context, meizi)
+                    val course = (event.data as CourseItem.VO).DO as Course
+//                    gotoCourseDetail(context, course)
+                    toast("you click ${course.name}")
+                }
+                CourseItem.ITEM_LONG_CLICK -> {
+                    toast("you long clik name")
                 }
             }
         }
+    }
 
-        if (list == null) {
-            GankService.getMeizis(50, 1)
-        } else {
-            Observable.just(list ?: return)
-        }
+    fun loadCourse() {
+//        if (courseList == null) {
+//            GankService.getMeizis(50, 1)
+//            toast("null")
+//        } else {
+            Observable.just(courseList)
+//        }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .map { meizis ->
-                    list = meizis
-                    meizis.map { MeiziItem.VO.fromMeizi(it) }
+                .map { courses ->
+                    courseList = courses
+                    courses.map { CourseItem.VO.fromCourse(it) }
                 }
-                .zipWith(viewBehavior.toObservable()) { voList: List<MeiziItem.VO>, view: Contract.View ->
+                .zipWith(viewBehavior.toObservable()) { voList: List<CourseItem.VO>, view: Contract.View ->
                     Pair(voList, view)
                 }
                 .bindToLifecycle(this)
@@ -60,6 +87,7 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
                 }, this::onError)
     }
 
+
     override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         viewBehavior.onNext(view)
     }
@@ -68,4 +96,5 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
         super.onSaveInstanceState(outState)
         saveInstanceState(outState ?: return)
     }
+
 }
