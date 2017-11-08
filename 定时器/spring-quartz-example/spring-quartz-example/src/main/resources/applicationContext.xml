@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 定义任务 -->
+	<!-- 方法一 适用于Quartz1.X版本 -->
+	<!-- <bean name="exampleJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.mhy.quartz.ExampleJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="timeout" value="5" />
+			</map>
+		</property>
+	</bean>
+	<bean id="exampleJobTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="exampleJobDetail" />
+		延迟触发时间，延迟10秒进行触发
+		<property name="startDelay" value="10000" />
+		重复触发的时间间隔，5秒
+		<property name="repeatInterval" value="5000" />
+	</bean> -->
+	
+	<!-- 方法二 适用于Quartz2.X版本，耦合性还低 -->
+	<bean id="exampleJob2" class="com.mhy.quartz.ExampleJob2"></bean>
+	<bean id="exampleJob2Detail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 指定任务类 -->
+		<property name="targetObject" ref="exampleJob2" />
+		<!-- 指定任务执行的方法 -->
+		<property name="targetMethod" value="execute" />
+	</bean>
+	<bean id="exampleJob2Trigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="exampleJob2Detail" />
+		<!-- 每10秒运行一次 -->
+		<property name="cronExpression" value="0/10 * * * * ?" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- <ref bean="exampleJobTrigger" /> -->
+				<ref bean="exampleJob2Trigger" />
+			</list>
+		</property>
+	</bean>
+
+
+</beans>
