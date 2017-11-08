@@ -43,6 +43,8 @@ android {
     }
 }
 
+kotlin { experimental { coroutines 'enable' } }
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 

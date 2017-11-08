@@ -23,7 +23,7 @@ class NoticeActivity : BaseActivity(), Contract.View {
     }
 
     fun setupNoticeList(){
-        recyclerView_notice.layoutManager = LinearLayoutManager(this)
+        recyclerView_course_notice.layoutManager = LinearLayoutManager(this)
     }
 
     fun setupActionBar(){
@@ -33,7 +33,7 @@ class NoticeActivity : BaseActivity(), Contract.View {
     }
 
     override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
-        recyclerView_notice.adapter = adapter
+        recyclerView_course_notice.adapter = adapter
     }
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {
