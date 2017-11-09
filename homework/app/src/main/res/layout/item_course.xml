@@ -10,7 +10,7 @@
     android:gravity="center"
     android:elevation="1dp"
     android:clipToPadding="true"
-    android:background="@drawable/background_rectangle_round">
+    android:background="@drawable/background_rectangle_round_white">
     <TextView
         android:id="@+id/item_course_name"
         android:layout_width="match_parent"

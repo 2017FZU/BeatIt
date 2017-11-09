@@ -12,6 +12,7 @@ interface Contract {
 
     interface View : IView {
         fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>)
+        fun gotoHomework()
     }
 
     interface Presenter: IPresenter {
