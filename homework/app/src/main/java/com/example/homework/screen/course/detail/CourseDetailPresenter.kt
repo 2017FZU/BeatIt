@@ -53,8 +53,7 @@ class CourseDetailPresenter : BasePresenter<Contract.View>(), Contract.Presenter
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
                     val homework = (event.data as HomeworkItem.VO).DO as Homework
-//                    gotoCourseDetail(context, course)
-                    toast("you click ${homework.title}")
+                    view()!!.gotoHomework()
                 }
             }
         }

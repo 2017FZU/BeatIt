@@ -3,10 +3,13 @@ package com.example.homework.screen.course.detail
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.LinearLayout
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
+import kotlinx.android.synthetic.main.activity_course_homework.*
+import org.jetbrains.anko.toast
 
 /**
  * Created by 59800 on 2017/11/8.
@@ -44,4 +47,26 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
         presenter = presenterFactory.createOrGet(CourseDetailPresenter::class.java)
     }
 
+    override fun gotoHomework() {
+        activity_course_homework.visibility = View.VISIBLE
+        activity_course_homework.setOnClickListener {  }
+
+        setupHomeworkActionBar()
+        setupHomeworkView()
+    }
+
+    fun setupHomeworkActionBar() {
+        btn_course_homework_return.setOnClickListener {
+            activity_course_homework.visibility = View.GONE
+        }
+    }
+
+    fun setupHomeworkView() {
+        btn_course_homework_explain.setOnClickListener {
+            toast("show explain")
+        }
+        btn_course_homework_submit.setOnClickListener {
+            toast("submit")
+        }
+    }
 }
