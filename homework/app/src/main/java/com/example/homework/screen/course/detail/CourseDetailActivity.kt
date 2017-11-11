@@ -1,5 +1,6 @@
 package com.example.homework.screen.course.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
+import com.example.homework.screen.course.excellent.ExcellentActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
 import kotlinx.android.synthetic.main.activity_course_homework.*
 import org.jetbrains.anko.toast
@@ -64,6 +66,7 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
     fun setupHomeworkView() {
         btn_course_homework_explain.setOnClickListener {
             toast("show explain")
+            startActivity(Intent(this, ExcellentActivity::class.java))
         }
         btn_course_homework_submit.setOnClickListener {
             toast("submit")
