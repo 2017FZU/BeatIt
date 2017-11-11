@@ -15,11 +15,11 @@
             android:background="@color/hw_black">
             <ImageView
                 android:id="@+id/btn_course_search"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/hw_img_length_normal_adjust"
+                android:layout_height="@dimen/hw_img_length_normal_adjust"
                 android:layout_marginLeft="19dp"
                 android:layout_gravity="center_vertical|left"
-                android:background="#ffffff"/>
+                android:src="@drawable/icon_lesson_search_lesson"/>
 
             <TextView
                 android:layout_gravity="center"
@@ -30,11 +30,11 @@
 
             <ImageView
                 android:id="@+id/btn_course_add"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/hw_img_length_normal"
+                android:layout_height="@dimen/hw_img_length_normal"
                 android:layout_marginRight="16dp"
                 android:layout_gravity="center_vertical|right"
-                android:background="#ffffff"/>
+                android:src="@drawable/icon_lesson_scan"/>
         </FrameLayout>
 
         <android.support.v7.widget.RecyclerView

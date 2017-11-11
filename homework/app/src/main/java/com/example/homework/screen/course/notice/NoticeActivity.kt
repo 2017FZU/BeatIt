@@ -28,7 +28,7 @@ class NoticeActivity : BaseActivity(), Contract.View {
 
     fun setupActionBar(){
         btn_notice_return.setOnClickListener {
-            toast("return")
+            finish()
         }
     }
 

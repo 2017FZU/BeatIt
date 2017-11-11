@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/hw_background">
+    android:background="@color/hw_background"
+    android:elevation="@dimen/hw_elevation_3">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -11,11 +12,11 @@
         android:background="@color/hw_black">
         <ImageView
             android:id="@+id/btn_course_homework_return"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/hw_img_length_normal"
+            android:layout_height="@dimen/hw_img_length_normal"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
-            android:background="#ffffff"/>
+            android:src="@drawable/icon_back"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +33,9 @@
         android:gravity="center"
         android:layout_marginTop="15dp"
         android:text="作业标题"
-        android:background="@drawable/background_rectangle_round_gray"/>
+        android:background="@drawable/background_rectangle_round_gray"
+        android:clipToPadding="true"
+        android:elevation="@dimen/hw_elevation_1"/>
     <TextView
         android:id="@+id/text_course_homework_content"
         android:layout_width="match_parent"
@@ -43,7 +46,9 @@
         android:layout_marginBottom="15dp"
         android:padding="27dp"
         android:text="作业具体内容"
-        android:background="@drawable/background_rectangle_round_white"/>
+        android:background="@drawable/background_rectangle_round_white"
+        android:clipToPadding="true"
+        android:elevation="@dimen/hw_elevation_1"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="34dp"
@@ -54,7 +59,11 @@
             android:gravity="center"
             android:layout_marginRight="10dp"
             android:text="DEADLINE"
-            android:background="@drawable/background_rectangle_round_green"/>
+            android:background="@drawable/background_rectangle_round_green"
+            android:layout_marginBottom="@dimen/hw_elevation_1"
+            android:layout_marginTop="@dimen/hw_elevation_1"
+            android:clipToPadding="true"
+            android:elevation="@dimen/hw_elevation_1"/>
         <TextView
             android:id="@+id/text_course_homework_ddl"
             android:layout_width="0dp"
@@ -64,7 +73,11 @@
             android:paddingLeft="17dp"
             android:paddingRight="17dp"
             android:text="日期"
-            android:background="@drawable/background_rectangle_round_white"/>
+            android:background="@drawable/background_rectangle_round_white"
+            android:layout_marginBottom="@dimen/hw_elevation_1"
+            android:layout_marginTop="@dimen/hw_elevation_1"
+            android:clipToPadding="true"
+            android:elevation="@dimen/hw_elevation_1"/>
 
     </LinearLayout>
     <LinearLayout
@@ -76,7 +89,11 @@
             android:gravity="center"
             android:layout_marginRight="10dp"
             android:text="提交方式"
-            android:background="@drawable/background_rectangle_round_green"/>
+            android:background="@drawable/background_rectangle_round_green"
+            android:layout_marginBottom="@dimen/hw_elevation_1"
+            android:layout_marginTop="@dimen/hw_elevation_1"
+            android:clipToPadding="true"
+            android:elevation="@dimen/hw_elevation_1"/>
         <TextView
             android:id="@+id/text_course_homework_commit"
             android:layout_width="0dp"
@@ -86,7 +103,11 @@
             android:paddingLeft="17dp"
             android:paddingRight="17dp"
             android:text="线上提交"
-            android:background="@drawable/background_rectangle_round_white"/>
+            android:background="@drawable/background_rectangle_round_white"
+            android:layout_marginBottom="@dimen/hw_elevation_1"
+            android:layout_marginTop="@dimen/hw_elevation_1"
+            android:clipToPadding="true"
+            android:elevation="@dimen/hw_elevation_1"/>
     </LinearLayout>
 
     <TextView
@@ -96,7 +117,9 @@
         android:gravity="center"
         android:layout_marginTop="15dp"
         android:text="查看讲解"
-        android:background="@drawable/background_rectangle_round_white"/>
+        android:background="@drawable/background_rectangle_round_white"
+        android:clipToPadding="true"
+        android:elevation="@dimen/hw_elevation_1"/>
 
     <TextView
         android:id="@+id/btn_course_homework_submit"
@@ -106,6 +129,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:text="提交作业"
-        android:background="@drawable/background_rectangle_round_green"/>
+        android:background="@drawable/background_rectangle_round_green"
+        android:clipToPadding="true"
+        android:elevation="@dimen/hw_elevation_1"/>
 
 </LinearLayout>

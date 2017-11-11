@@ -14,20 +14,20 @@
         android:gravity="center">
         <ImageView
             android:id="@+id/tab_course"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/hw_img_length_bottom_bar"
+            android:layout_height="@dimen/hw_img_length_bottom_bar"
             android:layout_marginRight="89dp"
-            android:background="#ffffff"/>
+            android:src="@drawable/icon_bottom_lesson"/>
         <ImageView
             android:id="@+id/tab_data"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/hw_img_length_bottom_bar"
+            android:layout_height="@dimen/hw_img_length_bottom_bar"
             android:layout_marginRight="89dp"
-            android:background="#ffffff"/>
+            android:src="@drawable/icon_bottom_file"/>
         <ImageView
             android:id="@+id/tab_me"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="#ffffff"/>
+            android:layout_width="@dimen/hw_img_length_bottom_bar"
+            android:layout_height="@dimen/hw_img_length_bottom_bar"
+            android:src="@drawable/icon_bottom_person"/>
     </LinearLayout>
 </LinearLayout>

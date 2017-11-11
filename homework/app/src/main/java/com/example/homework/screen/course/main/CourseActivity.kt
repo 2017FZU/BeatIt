@@ -10,6 +10,7 @@ import com.example.homework.screen.course.notice.NoticeActivity
 import com.example.homework.screen.me.main.MeActivity
 import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.bar_bottom.*
+import org.jetbrains.anko.image
 
 /**
  * Created by 59800 on 2017/11/6.
@@ -41,18 +42,21 @@ class CourseActivity : BaseActivity(), Contract.View {
     }
 
     fun setupBottomBar(){
+
+        tab_course.setImageResource(R.drawable.icon_bottom_lesson_chosen)
+        tab_data.setImageResource(R.drawable.icon_bottom_file)
+        tab_me.setImageResource(R.drawable.icon_bottom_person)
+
         bar_bottom_navigation.setOnClickListener(null)
-//        tab_course.setImageDrawable()
-//        tab_data.setImageDrawable()
-//        tab_me.setImageDrawable()
+
         tab_data.setOnClickListener {
             toast("go to data activity")
+//            startActivity(Intent(this, DataActivity::class.java))
         }
 
         tab_me.setOnClickListener {
             toast("go to me activity")
 //            startActivity(Intent(this, MeActivity::class.java))
-            startActivity(Intent(this, NoticeActivity::class.java))
         }
     }
 

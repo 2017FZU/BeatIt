@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="7dp"
     android:clipToPadding="true"
-    android:elevation="1dp"
+    android:elevation="@dimen/hw_elevation_1"
     android:background="@drawable/background_rectangle_round_white">
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,10 +20,10 @@
             android:text="日期"/>
         <ImageView
             android:id="@+id/img_item_notice_type"
-            android:layout_width="5dp"
-            android:layout_height="5dp"
+            android:layout_width="@dimen/hw_img_length_red_point"
+            android:layout_height="@dimen/hw_img_length_red_point"
             android:layout_gravity="right"
-            android:background="#ff3300"/>
+            android:src="@drawable/icon_lesson_detail_red_point"/>
         <TextView
             android:id="@+id/text_item_notice_content"
             android:layout_marginTop="42dp"
