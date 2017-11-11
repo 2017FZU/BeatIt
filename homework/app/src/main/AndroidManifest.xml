@@ -43,6 +43,7 @@
         <activity android:name=".screen.course.notice.NoticeActivity"/>
         <activity android:name=".screen.me.main.MeActivity"/>
         <activity android:name=".screen.course.detail.CourseDetailActivity"/>
+        <activity android:name=".screen.course.excellent.ExcellentActivity"/>
     </application>
 
 </manifest>
