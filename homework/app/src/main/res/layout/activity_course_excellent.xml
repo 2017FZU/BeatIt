@@ -10,11 +10,11 @@
         android:background="@color/hw_black">
         <ImageView
             android:id="@+id/btn_course_excellent_return"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/hw_img_length_normal"
+            android:layout_height="@dimen/hw_img_length_normal"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
-            android:background="#ffffff"/>
+            android:src="@drawable/icon_back"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

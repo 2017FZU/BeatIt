@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import com.example.homework.screen.course.excellent.ExcellentActivity
+import com.example.homework.screen.course.notice.NoticeActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
 import kotlinx.android.synthetic.main.activity_course_homework.*
 import org.jetbrains.anko.toast
@@ -26,6 +27,13 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
 
         setupHomeworkList()
         setupActionBar()
+        setupView()
+    }
+
+    fun setupView() {
+        btn_course_detail_notice.setOnClickListener {
+            startActivity(Intent(this, NoticeActivity::class.java))
+        }
     }
 
     fun setupHomeworkList(){

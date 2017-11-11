@@ -8,7 +8,7 @@
     android:layout_gravity="center_horizontal"
     android:layout_margin="9dp"
     android:gravity="center"
-    android:elevation="1dp"
+    android:elevation="@dimen/hw_elevation_1"
     android:clipToPadding="true"
     android:background="@drawable/background_rectangle_round_white">
     <TextView
