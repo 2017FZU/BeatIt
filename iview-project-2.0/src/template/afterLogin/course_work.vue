@@ -9,6 +9,17 @@
         @on-cancel="cancel">
         <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">作业标题</p><input type="text" style="font-size:14px;">
         <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">作业内容</p><textarea name="" id="" cols="66" rows="6" style="font-size:14px;"></textarea>
+        <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">截止日期</p>
+        <Row>
+        <Col span="12">
+            <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+        </Col>
+        <Row>
+        <Col span="12">
+            <TimePicker format="HH:mm" placeholder="Select time" style="width: 112px"></TimePicker>
+        </Col>
+    </Row>
+    </Row>
     </Modal>
           </div>
       <div class="correct">
@@ -43,7 +54,7 @@ export default {
         },
         {
           title: "发布时间",
-          key: "time",
+          key: "when",
           sortable: true
         },
         {
@@ -93,19 +104,19 @@ export default {
       data1: [
         {
           name: "第一章第一次作业",
-          time: 20171002
+          when: 20171002
         },
         {
           name: "第一章第一次作业",
-          time: 20171002
+          when: 20171002
         },
         {
           name: "第一章第一次作业",
-          time: 20171002
+          when: 20171002
         },
         {
           name: "第一章第一次作业",
-          time: 20171003
+          when: 20171003
         }
       ],
       columns2: [
@@ -118,7 +129,7 @@ export default {
         },
         {
           title: "发布时间",
-          key: "time",
+          key: "when",
           sortable: true
         },
         {
@@ -168,19 +179,19 @@ export default {
       data2: [
         {
           name: "第一章第一次作业",
-          time: 20171002
+          when: 20171002
         },
         {
           name: "第一章第一次作业",
-          time: 20171002
+          when: 20171002
         },
         {
           name: "第一章第一次作业",
-          time: 20171002
+          when: 20171002
         },
         {
           name: "第一章第一次作业",
-          time: 20171003
+          when: 20171003
         }
       ]
     };

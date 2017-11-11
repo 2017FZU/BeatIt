@@ -2,7 +2,14 @@
     <header>
         <div class="container">
             <h1>高等数学B</h1>
-            <img src="/src/images/二维码.png" alt="" style="border-radius: 0px;margin-left:20px;">
+            <img src="/src/images/二维码.png" alt="" style="border-radius: 0px;margin-left:20px;" @click="modal1 = true">
+    <Modal
+        v-model="modal1"
+        title="二维码"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <img src="/src/images/二维码.png" alt="" style="margin-left:100px;">
+    </Modal>
             <nav>
                 <img src="/src/images/教师头像.png"></img>
                 <h1 style="margin-right:20px;">Welcome,张老师</h1>
@@ -33,12 +40,19 @@
 export default {
   data() {
     return {
-      disabled: false
+      disabled: false,
+      modal1: false
     };
   },
   methods: {
     handleLogout() {
       this.$store.commit("logout"), this.$router.push({ name: "signIn" });
+    },
+    ok() {
+      this.$Message.info("Clicked ok");
+    },
+    cancel() {
+      this.$Message.info("Clicked cancel");
     }
   }
 };
