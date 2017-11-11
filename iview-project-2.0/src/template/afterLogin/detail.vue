@@ -41,7 +41,7 @@
                             <Submenu name="6">
                                 <template slot="title">
                                     <Icon type="social-wordpress-outline"></Icon>
-                                    课程通知
+                                    <a @click="$router.push({name:'notice'})">课程通知</a>
                                 </template>
                             </Submenu>
                         </Menu>

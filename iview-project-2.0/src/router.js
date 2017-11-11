@@ -4,6 +4,7 @@ import detail from './template/afterLogin/detail.vue'
 import solution from './template/afterLogin/solution.vue'
 import header from './template/afterLogin/header.vue'
 import course_work from './template/afterLogin/course_work.vue'
+import notice from './template/afterLogin/notice.vue'
 
 const routers = [
     {
@@ -36,6 +37,11 @@ const routers = [
                 path: 'course_work',
                 name: 'course_work',
                 component: course_work,
+            },
+            {
+                path: 'notice',
+                name: 'notice',
+                component: notice,
             }
         ]
     }
