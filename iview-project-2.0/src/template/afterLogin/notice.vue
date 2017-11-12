@@ -1,20 +1,17 @@
 <template>
-    <div class="container">
-        <div class="publish">
-          <Button type="primary" icon="paper-airplane" @click="modal1 = true">发布通知</Button>
-          <Modal
-        v-model="modal1"
-        title="发布通知"
-        @on-ok="ok"
-        @on-cancel="cancel">
-        <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">通知内容</p><textarea name="" id="" cols="66" rows="6" style="font-size:14px;"></textarea>
-    </Modal>
-          </div>
-          <div style="margin-left:220px;">
-      <Table height:200 border :columns="columns1" :data="data1" style="width:800px;"></Table>
-      </div>
-
+  <div class="container">
+    <div class="publish">
+      <Button type="primary" icon="paper-airplane" @click="modal1 = true">发布通知</Button>
+      <Modal v-model="modal1" title="发布通知" @on-ok="ok" @on-cancel="cancel">
+        <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">通知内容</p>
+        <textarea name="" id="" cols="66" rows="6" style="font-size:14px;"></textarea>
+      </Modal>
     </div>
+    <div style="margin-left:220px;">
+      <Table height:200 border :columns="columns1" :data="data1" style="width:800px;"></Table>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -34,7 +31,7 @@ export default {
           render: (h, params) => {
             return h("div", [h("strong", params.row.content)]);
           }
-          
+
         },
         {
           title: "操作",

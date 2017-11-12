@@ -1,9 +1,54 @@
-const routers = [{
-  path: '/',
-  meta: {
-    title: ''
+import App from './app.vue'
+import index from './views/index.vue'
+import detail from './template/afterLogin/detail.vue'
+import solution from './template/afterLogin/solution.vue'
+import header from './template/afterLogin/header.vue'
+import courseware from './template/afterLogin/courseware.vue'
+import course_work from './template/afterLogin/course_work.vue'
+import notice from './template/afterLogin/notice.vue'
+
+const routers = [
+  {
+    // path: '/',
+    // meta: {
+    //     title: ''
+    // },
+    // component: (resolve) => require(['./views/index.vue'], resolve)
+    path: '/',
+    component: index,
+    children: [
+      {
+        path: 'detail',
+        name: 'detail',
+        component: detail
+      }
+    ]
   },
-  component: (resolve) => require(['./views/index.vue'], resolve)
-}
+  {
+    path: '/',
+    component: detail,
+    children: [
+      {
+        path: 'solution',
+        name: 'solution',
+        component: solution
+      },
+      {
+        path: 'courseware',
+        name: 'courseware',
+        component: courseware
+      },
+      {
+        path: 'course_work',
+        name: 'course_work',
+        component: course_work
+      },
+      {
+        path: 'notice',
+        name: 'notice',
+        component: notice
+      }
+    ]
+  }
 ]
 export default routers

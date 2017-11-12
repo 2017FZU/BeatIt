@@ -20,10 +20,10 @@
                                 <a @click="$router.push({name:'course_work'})">高等数学B</a>
                             </div>
                             <div class="layout-content-class-row-one">
-                                <p>高等数学B</p>
+                                <a>高等数学B</a>
                             </div>
                             <div class="layout-content-class-row-one">
-                                <p>高等数学B</p>
+                                <a>高等数学B</a>
                             </div>
                             
                         </div>
@@ -172,7 +172,7 @@ export default {
   height: 186px;
   background-image: url(../images/课程背景框.png);
 }
-.layout-content-class-row-one p{
+.layout-content-class-row-one a{
   text-align: center;
   width: 100%;
   font-family: PingFangSC-Regular;

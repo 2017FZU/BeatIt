@@ -1,41 +1,38 @@
 <template>
   <div class="container">
-      <div class="publish">
-          <Button type="primary" icon="paper-airplane" @click="modal1 = true">发布作业</Button>
-          <Modal
-        v-model="modal1"
-        title="发布作业"
-        @on-ok="ok"
-        @on-cancel="cancel">
+    <div class="publish">
+      <Button type="primary" icon="paper-airplane" @click="modal1 = true">发布作业</Button>
+      <Modal v-model="modal1" title="发布作业" @on-ok="ok" @on-cancel="cancel">
         <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">作业标题</p><input type="text" style="font-size:14px;">
-        <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">作业内容</p><textarea name="" id="" cols="66" rows="6" style="font-size:14px;"></textarea>
+        <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">作业内容</p>
+        <textarea name="" id="" cols="66" rows="6" style="font-size:14px;"></textarea>
         <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">截止日期</p>
         <Row>
-        <Col span="12">
-            <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
-        </Col>
-        <Row>
-        <Col span="12">
+          <Col span="12">
+          <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+          </Col>
+          <Row>
+            <Col span="12">
             <TimePicker format="HH:mm" placeholder="Select time" style="width: 112px"></TimePicker>
-        </Col>
-    </Row>
-    </Row>
-    </Modal>
-          </div>
-      <div class="correct">
-          <img src="/src/images/待批改作业.png" alt="">
-          <h1>待批改作业</h1>
-      </div>
-      <div style="margin-left:220px;">
+            </Col>
+          </Row>
+        </Row>
+      </Modal>
+    </div>
+    <div class="correct">
+      <img src="/src/images/待批改作业.png" alt="">
+      <h1>待批改作业</h1>
+    </div>
+    <div style="margin-left:220px;">
       <Table height:200 border :columns="columns1" :data="data1" style="width:800px;"></Table>
-      </div>
-      <div class="completed">
-          <img src="/src/images/已完成作业.png" alt="">
-          <h1>已完成作业</h1>
-      </div>
-      <div style="margin-left:220px;">
+    </div>
+    <div class="completed">
+      <img src="/src/images/已完成作业.png" alt="">
+      <h1>已完成作业</h1>
+    </div>
+    <div style="margin-left:220px;">
       <Table height:200 border :columns="columns2" :data="data2" style="width:800px;"></Table>
-      </div>
+    </div>
   </div>
 </template>
 
