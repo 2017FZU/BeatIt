@@ -34,45 +34,16 @@
         <activity
             android:name=".screen.course.main.CourseActivity">
 
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN"/>-->
-            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name=".screen.file.main.FileActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden">
-
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
-
             </intent-filter>
-
         </activity>
 
-        <activity android:name="com.example.homework.screen.file.myfile.MyFileActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-
-        <activity android:name="com.example.homework.screen.file.teachersfile.TeachersFileActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-        
-        <activity android:name=".screen.personal.main.PersonalActivity"
-            android:launchMode="singleTask"></activity>
-
-        <activity android:name="com.example.homework.screen.personal.feedbk.FeedBKActivity"></activity>
-
-        <activity android:name="com.example.homework.screen.personal.aboutus.AboutUsActivity"></activity>
-
-        <activity android:name="com.example.homework.screen.personal.personalsetting.PersonalSettingActivity"></activity>
-
+        <activity android:name=".screen.course.notice.NoticeActivity"/>
+        <activity android:name=".screen.me.main.MeActivity"/>
+        <activity android:name=".screen.course.detail.CourseDetailActivity"/>
+        <activity android:name=".screen.course.excellent.ExcellentActivity"/>
     </application>
 
 </manifest>

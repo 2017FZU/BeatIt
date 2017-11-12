@@ -1,18 +1,18 @@
 package com.example.homework.screen.course.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
+import com.example.homework.screen.course.notice.NoticeActivity
+import com.example.homework.screen.me.main.MeActivity
 import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.bar_bottom.*
-<<<<<<< HEAD
-=======
 import kotlinx.android.synthetic.main.dialog_course_add.*
 import org.jetbrains.anko.image
->>>>>>> upstream/android
 
 /**
  * Created by 59800 on 2017/11/6.
@@ -58,16 +58,21 @@ class CourseActivity : BaseActivity(), Contract.View {
     }
 
     fun setupBottomBar(){
+
+        tab_course.setImageResource(R.drawable.icon_bottom_lesson_chosen)
+        tab_data.setImageResource(R.drawable.icon_bottom_file)
+        tab_me.setImageResource(R.drawable.icon_bottom_person)
+
         bar_bottom_navigation.setOnClickListener(null)
-//        tab_course.setImageDrawable()
-//        tab_data.setImageDrawable()
-//        tab_me.setImageDrawable()
+
         tab_data.setOnClickListener {
             toast("go to data activity")
+//            startActivity(Intent(this, DataActivity::class.java))
         }
 
         tab_me.setOnClickListener {
             toast("go to me activity")
+//            startActivity(Intent(this, MeActivity::class.java))
         }
     }
 
