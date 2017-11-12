@@ -19,9 +19,6 @@ object DataLayer {
     var CLIENT: OkHttpClient? = null
     var GSON: Gson? = null
 
-    const val HOST_HOMEWORK: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"
-    var RETROFIT_HOMEWORK: Retrofit? = null
-
 
     fun init(context: Context) {
         DataLayer.CONTEXT = context.applicationContext

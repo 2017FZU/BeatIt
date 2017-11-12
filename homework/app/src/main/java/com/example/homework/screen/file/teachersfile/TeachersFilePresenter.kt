@@ -1,81 +1,65 @@
-package com.example.homework.screen.course.main
+package com.example.homework.screen.file.teachersfile
 
 import android.os.Bundle
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.Course
-import com.example.homework.item.CourseItem
+import com.example.homework.data.DO.TeachersFile
+import com.example.homework.item.TeachersFileItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.rxkotlin.zipWith
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.toast
-import kotlin.collections.ArrayList
 
-/**
- * Created by 59800 on 2017/11/6.
- */
-class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
+class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
-
-//    var courseList by state<ArrayList<Course>?>(null)
-    var courseList = ArrayList<Course>()
+    var fileList = ArrayList<TeachersFile>()
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
-
         initDate()
-        setupCourse()
-        loadCourse()
-
+        setupMyOwnFile()
+        loadMyOwnFile()
     }
 
-    fun initDate(){
-        courseList.clear()
-        for (i in 0..20) {
-            val test = i.toString()
-            courseList.add(Course(test, test, test))
-        }
+    fun initDate() {
+        fileList.add(TeachersFile("", "高数", "doc", "done", "10-01 10:30" ))
+        fileList.add(TeachersFile("", "语文", "ppt", "undone", "10-06 22:10" ))
     }
 
-    fun setupCourse() {
-        itemPool.addType(CourseItem::class.java)
-        itemPool.onEvent(CourseItem::class.java) { event ->
+    fun setupMyOwnFile() {
+        itemPool.addType(TeachersFileItem::class.java)
+        itemPool.onEvent(TeachersFileItem::class.java) { event ->
+            val filename = (event.data as TeachersFileItem.VO).DO as TeachersFile
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    val course = (event.data as CourseItem.VO).DO as Course
-//                    gotoCourseDetail(context, course)
-                    toast("you click ${course.name}")
-                }
-                CourseItem.ITEM_LONG_CLICK -> {
-                    toast("you long clik name")
+                    toast("点击成功")
                 }
             }
         }
     }
 
-    fun loadCourse() {
-//        if (courseList == null) {
-//            GankService.getMeizis(50, 1)
-//            toast("null")
-//        } else {
-            Observable.just(courseList)
-//        }
+    fun loadMyOwnFile() {
+        /*if (list == null) {
+            GankService.getMeizis(50, 1)
+        } else {
+
+        }*/ Observable.just(fileList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .map { courses ->
-                    courseList = courses
-                    courses.map { CourseItem.VO.fromCourse(it) }
+                .map { myownflie ->
+                    fileList = myownflie
+                    myownflie.map { TeachersFileItem.VO.fromMyOwnFile(it) }
                 }
-                .zipWith(viewBehavior.toObservable()) { voList: List<CourseItem.VO>, view: Contract.View ->
+                .zipWith(viewBehavior.toObservable()) { voList: List<TeachersFileItem.VO>, view: Contract.View ->
                     Pair(voList, view)
                 }
                 .bindToLifecycle(this)
@@ -87,7 +71,6 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
                 }, this::onError)
     }
 
-
     override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         viewBehavior.onNext(view)
     }
@@ -96,5 +79,4 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
         super.onSaveInstanceState(outState)
         saveInstanceState(outState ?: return)
     }
-
 }
