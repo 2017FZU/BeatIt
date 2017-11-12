@@ -35,20 +35,6 @@ abstract class BaseActivity : RxAppCompatActivity(), IContextProvider {
         return fragment
     }
 
-    fun <T : Fragment> replaceFragment(
-            trans: FragmentTransaction, containerId: Int,
-            tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
-
-        var fragment = fragmentManager.findFragmentByTag(tag) as T?
-        if (fragment == null || fragment.isDetached) {
-            fragment = Fragment.instantiate(this, fragmentClass.canonicalName, args) as T
-
-            trans.replace(containerId, fragment)
-        }
-
-        return fragment
-    }
-
     inner class PresenterFactory(val trans: FragmentTransaction) {
 
         fun <T : BasePresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T {

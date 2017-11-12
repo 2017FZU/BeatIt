@@ -1,11 +1,11 @@
-package com.example.homework.screen.course.main
+package com.example.homework.screen.course.notice
 
 import android.os.Bundle
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.Course
-import com.example.homework.item.CourseItem
+import com.example.homework.data.DO.Notice
+import com.example.homework.item.NoticeItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
@@ -20,12 +20,11 @@ import kotlin.collections.ArrayList
 /**
  * Created by 59800 on 2017/11/6.
  */
-class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
-
+class NoticePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
 
 //    var courseList by state<ArrayList<Course>?>(null)
-    var courseList = ArrayList<Course>()
+    var noticeList = ArrayList<Notice>()
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
 
@@ -34,49 +33,46 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
         restoreInstanceState(savedInstanceState)
 
         initDate()
-        setupCourse()
-        loadCourse()
+        setupNotice()
+        loadNotice()
 
     }
 
     fun initDate(){
-        courseList.clear()
+        noticeList.clear()
         for (i in 0..20) {
-            val test = i.toString()
-            courseList.add(Course(test, test, test))
+            val test = "notice " + i
+            noticeList.add(Notice(test, test, test))
         }
     }
 
-    fun setupCourse() {
-        itemPool.addType(CourseItem::class.java)
-        itemPool.onEvent(CourseItem::class.java) { event ->
+    fun setupNotice() {
+        itemPool.addType(NoticeItem::class.java)
+        itemPool.onEvent(NoticeItem::class.java) { event ->
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    val course = (event.data as CourseItem.VO).DO as Course
-                    gotoCourseDetail(context, course)
-//                    toast("you click ${course.name}")
-                }
-                CourseItem.ITEM_LONG_CLICK -> {
-                    toast("you long clik name")
+                    val notice = (event.data as NoticeItem.VO).DO as Notice
+//                    gotoCourseDetail(context, course)
+                    toast("you click ${notice.content}")
                 }
             }
         }
     }
 
-    fun loadCourse() {
+    fun loadNotice() {
 //        if (courseList == null) {
 //            GankService.getMeizis(50, 1)
 //            toast("null")
 //        } else {
-            Observable.just(courseList)
+            Observable.just(noticeList)
 //        }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .map { courses ->
-                    courseList = courses
-                    courses.map { CourseItem.VO.fromCourse(it) }
+                .map { notices ->
+                    noticeList = notices
+                    notices.map { NoticeItem.VO.fromNotice(it) }
                 }
-                .zipWith(viewBehavior.toObservable()) { voList: List<CourseItem.VO>, view: Contract.View ->
+                .zipWith(viewBehavior.toObservable()) { voList: List<NoticeItem.VO>, view: Contract.View ->
                     Pair(voList, view)
                 }
                 .bindToLifecycle(this)
