@@ -8,9 +8,9 @@
     android:layout_gravity="center_horizontal"
     android:layout_margin="9dp"
     android:gravity="center"
-    android:elevation="@dimen/hw_elevation_1"
+    android:elevation="1dp"
     android:clipToPadding="true"
-    android:background="@drawable/background_rectangle_round_white">
+    android:background="@drawable/background_rectangle_round">
     <TextView
         android:id="@+id/item_course_name"
         android:layout_width="match_parent"

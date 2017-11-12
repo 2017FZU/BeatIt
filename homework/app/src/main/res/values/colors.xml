@@ -2,7 +2,6 @@
 <resources>
     <color name="hw_black">#555555</color>
     <color name="hw_background">#f5faf9</color>
-    <color name="hw_green">#99cccc</color>
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>

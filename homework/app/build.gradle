@@ -43,8 +43,6 @@ android {
     }
 }
 
-kotlin { experimental { coroutines 'enable' } }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -81,6 +79,7 @@ dependencies {
     compile "com.github.nekocode:ItemPool:0.5.4"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+    compile "de.hdodenhof:circleimageview:2.1.0"
 }
 
 buildscript {

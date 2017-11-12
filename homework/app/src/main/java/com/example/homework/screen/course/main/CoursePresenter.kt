@@ -23,7 +23,6 @@ import kotlin.collections.ArrayList
 class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
 
-
 //    var courseList by state<ArrayList<Course>?>(null)
     var courseList = ArrayList<Course>()
     var itemPool = ItemPool()
@@ -53,8 +52,8 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
                     val course = (event.data as CourseItem.VO).DO as Course
-                    gotoCourseDetail(context, course)
-//                    toast("you click ${course.name}")
+//                    gotoCourseDetail(context, course)
+                    toast("you click ${course.name}")
                 }
                 CourseItem.ITEM_LONG_CLICK -> {
                     toast("you long clik name")

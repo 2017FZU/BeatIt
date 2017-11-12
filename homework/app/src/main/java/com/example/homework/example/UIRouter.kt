@@ -20,4 +20,8 @@ interface UIRouter {
         IMPL.gotoPage2(context, meizi)
     }
 
+    @TargetClass(Page2Activity::class)
+    fun gotoCourseDetail(context: Context?, @Bundle(Page2Presenter.ARG_MEIZI) course: Course) {
+        IMPL.gotoCourseDetail(context, course)
+    }
 }

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5faf9">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/hw_black">
+
+            <ImageView
+                android:id="@+id/btn_file_teachersfile_return"
+                android:layout_width="@dimen/hw_img_length_normal"
+                android:layout_height="@dimen/hw_img_length_normal"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_back"/>
+
+            <TextView
+                android:id="@+id/text_course_detail_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="课程名"
+                android:textColor="#ffffff" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="@drawable/icon_teacher_file_file_border">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/img_teachersfile_own"
+                    android:layout_width="@dimen/hw_img_length_normal"
+                    android:layout_height="@dimen/hw_img_length_normal"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_teacher_file_my_file"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_teacher_file_seprate_line" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/img_teachersfile_teacher"
+                    android:layout_width="@dimen/hw_img_length_normal"
+                    android:layout_height="@dimen/hw_img_length_normal"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_teacher_file_teacher_file_chosen"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <ImageView
+                android:id="@+id/img_teachersfile_search"
+                android:layout_width="@dimen/hw_img_length_normal"
+                android:layout_height="@dimen/hw_img_length_normal"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="24dp"
+                android:src="@drawable/icon_teacher_file_search_file"/>
+
+            <EditText
+                android:id="@+id/edt_teachersfile_search"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_gravity="clip_horizontal"
+                android:layout_marginTop="5dp"
+                android:hint="请输入要查找的内容"
+                android:layout_marginLeft="12dp"
+                android:maxLines="1"
+                android:imeOptions="actionSearch"
+                android:background="@drawable/icon_teacher_file_search_border"
+                android:textColorHint="#707070"
+                android:textColor="#707070"/>
+
+
+            <ImageView
+                android:layout_width="@dimen/hw_img_length_normal"
+                android:layout_height="@dimen/hw_img_length_normal"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="24dp"
+                android:src="@drawable/icon_teacher_file_folder"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_teachersfile_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"/>
+
+    </LinearLayout>
+
+</LinearLayout>
