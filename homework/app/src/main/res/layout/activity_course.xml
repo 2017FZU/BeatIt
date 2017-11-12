@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/hw_background">
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -44,10 +44,16 @@
             android:layout_weight="1">
 
         </android.support.v7.widget.RecyclerView>
-    <!--</LinearLayout>-->
+        <include
+            layout="@layout/bar_bottom" />
+    </LinearLayout>
 
 
     <include
-        layout="@layout/bar_bottom" />
+        layout="@layout/dialog_course_add"
+        android:id="@+id/activity_course_add"
+        android:visibility="gone"/>
 
-</LinearLayout>
+
+
+</FrameLayout>
