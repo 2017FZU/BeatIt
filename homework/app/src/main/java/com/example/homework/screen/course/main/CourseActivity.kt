@@ -67,13 +67,13 @@ class CourseActivity : BaseActivity(), Contract.View {
         bar_bottom_navigation.setOnClickListener(null)
 
         tab_data.setOnClickListener {
-//            toast("go to data activity")
             startActivity(Intent(this, FileActivity::class.java))
+            finish()
         }
 
         tab_me.setOnClickListener {
-//            toast("go to me activity")
             startActivity(Intent(this, PersonalActivity::class.java))
+            finish()
         }
     }
 

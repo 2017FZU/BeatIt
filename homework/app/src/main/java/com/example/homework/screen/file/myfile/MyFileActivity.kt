@@ -30,6 +30,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
 
         btn_file_myfile_teacher.setOnClickListener{
             startActivity(Intent(this, TeachersFileActivity::class.java))
+            prestenter?.setMyFile()
         }
     }
 
