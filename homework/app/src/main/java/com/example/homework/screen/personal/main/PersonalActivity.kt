@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
+import com.example.homework.screen.course.main.CourseActivity
 import com.example.homework.screen.file.main.FileActivity
 import com.example.homework.screen.personal.aboutus.AboutUsActivity
 import com.example.homework.screen.personal.feedbk.FeedBKActivity
@@ -74,13 +75,11 @@ class PersonalActivity: BaseActivity(), Contract.View {
         bar_bottom_navigation.setOnClickListener(null)
 
         tab_data.setOnClickListener {
-            toast("go to data activity")
             startActivity(Intent(this, FileActivity::class.java))
         }
 
-        tab_me.setOnClickListener {
-            toast("go to me activity")
-            startActivity(Intent(this, PersonalActivity::class.java))
+        tab_course.setOnClickListener {
+            startActivity(Intent(this, CourseActivity::class.java))
         }
     }
 

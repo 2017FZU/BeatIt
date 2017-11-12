@@ -16,6 +16,7 @@ interface Contract {
     }
 
     interface Presenter: IPresenter {
+        fun setMyFile()
     }
 
 }

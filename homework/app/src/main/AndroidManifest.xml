@@ -43,7 +43,8 @@
         <activity android:name=".screen.course.notice.NoticeActivity"/>
         <activity android:name=".screen.course.detail.CourseDetailActivity"/>
         <activity android:name=".screen.course.excellent.ExcellentActivity"/>
-        <activity android:name=".screen.file.main.FileActivity" />
+        <activity android:name=".screen.file.main.FileActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".screen.file.myfile.MyFileActivity"/>
         <activity android:name=".screen.file.teachersfile.TeachersFileActivity"/>
         <activity android:name=".screen.personal.main.PersonalActivity"/>

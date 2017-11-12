@@ -38,13 +38,15 @@
                 android:src="@drawable/icon_filelist_search_file"/>
 
             <EditText
-                android:id="@+id/edt_file_search"
+                android:id="@+id/edit_file_search"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:layout_marginTop="5dp"
                 android:hint="请输入要查找的内容"
                 android:layout_marginLeft="12dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:maxLines="1"
                 android:imeOptions="actionSearch"
                 android:background="@drawable/icon_filelist_search_border"
