@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="7dp"
+    android:layout_marginBottom="7dp"
     android:clipToPadding="true"
     android:elevation="@dimen/hw_elevation_1"
     android:background="@drawable/background_rectangle_round_white">
