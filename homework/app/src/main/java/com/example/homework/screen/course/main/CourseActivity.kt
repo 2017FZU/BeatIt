@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import com.example.homework.screen.course.notice.NoticeActivity
 import com.example.homework.screen.me.main.MeActivity
 import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.bar_bottom.*
+import kotlinx.android.synthetic.main.dialog_course_add.*
 import org.jetbrains.anko.image
 
 /**
@@ -26,6 +28,20 @@ class CourseActivity : BaseActivity(), Contract.View {
         setupCourseList()
         setupActionBar()
         setupBottomBar()
+        setupAddDialog()
+    }
+
+    fun setupAddDialog() {
+        activity_course_add.setOnClickListener {
+            activity_course_add.visibility = View.GONE
+        }
+        dialog_course_add.setOnClickListener {  }
+        btn_course_dialog_add_confirm.setOnClickListener {
+            activity_course_add.visibility = View.GONE
+        }
+        btn_course_dialog_add_cancel.setOnClickListener {
+            activity_course_add.visibility = View.GONE
+        }
     }
 
     fun setupCourseList(){
@@ -37,7 +53,7 @@ class CourseActivity : BaseActivity(), Contract.View {
             toast("search")
         }
         btn_course_add.setOnClickListener {
-            toast("add class ")
+            activity_course_add.visibility = View.VISIBLE
         }
     }
 

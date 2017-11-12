@@ -36,6 +36,8 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
         }
     }
 
+
+
     fun setupHomeworkList(){
         val linearLayoutManger = LinearLayoutManager(this)
         linearLayoutManger.orientation = LinearLayout.HORIZONTAL
@@ -68,6 +70,7 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
     fun setupHomeworkActionBar() {
         btn_course_homework_return.setOnClickListener {
             activity_course_homework.visibility = View.GONE
+            setupActionBar()
         }
     }
 
