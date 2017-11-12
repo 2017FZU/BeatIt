@@ -3,80 +3,9 @@
         <my-head></my-head>
         <div class="layout">
             <div class="layout-content">
-                <!-- <Row>
-                    <Col span="5">
-                        <Menu width="200px" :open-names="['1','2','3']">
-                            <Submenu name="1">
-                                <template slot="title">
-                                    <Icon type="ios-paper"></Icon>
-                                    课程作业
-                                </template>
-                                
-                            </Submenu>
-                            <Submenu name="2">
-                                <template slot="title">
-                                    <Icon type="ios-people"></Icon>作业批改
-                                </template>
-                              
-                            </Submenu>
-                            <Submenu name="3">
-                                <template slot="title">
-                                    <Icon type="ios-pricetag-outline"></Icon>
-                                    学生总评
-                                </template>
-                                
-                            </Submenu>
-                            <Submenu name="4">
-                                <template slot="title">
-                                    <Icon type="social-wordpress-outline"></Icon>
-                                    作业解答
-                                </template>
-                                <Menu-item name="4-1">
-                                    <a href="http://www.west2gold.com/" style="color:#495060">西二在线</a>
-                                </Menu-item>
-                                <Menu-item name="4-2">意见反馈</Menu-item>
-                            </Submenu>
-                            <Submenu name="5">
-                                <template slot="title">
-                                    <Icon type="social-wordpress-outline"></Icon>
-                                    课程资料
-                                </template>
-                                <Menu-item name="5-1">
-                                    <a href="http://www.west2gold.com/" style="color:#495060">西二在线</a>
-                                </Menu-item>
-                                <Menu-item name="5-2">意见反馈</Menu-item>
-                            </Submenu>
-                            <Submenu name="6">
-                                <template slot="title">
-                                    <Icon type="social-wordpress-outline"></Icon>
-                                    课程通知
-                                </template>
-                                <Menu-item name="6-1">
-                                    <a href="http://www.west2gold.com/" style="color:#495060">西二在线</a>
-                                </Menu-item>
-                                <Menu-item name="6-2">意见反馈</Menu-item>
-                            </Submenu>
-                        </Menu>
-                    </Col>
-                    <Col span="19">
-                        <div class="layout-content-main">
-                            <router-view></router-view>
-                        </div>
-                    </Col>
-                </Row> -->
-                <Row>
-                    <div class="layout-content-topbar">
-
-                            <div class="layout-title">作业来啦</div>
-                            <div class="layout-inform">
-                                <img src="../images/教师头像.png" alt="">
-                                <span>Welcome，XX老师</span>
-                            </div>
-                    </div>
-                </Row>
                 <Row>
                     <div class="layout-content-main">
-                        <img src="../images/首页图片.png" alt="">
+                        <img src="/src/images/首页图片.png" alt="">
                         <span>作业信息化时代来了</span>
                         <span>Homework is coming</span>
                     </div>    
@@ -84,11 +13,11 @@
                 <Row>
                     <div class="layout-content-class">
                         <p>我的课程</p>
-                        <img id="img" src="../images/我的课程_横线.png" alt="">
-                        <p><img src="../images/新建课堂_图标.png" alt="">添加课程</p>
+                        <img id="img" src="/src/images/我的课程_横线.png" alt="">
+                        <p><img src="/src/images/新建课堂—图标.png" alt="">添加课程</p>
                         <div class="layout-content-class-row">
                             <div class="layout-content-class-row-one">
-                                <p>高等数学B</p>
+                                <a @click="$router.push({name:'course_work'})">高等数学B</a>
                             </div>
                             <div class="layout-content-class-row-one">
                                 <p>高等数学B</p>

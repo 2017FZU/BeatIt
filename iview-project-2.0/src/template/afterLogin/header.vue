@@ -3,7 +3,7 @@
         <div class="container">
             <h1>作业来了</h1>
             <nav>
-                <img src=".../img/教师头像.png"></img>
+                <img src="../../images/教师头像.png"></img>
                 <h1 style="margin-right:20px;">Welcome,张老师</h1>
                 
                 <Dropdown trigger="click" placement="bottom-end">
