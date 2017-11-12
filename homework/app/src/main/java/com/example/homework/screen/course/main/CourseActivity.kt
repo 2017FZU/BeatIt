@@ -8,7 +8,8 @@ import android.view.View
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import com.example.homework.screen.course.notice.NoticeActivity
-import com.example.homework.screen.me.main.MeActivity
+import com.example.homework.screen.file.main.FileActivity
+import com.example.homework.screen.personal.main.PersonalActivity
 import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.bar_bottom.*
 import kotlinx.android.synthetic.main.dialog_course_add.*
@@ -66,13 +67,13 @@ class CourseActivity : BaseActivity(), Contract.View {
         bar_bottom_navigation.setOnClickListener(null)
 
         tab_data.setOnClickListener {
-            toast("go to data activity")
-//            startActivity(Intent(this, DataActivity::class.java))
+//            toast("go to data activity")
+            startActivity(Intent(this, FileActivity::class.java))
         }
 
         tab_me.setOnClickListener {
-            toast("go to me activity")
-//            startActivity(Intent(this, MeActivity::class.java))
+//            toast("go to me activity")
+            startActivity(Intent(this, PersonalActivity::class.java))
         }
     }
 
