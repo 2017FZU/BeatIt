@@ -22,7 +22,7 @@
                             <Submenu name="3">
                                 <template slot="title">
                                     <Icon type="ios-pricetag-outline"></Icon>
-                                    学生总评
+                                    <a @click="$router.push({name:'general_comment'})">学生总评</a>
                                 </template>
                                 
                             </Submenu>

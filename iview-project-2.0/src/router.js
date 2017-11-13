@@ -5,6 +5,7 @@ import solution from './template/afterLogin/solution.vue'
 import header from './template/afterLogin/header.vue'
 import course_work from './template/afterLogin/course_work.vue'
 import notice from './template/afterLogin/notice.vue'
+import general_comment from './template/afterLogin/general_comment.vue'
 
 const routers = [
     {
@@ -42,6 +43,11 @@ const routers = [
                 path: 'notice',
                 name: 'notice',
                 component: notice,
+            },
+            {
+                path: 'general_comment',
+                name: 'general_comment',
+                component: general_comment,
             }
         ]
     }

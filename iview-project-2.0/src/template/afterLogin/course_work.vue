@@ -27,14 +27,14 @@
           <h1>待批改作业</h1>
       </div>
       <div style="margin-left:220px;">
-      <Table height:200 border :columns="columns1" :data="data1" style="width:800px;"></Table>
+      <Table height="200" :columns="columns1" :data="data1" style="width:800px;"></Table>
       </div>
       <div class="completed">
           <img src="/src/images/已完成作业.png" alt="">
           <h1>已完成作业</h1>
       </div>
       <div style="margin-left:220px;">
-      <Table height:200 border :columns="columns2" :data="data2" style="width:800px;"></Table>
+      <Table height="200" :columns="columns2" :data="data2" style="width:800px;"></Table>
       </div>
   </div>
 </template>
