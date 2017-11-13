@@ -36,7 +36,17 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
     }
 
     fun initDate() {
-        list!!.add(Filename(" ", "高数"))
+        list!!.add(Filename("2", "大学英语"))
+        list!!.add(Filename("1", "高数"))
+        list!!.add(Filename("2", "大学英语"))
+        list!!.add(Filename("1", "高数"))
+        list!!.add(Filename("2", "大学英语"))
+        list!!.add(Filename("1", "高数"))
+        list!!.add(Filename("2", "大学英语"))
+        list!!.add(Filename("1", "高数"))
+        list!!.add(Filename("2", "大学英语"))
+        list!!.add(Filename("1", "高数"))
+
     }
 
     fun setFile() {

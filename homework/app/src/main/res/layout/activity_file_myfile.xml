@@ -45,10 +45,10 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="@dimen/hw_img_length_normal"
-                    android:layout_height="@dimen/hw_img_length_normal"
-                    android:layout_marginTop="15dp"
-                    android:layout_gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:src="@drawable/icon_my_file_my_file_chosen"/>
 
             </LinearLayout>
@@ -67,10 +67,10 @@
 
                 <ImageView
                     android:id="@+id/btn_file_myfile_teacher"
-                    android:layout_width="@dimen/hw_img_length_normal"
-                    android:layout_height="@dimen/hw_img_length_normal"
-                    android:layout_marginTop="15dp"
-                    android:layout_gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:src="@drawable/icon_my_file_teacher_file"/>
 
             </LinearLayout>
