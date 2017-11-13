@@ -2,7 +2,10 @@
   <div class="container">
     <div class="publish">
       <p><img src="../../images/文件夹.png" alt="">高等数学</p>
-      <img src="../../images/上传.png" alt="">
+      <!-- <img src="../../images/上传.png" alt=""> -->
+      <Upload multiple action="">
+        <Button id="upload" type="ghost" icon="ios-cloud-upload-outline">上传</Button>
+      </Upload>
     </div>
     <div class="container-main">
       <div class="row">
@@ -18,8 +21,28 @@
           <img src="../../images/word.png" alt="">
           <p>习题一</p>
         </div>
+        <div class="data">
+          <img src="../../images/word.png" alt="">
+          <p>习题一</p>
+        </div>
+        <div class="data">
+          <img src="../../images/word.png" alt="">
+          <p>习题一</p>
+        </div>
+        <div class="data">
+          <img src="../../images/word.png" alt="">
+          <p>习题一</p>
+        </div>
       </div>
       <div class="row">
+        <div class="data">
+          <img src="../../images/ppt.png" alt="">
+          <p>习题一</p>
+        </div>
+        <div class="data">
+          <img src="../../images/ppt.png" alt="">
+          <p>习题一</p>
+        </div>
         <div class="data">
           <img src="../../images/ppt.png" alt="">
           <p>习题一</p>
@@ -61,7 +84,8 @@
   padding: 0;
   height: 600px;
 }
-.publish > p{
+
+.publish>p {
   font-family: PingFangSC-Medium;
   font-size: 30px;
   color: #4A4A4A;
@@ -69,24 +93,39 @@
   align-items: center;
   margin-left: 440px;
 }
-.publish > p > img{
+
+.publish>p>img {
   position: relative;
   margin-right: 5px;
 }
-.publish > img{
+
+.publish #upload {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   position: relative;
   left: 1000px;
+  height: 42px;
+  width: 110px;
+  border-radius: 15px;
+  background-color: rgb(126, 211, 33);
+  color: white;
+  font-size: 20px;
 }
-.container-main{
+
+.container-main {
   padding: 15px 40px;
 }
-.container-main .row{
+
+.container-main .row {
   display: flex;
 }
-.container-main .row .data{
-  margin: 30px 20px;  
+
+.container-main .row .data {
+  margin: 30px 20px;
 }
-.container-main .row .data p{
+
+.container-main .row .data p {
   text-align: center;
   font-family: PingFangSC-Regular;
   font-size: 25px;

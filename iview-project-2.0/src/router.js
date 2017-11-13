@@ -4,7 +4,8 @@ import detail from './template/afterLogin/detail.vue'
 import solution from './template/afterLogin/solution.vue'
 import header from './template/afterLogin/header.vue'
 import courseware from './template/afterLogin/courseware.vue'
-import course_work from './template/afterLogin/course_work.vue'
+import correct from './template/afterLogin/correct.vue'
+import assignment from './template/afterLogin/assignment.vue'
 import notice from './template/afterLogin/notice.vue'
 
 const routers = [
@@ -34,14 +35,19 @@ const routers = [
         component: solution
       },
       {
+        path: 'correct',
+        name: 'correct',
+        component: correct
+      },
+      {
         path: 'courseware',
         name: 'courseware',
         component: courseware
       },
       {
-        path: 'course_work',
-        name: 'course_work',
-        component: course_work
+        path: 'assignment',
+        name: 'assignment',
+        component: assignment
       },
       {
         path: 'notice',

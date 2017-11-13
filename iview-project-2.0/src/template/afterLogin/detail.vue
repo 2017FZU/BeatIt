@@ -9,13 +9,14 @@
                         <Submenu name="1">
                             <template slot="title">
                                 <Icon type="ios-paper"></Icon>
-                                <a @click="$router.push({name:'course_work'})">课程作业</a>
+                                <a @click="$router.push({name:'assignment'})">课程作业</a>
                             </template>
 
                         </Submenu>
                         <Submenu name="2">
                             <template slot="title">
-                                <Icon type="ios-people"></Icon>作业批改
+                                <Icon type="ios-people"></Icon>
+                                <a @click="$router.push({name:'correct'})">作业批改</a>
                             </template>
 
                         </Submenu>

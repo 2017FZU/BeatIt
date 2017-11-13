@@ -17,7 +17,7 @@
                         <p><img src="/src/images/新建课堂—图标.png" alt="">添加课程</p>
                         <div class="layout-content-class-row">
                             <div class="layout-content-class-row-one">
-                                <a @click="$router.push({name:'course_work'})">高等数学B</a>
+                                <a @click="$router.push({name:'assignment'})">高等数学B</a>
                             </div>
                             <div class="layout-content-class-row-one">
                                 <a>高等数学B</a>
