@@ -64,7 +64,6 @@
 
         <activity android:name=".screen.course.zxing.ZxingScannerActivity"/>
 
-
     </application>
 
 </manifest>
