@@ -21,7 +21,7 @@ internal interface TestApi {
 //    fun getMeizis(@Path("count") count: Int, @Path("pageNum") pageNum: Int): Observable<Response<Meizi>>
 
     companion object {
-        val IMPL: TestApi = DataLayer.RETROFIT_GANK!!.create(TestApi::class.java)
+        val IMPL: TestApi = DataLayer.RETROFIT_HOMEWORK!!.create(TestApi::class.java)
     }
 
     @GET("getClassList")
