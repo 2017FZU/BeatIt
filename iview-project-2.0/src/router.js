@@ -3,9 +3,11 @@ import index from './views/index.vue'
 import detail from './template/afterLogin/detail.vue'
 import solution from './template/afterLogin/solution.vue'
 import header from './template/afterLogin/header.vue'
-import course_work from './template/afterLogin/course_work.vue'
+import assignment from './template/afterLogin/assignment.vue'
 import notice from './template/afterLogin/notice.vue'
-import general_comment from './template/afterLogin/general_comment.vue'
+import commont from './template/afterLogin/commont.vue'
+import correct from './template/afterLogin/correct.vue'
+import courseware from './template/afterLogin/courseware.vue'
 
 const routers = [
     {
@@ -35,9 +37,9 @@ const routers = [
                 component: solution,
             },
             {
-                path: 'course_work',
-                name: 'course_work',
-                component: course_work,
+                path: 'assignment',
+                name: 'assignment',
+                component: assignment,
             },
             {
                 path: 'notice',
@@ -45,9 +47,19 @@ const routers = [
                 component: notice,
             },
             {
-                path: 'general_comment',
-                name: 'general_comment',
-                component: general_comment,
+                path: 'commont',
+                name: 'commont',
+                component: commont,
+            },
+            {
+                path: 'correct',
+                name: 'correct',
+                component: correct,
+            },
+            {
+                path: 'courseware',
+                name: 'courseware',
+                component: courseware,
             }
         ]
     }
