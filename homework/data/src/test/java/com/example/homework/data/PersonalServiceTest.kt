@@ -1,6 +1,6 @@
 package com.example.homework.data
 
-import com.example.homework.data.service.GankService
+import com.example.homework.data.test.TestService
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -9,20 +9,17 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
+/**
+ * Created by 59800 on 2017/11/14.
+ */
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class)
-class GankServiceTest {
+
+class PersonalServiceTest {
 
     @Before
     fun setUp() {
         DataLayer.init(RuntimeEnvironment.application)
-    }
-
-    @Test
-    fun testGetMeizis() {
-        val meizis = GankService.getMeizis(10, 1).blockingFirst()
-        print(meizis)
-        Assert.assertTrue(meizis.isNotEmpty())
     }
 
 }
