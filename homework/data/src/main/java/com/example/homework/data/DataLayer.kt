@@ -19,7 +19,7 @@ object DataLayer {
     var CLIENT: OkHttpClient? = null
     var GSON: Gson? = null
 
-    const val HOST_HOMEWORK: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"
+    const val HOST_HOMEWORK: String = "http://111.231.190.23/app/"
     var RETROFIT_HOMEWORK: Retrofit? = null
 
 
@@ -37,6 +37,13 @@ object DataLayer {
 
         RETROFIT_GANK = Retrofit.Builder()
                 .baseUrl(HOST_GANK)
+                .addConverterFactory(GsonConverterFactory.create(GSON))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(CLIENT)
+                .build()
+
+        RETROFIT_HOMEWORK = Retrofit.Builder()
+                .baseUrl(HOST_HOMEWORK)
                 .addConverterFactory(GsonConverterFactory.create(GSON))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(CLIENT)
