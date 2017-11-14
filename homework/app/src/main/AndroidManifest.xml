@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".App"
@@ -51,6 +52,9 @@
         <activity android:name=".screen.personal.aboutus.AboutUsActivity"/>
         <activity android:name=".screen.personal.feedbk.FeedBKActivity"/>
         <activity android:name=".screen.personal.personalsetting.PersonalSettingActivity"/>
+
+        <activity android:name=".screen.course.zxing.ZxingScannerActivity"/>
+
 
     </application>
 

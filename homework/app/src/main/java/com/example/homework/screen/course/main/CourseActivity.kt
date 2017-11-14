@@ -1,24 +1,34 @@
 package com.example.homework.screen.course.main
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
-import com.example.homework.screen.course.notice.NoticeActivity
+import com.example.homework.screen.course.zxing.ZxingScannerActivity
+import com.example.homework.screen.course.zxing.ZxingScannerActivity.Companion.INTENT_EXRA_ZXING
 import com.example.homework.screen.file.main.FileActivity
 import com.example.homework.screen.personal.main.PersonalActivity
 import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.bar_bottom.*
 import kotlinx.android.synthetic.main.dialog_course_add.*
-import org.jetbrains.anko.image
 
 /**
  * Created by 59800 on 2017/11/6.
  */
 class CourseActivity : BaseActivity(), Contract.View {
+
+    companion object {
+        val REQUEST_CODE_ZXING = 1000
+//        val REQUEST_CODE_ZXING = CaptureActivity.REQ_CODE
+    }
 
     var presenter: Contract.Presenter? = null
 
@@ -54,8 +64,55 @@ class CourseActivity : BaseActivity(), Contract.View {
             toast("search")
         }
         btn_course_add.setOnClickListener {
-            activity_course_add.visibility = View.VISIBLE
+//            activity_course_add.visibility = View.VISIBLE
+            checkCameraPermission()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (resultCode != Activity.RESULT_OK) {
+            return
+        }
+
+        when(requestCode) {
+            REQUEST_CODE_ZXING -> {
+                println("================" + data?.getStringExtra(INTENT_EXRA_ZXING))
+                toast(data!!.getStringExtra(INTENT_EXRA_ZXING))
+                gotoAddCourseDialog()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_CODE_ZXING -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    gotoZxingScanner()
+                } else {
+                    toast("请开启相机权限")
+                }
+            }
+        }
+    }
+
+    fun gotoZxingScanner() {
+        startActivityForResult(Intent(this, ZxingScannerActivity::class.java), REQUEST_CODE_ZXING)
+//        startActivityForResult(Intent(this, CaptureActivity::class.java), REQUEST_CODE_ZXING)
+    }
+
+    fun checkCameraPermission(){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE_ZXING)
+        } else {
+            gotoZxingScanner()
+        }
+    }
+
+    fun gotoAddCourseDialog() {
+            activity_course_add.visibility = View.VISIBLE
     }
 
     fun setupBottomBar(){
