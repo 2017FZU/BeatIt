@@ -45,13 +45,22 @@
         <activity android:name=".screen.course.detail.CourseDetailActivity"/>
         <activity android:name=".screen.course.excellent.ExcellentActivity"/>
         <activity android:name=".screen.file.main.FileActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".screen.file.myfile.MyFileActivity"/>
-        <activity android:name=".screen.file.teachersfile.TeachersFileActivity"/>
-        <activity android:name=".screen.personal.main.PersonalActivity"/>
-        <activity android:name=".screen.personal.aboutus.AboutUsActivity"/>
-        <activity android:name=".screen.personal.feedbk.FeedBKActivity"/>
-        <activity android:name=".screen.personal.personalsetting.PersonalSettingActivity"/>
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.file.myfile.MyFileActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.file.teachersfile.TeachersFileActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.personal.main.PersonalActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.personal.aboutus.AboutUsActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.personal.feedbk.FeedBKActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.personal.personalsetting.PersonalSettingActivity"
+            android:launchMode="singleTask"/>
 
         <activity android:name=".screen.course.zxing.ZxingScannerActivity"/>
 
