@@ -29,6 +29,8 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
     fun setActionBar() {
         btn_file_teachersfile_own.setOnClickListener{
             startActivity( Intent(this, MyFileActivity::class.java))
+            this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            finish()
         }
 
        btn_file_teachersfile_return.setOnClickListener{

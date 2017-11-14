@@ -28,9 +28,10 @@ class MyFileActivity : BaseActivity(), Contract.View {
             finish()
         }
 
-        btn_file_myfile_teacher.setOnClickListener{
+        btn_file_myfile_teacher.setOnClickListener {
             startActivity(Intent(this, TeachersFileActivity::class.java))
-            prestenter?.setMyFile()
+            this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            finish()
         }
     }
 

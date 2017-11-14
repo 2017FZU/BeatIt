@@ -40,12 +40,9 @@ class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
         loadMyOwnFile()
     }
 
-    override fun setMyFile() {
-
-    }
-
     fun initDate() {
         fileList.add(MyFile("", "高数", "doc", "10-12 14:25"))
+        fileList.add(MyFile("", "大学英语", "ppt", "10-12 14:25"))
     }
 
     fun setupMyOwnFile() {

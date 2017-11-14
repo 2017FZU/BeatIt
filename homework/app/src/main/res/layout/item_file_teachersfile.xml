@@ -24,15 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="9dp"
-            android:layout_marginTop="9dp"
-            android:text="高数"/>
+            android:layout_marginTop="9dp"/>
 
         <TextView
             android:id="@+id/txt_teachersfile_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="13dp"
-            android:text="2017 10 9 10"/>
+            android:layout_marginLeft="13dp"/>
 
     </LinearLayout>
         

@@ -47,10 +47,10 @@
 
                 <ImageView
                     android:id="@+id/btn_file_teachersfile_own"
-                    android:layout_width="@dimen/hw_img_length_normal"
-                    android:layout_height="@dimen/hw_img_length_normal"
-                    android:layout_marginTop="15dp"
-                    android:layout_gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:src="@drawable/icon_teacher_file_my_file"/>
 
             </LinearLayout>
@@ -69,10 +69,10 @@
 
                 <ImageView
                     android:id="@+id/btn_file_teachersfile_teacher"
-                    android:layout_width="@dimen/hw_img_length_normal"
-                    android:layout_height="@dimen/hw_img_length_normal"
-                    android:layout_marginTop="15dp"
-                    android:layout_gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:src="@drawable/icon_teacher_file_teacher_file_chosen"/>
 
             </LinearLayout>
