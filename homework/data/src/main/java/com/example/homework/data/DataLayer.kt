@@ -13,7 +13,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 object DataLayer {
-    const val HOST_GANK: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"
+    const val HOST_GANK: String = "http://111.231.190.23/app/"
     var RETROFIT_GANK: Retrofit? = null
     var CONTEXT: Context? = null
     var CLIENT: OkHttpClient? = null
