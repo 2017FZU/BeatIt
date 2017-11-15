@@ -21,7 +21,9 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:springmvc.xml</param-value>
 		</init-param>
+
 		<load-on-startup>1</load-on-startup>
+
 	</servlet>
 
 	<!-- Map all requests to the DispatcherServlet for handling -->
@@ -29,4 +31,12 @@
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<filter>
+      <filter-name>cors</filter-name>
+      <filter-class>cn.springmvc.HeadersCORSFilter</filter-class><!--你过滤器的包 -->
+    </filter>
+    <filter-mapping>
+      <filter-name>cors</filter-name>
+      <url-pattern>/app/*</url-pattern><!-- 你开放的接口前缀  -->
+    </filter-mapping>
 </web-app>

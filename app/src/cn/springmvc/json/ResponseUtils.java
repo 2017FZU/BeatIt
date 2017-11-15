@@ -39,6 +39,9 @@ public class ResponseUtils {
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");  
+        response.setHeader("Content-Type", "application/json;charset=utf-8");  
 		try {
 			response.getWriter().write(text);
 		} catch (IOException e) {

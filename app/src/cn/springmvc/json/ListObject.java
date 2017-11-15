@@ -1,16 +1,17 @@
 package cn.springmvc.json;
 
-import java.util.List;
-
 public class ListObject extends AbstractJsonObject {
 
 	// 列表对象
-	private List<?> data;
+	private Object data;
 
-	public List<?> getData() {
+	public Object getData() {
 		return data;
 	}
-	public void setData(List<?> data) {
+
+	public void setData(Object data) {
 		this.data = data;
 	}
+
+
 }
