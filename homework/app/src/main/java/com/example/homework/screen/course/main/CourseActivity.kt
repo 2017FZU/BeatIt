@@ -101,8 +101,8 @@ class CourseActivity : BaseActivity(), Contract.View {
 //        startActivityForResult(Intent(this, CaptureActivity::class.java), REQUEST_CODE_ZXING)
     }
 
-    fun checkCameraPermission(){
-        if (ContextCompat.checkSelfPermission(this,
+    private fun checkCameraPermission() {
+        return if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) {
             ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE_ZXING)

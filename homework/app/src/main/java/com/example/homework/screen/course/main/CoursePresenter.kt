@@ -5,6 +5,7 @@ import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
 import com.example.homework.data.DO.Course
+import com.example.homework.data.service.CourseService
 import com.example.homework.item.CourseItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
@@ -37,6 +38,59 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
         setupCourse()
         loadCourse()
 
+        testForData()
+    }
+
+    fun testForData() {
+        CourseService.getCourseList(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.getCourseDetail(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.getCourseHomeworkList(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.getCourseNoticeList(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.getCourseInfo(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.addIntoClass(1, 1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.getHomeworkExplain(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.deleteHomeworkImg(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.getHomeworkSubmissionList(1, 1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
+
+        CourseService.getExcellentList(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe { }
     }
 
     fun initDate(){
