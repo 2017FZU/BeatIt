@@ -1,20 +1,25 @@
 package com.example.homework.screen.file.teachersfile
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
 import com.example.homework.data.DO.TeachersFile
+import com.example.homework.data.service.FileService
 import com.example.homework.item.TeachersFileItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.toast
+import java.io.File
+import android.content.ActivityNotFoundException
+import android.net.Uri
 
 class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
@@ -25,14 +30,22 @@ class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
-        initDate()
+
+        createFile()
         setupMyOwnFile()
         loadMyOwnFile()
     }
 
-    fun initDate() {
-        fileList.add(TeachersFile("", "高数", "doc", "done", "10-01 10:30" ))
-        fileList.add(TeachersFile("", "语文", "ppt", "undone", "10-06 22:10" ))
+    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
+        viewBehavior.onNext(view)
+    }
+
+    fun createFile() {
+        val file = File(Environment.getExternalStorageDirectory().toString()+ File.separator+"TeachersFile")
+
+        if (!file.exists()) {
+            file.mkdirs()
+        }
     }
 
     fun setupMyOwnFile() {
@@ -41,18 +54,20 @@ class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter
             val filename = (event.data as TeachersFileItem.VO).DO as TeachersFile
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    toast("点击成功")
+                    println(filename.url)
+                    if (!File(Environment.getExternalStorageDirectory().toString()+File.separator+"TeachersFile/"+filename.filename).exists())
+                        toast("找不到此文件，请下载")
+                    else {
+                        openFile(filename.filename)
+                    }
                 }
             }
         }
     }
 
     fun loadMyOwnFile() {
-        /*if (list == null) {
-            GankService.getMeizis(50, 1)
-        } else {
-
-        }*/ Observable.just(fileList)
+        val cid = arguments.get("cid").toString().toInt()
+        FileService.getClassFile(cid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { myownflie ->
@@ -71,12 +86,28 @@ class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter
                 }, this::onError)
     }
 
-    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
-        viewBehavior.onNext(view)
+    fun openFile(name: String) {
+        val file = File(Environment.getExternalStorageDirectory().toString()+File.separator+"TeachersFile/"+name)
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (name.contains(".doc"))
+            intent.setDataAndType(Uri.fromFile(file), "application/msword")
+        if (name.contains(".ppt"))
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.ms-powerpoint")
+        if (name.contains(".txt"))
+            intent.setDataAndType(Uri.fromFile(file), "text/plain")
+        if (name.contains(".pdf"))
+            intent.setDataAndType(Uri.fromFile(file), "application/pdf")
+        if (name.contains(".xcl"))
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.ms-excel")
+        if (name.contains(".png") or name.contains(".jpg") or name.contains(".gif"))
+            intent.setDataAndType(Uri.fromFile(file), "image/*")
+        try {
+            startActivity(Intent.createChooser(intent, "选择浏览工具"))
+        } catch (e: ActivityNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        saveInstanceState(outState ?: return)
-    }
 }

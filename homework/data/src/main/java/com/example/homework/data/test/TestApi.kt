@@ -2,10 +2,7 @@ package com.example.homework.data.test
 
 import com.example.homework.data.DataLayer
 import io.reactivex.Observable
-import retrofit2.http.Field
 import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
 
 /**
  * Created by 59800 on 2017/11/14.
@@ -25,5 +22,5 @@ internal interface TestApi {
     }
 
     @GET("getClassList")
-    fun getClassList(@Query("sid")sid: Int): Observable<TestDO>
+    fun getClassList(): Observable<TestDO>
 }

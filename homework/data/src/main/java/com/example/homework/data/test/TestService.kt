@@ -7,13 +7,12 @@ import io.reactivex.schedulers.Schedulers
  * Created by 59800 on 2017/11/14.
  */
 
-class TestService {
+object TestService {
 
-    fun getClassList(sid: Int): Observable<TestDO> =
-            TestApi.IMPL.getClassList(sid)
+    fun getClassList(): Observable<TestDO> =
+            TestApi.IMPL.getClassList()
                     .subscribeOn(Schedulers.io())
                     .map {
-                        println("sucess")
                         println("============ " + it.code)
                         it
 //                        Paper.book().write("meizis-$pageNum", it.results)
@@ -22,7 +21,7 @@ class TestService {
                     .onErrorResumeNext { err: Throwable ->
 //                        val list: ArrayList<TestDO> = Paper.book().read("meizis-$pageNum")
 //                                ?: throw GankServiceException(err.message)
-                        Observable.just()
+                        Observable.just(TestDO("code", "msg", 1))
                     }
 
 }

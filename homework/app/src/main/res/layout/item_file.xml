@@ -5,6 +5,7 @@
     android:layout_height="56dp"
     android:layout_margin="3dp"
     android:elevation="@dimen/hw_elevation_1"
+    android:clipToPadding="true"
     android:background="@drawable/icon_filelist_file_border">
 
     <LinearLayout

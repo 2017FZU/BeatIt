@@ -6,21 +6,21 @@ import com.google.gson.annotations.SerializedName
 import paperparcel.PaperParcel
 
 /**
- * Created by Administrator on 2017/11/7 0007.
+ * Created by Administrator on 2017/11/17 0017.
  */
 @PaperParcel
-data class Filename(
-        @SerializedName("cid") override val id: String,
-        val cname: String
-) : WithId, Parcelable {
+data class SystemFile(
+        val name: String,
+        val path: String
+) : Parcelable {
 
     companion object {
-        @JvmField val CREATOR = PaperParcelFilename.CREATOR
+        @JvmField val CREATOR = PaperParcelSystemFile.CREATOR
     }
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        PaperParcelFilename.writeToParcel(this, dest, flags)
+        PaperParcelSystemFile.writeToParcel(this, dest, flags)
     }
 }

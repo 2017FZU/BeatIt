@@ -24,7 +24,7 @@ class TestServiceTest {
 
     @Test
     fun testGetClassList() {
-        val test = TestService.getClassList("2").blockingFirst()
+        val test = TestService.getClassList().blockingFirst()
         println("================= test code ===== ${test.code}")
         println("================= test msg  ===== ${test.msg}")
         println("================= test time ===== ${test.time}")
