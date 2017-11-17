@@ -27,7 +27,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/text_course_homework_name"
+        android:id="@+id/text_course_homework_title"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="center"

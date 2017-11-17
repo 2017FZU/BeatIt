@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import cn.nekocode.itempool.Item
 import com.example.homework.R
-import com.example.homework.data.DO.Course
+import com.example.homework.data.DO.course.CourseBrief
 import kotlinx.android.synthetic.main.item_course.view.*
 
 
@@ -23,10 +23,10 @@ class CourseItem : Item<CourseItem.VO>() {
     override fun onBindData(vo: CourseItem.VO) {
         with (viewHolder.itemView) {
             //Picasso.with(context).load(vo.url).centerCrop().fit().into(imageView)
-            item_course_name.text = vo.name
+            item_course_name.text = vo.cname
 
             item_course.setOnLongClickListener {
-                event(ITEM_LONG_CLICK, vo.name)
+                event(ITEM_LONG_CLICK, vo.cname)
                 true
             }
         }
@@ -37,13 +37,13 @@ class CourseItem : Item<CourseItem.VO>() {
     }*/
 
     data class VO(
-            val name: String,
-            val teacherName: String,
+            val cid: Int,
+            val cname: String,
             val DO: Any
     ) {
         companion object {
-            fun fromCourse(course: Course): VO {
-                return VO(course.name, course.teacherName, course)
+            fun fromCourse(courseBrief: CourseBrief): VO {
+                return VO(courseBrief.cid, courseBrief.cname, courseBrief)
             }
         }
     }

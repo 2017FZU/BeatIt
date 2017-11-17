@@ -19,7 +19,7 @@ object CourseService {
             CourseApi.IMPL.getCourseList(sid)
                     .subscribeOn(Schedulers.io())
                     .map {
-                        println("=========== getCourseList =========== ${DataLayer.GSON!!.toJson(it)}")
+//                        println("=========== getCourseList =========== ${DataLayer.GSON!!.toJson(it)}")
                         it.data.classList
                     }
                     .onErrorResumeNext { err: Throwable ->

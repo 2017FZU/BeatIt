@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import cn.nekocode.itempool.Item
 import com.example.homework.R
-import com.example.homework.data.DO.Course
-import com.example.homework.data.DO.Notice
+import com.example.homework.data.DO.course.Notice
 import kotlinx.android.synthetic.main.item_course_notice.view.*
 
 /**
@@ -19,20 +18,21 @@ class NoticeItem : Item<NoticeItem.VO>() {
     override fun onBindData(vo: NoticeItem.VO) {
         with (viewHolder.itemView) {
             //Picasso.with(context).load(vo.url).centerCrop().fit().into(imageView)
-            text_item_notice_date.text = vo.data
+            text_item_notice_date.text = vo.time
             text_item_notice_content.text = vo.content
         }
     }
 
 
     data class VO(
-            val data: String,
+            val title: String,
             val content: String,
+            val time: String,
             val DO: Any
     ) {
         companion object {
             fun fromNotice(notice: Notice): VO {
-                return VO(notice.data, notice.content, notice)
+                return VO(notice.title, notice.content, notice.time, notice)
             }
         }
     }

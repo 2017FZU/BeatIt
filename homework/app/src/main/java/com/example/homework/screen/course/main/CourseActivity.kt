@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
+import com.example.homework.screen.course.detail.CourseDetailActivity
 import com.example.homework.screen.course.zxing.ZxingScannerActivity
 import com.example.homework.screen.course.zxing.ZxingScannerActivity.Companion.INTENT_EXRA_ZXING
 import com.example.homework.screen.file.main.FileActivity
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.dialog_course_add.*
  */
 class CourseActivity : BaseActivity(), Contract.View {
 
+    var data: String ?= null
     companion object {
         val REQUEST_CODE_ZXING = 1000
 //        val REQUEST_CODE_ZXING = CaptureActivity.REQ_CODE
@@ -132,6 +134,12 @@ class CourseActivity : BaseActivity(), Contract.View {
             startActivity(Intent(this, PersonalActivity::class.java))
             finish()
         }
+    }
+
+    override fun gotoCourseDetail(cid: Int) {
+        val intent = Intent(this, CourseDetailActivity::class.java)
+        intent.putExtra("cid", cid)
+        startActivity(intent)
     }
 
     override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {

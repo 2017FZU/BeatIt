@@ -10,7 +10,7 @@ import paperparcel.PaperParcel
 
 @PaperParcel
 data class Notice(
-        val data: String,
+        val title: String,
         val content: String,
         val time: String
 ) : Parcelable {

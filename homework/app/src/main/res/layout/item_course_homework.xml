@@ -7,6 +7,7 @@
     android:elevation="@dimen/hw_elevation_1"
     android:clipToPadding="true">
     <ImageView
+        android:id="@+id/img_item_homework_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_lesson_detail_red_hw"/>
@@ -19,14 +20,14 @@
         android:layout_marginRight="8dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/text_item_detail_hw_title"
+            android:id="@+id/text_item_homework_title"
             android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="作业标题"/>
         <TextView
-            android:id="@+id/text_item_detail_hw_content"
+            android:id="@+id/text_item_homework_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -35,7 +36,7 @@
             android:ellipsize="end"
             android:text="作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容"/>
         <TextView
-            android:id="@+id/text_item_detail_hw_ddl"
+            android:id="@+id/text_item_homework_deadline"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
