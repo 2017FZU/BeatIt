@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import cn.nekocode.itempool.Item
 import com.example.homework.R
-import com.example.homework.data.DO.Homework
-import kotlinx.android.synthetic.main.item_course_detail.view.*
+import com.example.homework.data.DO.course.Homework
+import kotlinx.android.synthetic.main.item_course_homework.view.*
 
 /**
  * Created by 59800 on 2017/11/8.
@@ -13,13 +13,13 @@ import kotlinx.android.synthetic.main.item_course_detail.view.*
 class HomeworkItem : Item<HomeworkItem.VO>() {
 
     override fun onCreateItemView(inflater: LayoutInflater, parent: ViewGroup) =
-            inflater.inflate(R.layout.item_course_detail, parent, false)!!
+            inflater.inflate(R.layout.item_course_homework, parent, false)!!
 
     override fun onBindData(vo: HomeworkItem.VO) {
         with (viewHolder.itemView) {
-            text_item_detail_hw_title.text = vo.title
-            text_item_detail_hw_content.text = vo.content
-            text_item_detail_hw_ddl.text = vo.deadline
+            text_item_homework_title.text = vo.title
+            text_item_homework_content.text = vo.content
+            text_item_homework_deadline.text = vo.deadline
         }
     }
 

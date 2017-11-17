@@ -1,5 +1,6 @@
 package com.example.homework.data.test
 
+import com.example.homework.data.DataLayer
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
@@ -14,6 +15,7 @@ object TestService {
                     .subscribeOn(Schedulers.io())
                     .map {
                         println("============ " + it.code)
+                        println("============ " + DataLayer.GSON!!.toJson(it))
                         it
 //                        Paper.book().write("meizis-$pageNum", it.results)
 //                        it.results

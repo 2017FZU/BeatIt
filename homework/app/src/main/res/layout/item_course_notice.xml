@@ -24,6 +24,7 @@
             android:layout_width="@dimen/hw_img_length_red_point"
             android:layout_height="@dimen/hw_img_length_red_point"
             android:layout_gravity="right"
+            android:visibility="gone"
             android:src="@drawable/icon_lesson_detail_red_point"/>
         <TextView
             android:id="@+id/text_item_notice_content"
