@@ -24,7 +24,7 @@
                 android:src="@drawable/icon_back"/>
 
             <TextView
-                android:id="@+id/text_course_detail_view"
+                android:id="@+id/text_teachersfile_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -114,16 +114,14 @@
                 android:layout_height="@dimen/hw_img_length_normal"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="9dp"
-                android:layout_marginRight="24dp"
-                android:src="@drawable/icon_teacher_file_folder"/>
+                android:layout_marginRight="24dp" />
 
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview_file_teachersfile_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

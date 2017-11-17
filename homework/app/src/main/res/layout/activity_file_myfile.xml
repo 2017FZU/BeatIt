@@ -24,6 +24,7 @@
                 android:src="@drawable/icon_back"/>
 
             <TextView
+                android:id="@+id/text_myfile_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -106,6 +107,7 @@
                 android:textColor="#707070"/>
 
             <ImageView
+                android:id="@+id/btn_myfile_tosystemfile"
                 android:layout_width="@dimen/hw_img_length_normal"
                 android:layout_height="@dimen/hw_img_length_normal"
                 android:layout_marginLeft="12dp"
@@ -118,8 +120,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview_file_myfile_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

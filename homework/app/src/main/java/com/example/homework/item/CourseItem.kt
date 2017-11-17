@@ -22,7 +22,6 @@ class CourseItem : Item<CourseItem.VO>() {
 
     override fun onBindData(vo: CourseItem.VO) {
         with (viewHolder.itemView) {
-            //Picasso.with(context).load(vo.url).centerCrop().fit().into(imageView)
             item_course_name.text = vo.name
 
             item_course.setOnLongClickListener {

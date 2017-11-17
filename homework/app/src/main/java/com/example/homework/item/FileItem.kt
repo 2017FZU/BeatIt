@@ -6,6 +6,7 @@ import cn.nekocode.itempool.Item
 import com.example.homework.R
 import com.example.homework.data.DO.Filename
 import kotlinx.android.synthetic.main.item_file.view.*
+import kotlinx.android.synthetic.main.item_file_teachersfile.view.*
 
 /**
  * Created by Administrator on 2017/11/6 0006.
@@ -26,7 +27,7 @@ class FileItem : Item<FileItem.VO>() {
     ) {
         companion object {
             fun fromFilename(filename: Filename): VO {
-                return VO(filename.name, filename)
+                return VO(filename.cname, filename)
             }
         }
     }

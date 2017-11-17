@@ -11,10 +11,8 @@ import paperparcel.PaperParcel
 @PaperParcel
 data class TeachersFile(
         @SerializedName("_id") override  var id: String,
-        var filename: String,
-        var type: String,
-        var isdownload: String,
-        var time: String
+        @SerializedName("cfname")var filename: String,
+        @SerializedName("url")var url: String
 ) : WithId, Parcelable {
 
     companion object {
