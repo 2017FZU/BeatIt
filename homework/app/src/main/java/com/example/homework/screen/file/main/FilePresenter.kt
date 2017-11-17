@@ -6,12 +6,12 @@ import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
 import com.example.homework.data.DO.Filename
+import com.example.homework.data.service.FileService
 import com.example.homework.item.FileItem
 import com.example.homework.screen.file.myfile.MyFileActivity
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith
@@ -30,23 +30,13 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
-        initDate()
         setFile()
         loadFile()
     }
 
-    fun initDate() {
-        list!!.add(Filename("2", "大学英语"))
-        list!!.add(Filename("1", "高数"))
-        list!!.add(Filename("2", "大学英语"))
-        list!!.add(Filename("1", "高数"))
-        list!!.add(Filename("2", "大学英语"))
-        list!!.add(Filename("1", "高数"))
-        list!!.add(Filename("2", "大学英语"))
-        list!!.add(Filename("1", "高数"))
-        list!!.add(Filename("2", "大学英语"))
-        list!!.add(Filename("1", "高数"))
-
+    override fun onResume() {
+        super.onResume()
+        loadFile()
     }
 
     fun setFile() {
@@ -55,18 +45,17 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
             val filename = (event.data as FileItem.VO).DO as Filename
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    startActivity(Intent(context, MyFileActivity::class.java))
+                    val intent = Intent(context, MyFileActivity::class.java)
+                    intent.putExtra("cid",filename.id)
+                    intent.putExtra("name",filename.cname)
+                    startActivity(intent)
                 }
             }
         }
     }
 
     fun loadFile() {
-        /*if (list == null) {
-            GankService.getMeizis(50, 1)
-        } else {
-
-        }*/ Observable.just(list)
+            FileService.getClassList(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { filenames ->

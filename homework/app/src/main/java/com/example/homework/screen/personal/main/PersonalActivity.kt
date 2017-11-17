@@ -76,12 +76,14 @@ class PersonalActivity: BaseActivity(), Contract.View {
 
         tab_data.setOnClickListener {
             startActivity(Intent(this, FileActivity::class.java))
-            this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+            finish()
         }
 
         tab_course.setOnClickListener {
             startActivity(Intent(this, CourseActivity::class.java))
-            this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+            finish()
         }
     }
 

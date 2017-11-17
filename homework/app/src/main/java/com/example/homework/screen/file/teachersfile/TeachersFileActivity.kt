@@ -24,11 +24,19 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
         recyclerview_file_teachersfile_list.layoutManager = LinearLayoutManager(this)
 
         setActionBar()
+
+        setTitle()
     }
 
     fun setActionBar() {
         btn_file_teachersfile_own.setOnClickListener{
-            startActivity( Intent(this, MyFileActivity::class.java))
+            val intent = Intent(this, MyFileActivity::class.java)
+            val mintent = getIntent()
+            val cid = mintent.getStringExtra("cid")
+            val name = mintent.getStringExtra("name")
+            intent.putExtra("cid",cid)
+            intent.putExtra("name",name)
+            startActivity(intent)
             this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish()
         }
@@ -44,6 +52,12 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
 
     override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
         recyclerview_file_teachersfile_list.adapter = adapter
+    }
+
+    fun setTitle() {
+        val intent = intent
+        val name = intent.getStringExtra("name")
+        text_teachersfile_title.setText(name)
     }
 
 }

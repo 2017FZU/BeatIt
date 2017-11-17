@@ -8,7 +8,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="88dp">
+        android:layout_height="40dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -24,44 +24,6 @@
 
         </FrameLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
-
-            <ImageView
-                android:id="@+id/img_file_search"
-                android:layout_width="@dimen/hw_img_length_normal"
-                android:layout_height="@dimen/hw_img_length_normal"
-                android:layout_marginTop="14dp"
-                android:layout_marginLeft="24dp"
-                android:src="@drawable/icon_filelist_search_file"/>
-
-            <EditText
-                android:id="@+id/edit_file_search"
-                android:layout_width="0dp"
-                android:layout_height="38dp"
-                android:layout_weight="1"
-                android:layout_marginTop="5dp"
-                android:hint="请输入要查找的内容"
-                android:layout_marginLeft="12dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:maxLines="1"
-                android:imeOptions="actionSearch"
-                android:background="@drawable/icon_filelist_search_border"
-                android:textColorHint="#707070"
-                android:textColor="#707070"/>
-
-            <ImageView
-                android:layout_width="@dimen/hw_img_length_normal"
-                android:layout_height="@dimen/hw_img_length_normal"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="24dp"
-                android:src="@drawable/icon_filelist_folder_add"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -69,8 +31,7 @@
             android:id="@+id/recyclerview_file_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scrollbars="none"/>
+            android:layout_weight="1" />
 
 
 

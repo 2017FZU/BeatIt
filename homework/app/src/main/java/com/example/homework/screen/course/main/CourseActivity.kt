@@ -63,11 +63,12 @@ class CourseActivity : BaseActivity(), Contract.View {
 
     fun setupActionBar(){
         btn_course_search.setOnClickListener {
-            toast("search")
+            toast("loading...")
         }
         btn_course_add.setOnClickListener {
 //            activity_course_add.visibility = View.VISIBLE
-            checkCameraPermission()
+//            checkCameraPermission()
+            toast("loading...")
         }
     }
 
