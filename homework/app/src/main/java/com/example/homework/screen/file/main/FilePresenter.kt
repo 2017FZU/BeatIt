@@ -5,7 +5,7 @@ import android.os.Bundle
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.Filename
+import com.example.homework.data.DO.file.Filename
 import com.example.homework.data.service.FileService
 import com.example.homework.item.FileItem
 import com.example.homework.screen.file.myfile.MyFileActivity
@@ -39,6 +39,16 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
         loadFile()
     }
 
+    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
+        viewBehavior.onNext(view)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        saveInstanceState(outState ?: return)
+    }
+
+
     fun setFile() {
         itemPool.addType(FileItem::class.java)
         itemPool.onEvent(FileItem::class.java) { event ->
@@ -55,7 +65,7 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
     }
 
     fun loadFile() {
-            FileService.getClassList(1)
+        FileService.getClassList(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { filenames ->
@@ -74,12 +84,4 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
                 }, this::onError)
     }
 
-    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
-        viewBehavior.onNext(view)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        saveInstanceState(outState ?: return)
-    }
- }
+}

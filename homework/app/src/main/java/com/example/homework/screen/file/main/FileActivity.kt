@@ -34,12 +34,15 @@ class FileActivity : BaseActivity(), Contract.View {
         setupBottomBar()
     }
 
+    override fun onCreatePresenter(presenterFactory: PresenterFactory) {
+         prestenter = presenterFactory.createOrGet(FilePresenter::class.java)
+    }
+
+    override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+        recyclerview_file_list.adapter = adapter
+    }
+
     fun setupBottomBar(){
-
-
-
-        val file = File(Environment.getExternalStorageDirectory().toString()+File.separator+"ssss.jpg")
-        println("=========="+file.path.toString())
         tab_course.setImageResource(R.drawable.icon_bottom_lesson)
         tab_data.setImageResource(R.drawable.icon_bottom_file_chosen)
         tab_me.setImageResource(R.drawable.icon_bottom_person)
@@ -48,22 +51,12 @@ class FileActivity : BaseActivity(), Contract.View {
 
         tab_course.setOnClickListener {
             startActivity(Intent(this, CourseActivity::class.java))
-            this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish()
         }
 
         tab_me.setOnClickListener {
             startActivity(Intent(this, PersonalActivity::class.java))
-            this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish()
         }
-    }
-
-    override fun onCreatePresenter(presenterFactory: PresenterFactory) {
-         prestenter = presenterFactory.createOrGet(FilePresenter::class.java)
-    }
-
-    override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
-        recyclerview_file_list.adapter = adapter
     }
 }

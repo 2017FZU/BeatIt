@@ -1,10 +1,9 @@
 package com.example.homework.data.api
 
-import com.example.homework.data.DO.*
+import com.example.homework.data.DO.file.*
 import com.example.homework.data.DataLayer
 import io.reactivex.Observable
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -35,5 +34,4 @@ internal interface FileApi {
 
     @GET
     fun DownLoad(@Url url: String): Observable<ResponseBody>
-
 }

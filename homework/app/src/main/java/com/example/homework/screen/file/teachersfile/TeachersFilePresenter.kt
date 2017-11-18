@@ -6,7 +6,7 @@ import android.os.Environment
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.TeachersFile
+import com.example.homework.data.DO.file.TeachersFile
 import com.example.homework.data.service.FileService
 import com.example.homework.item.TeachersFileItem
 import com.github.yamamotoj.pikkel.Pikkel
