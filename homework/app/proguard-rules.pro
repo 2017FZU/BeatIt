@@ -95,4 +95,4 @@
 -keepattributes Signature
 
 # Keep your model classes
--keep class cn.nekocode.kotgo.sample.data.DO.** { *; }
+-keep class com.example.homework.data.DO.** { *; }
