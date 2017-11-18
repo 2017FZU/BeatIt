@@ -21,14 +21,14 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/txt_itemmyfile_filename"
+            android:id="@+id/text_itemmyfile_filename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="9dp" />
 
         <TextView
-            android:id="@+id/txt_itemmyfile_time"
+            android:id="@+id/text_itemmyfile_isdownload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"/>

@@ -3,7 +3,6 @@ package com.example.homework.screen.file.myfile
 /**
  * Created by Administrator on 2017/11/7 0007.
  */
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -12,13 +11,12 @@ import android.os.Environment
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.MyFile
+import com.example.homework.data.DO.file.MyFile
 import com.example.homework.data.service.FileService
 import com.example.homework.item.MyFileItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith

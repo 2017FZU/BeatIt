@@ -1,7 +1,8 @@
-package com.example.homework.data.DO
+package com.example.homework.data.DO.file
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.example.homework.data.DO.WithId
 import com.google.gson.annotations.SerializedName
 import paperparcel.PaperParcel
 
@@ -10,9 +11,9 @@ import paperparcel.PaperParcel
  */
 @PaperParcel
 data class Filename(
-        @SerializedName("cid") override val id: String,
+        @SerializedName("cid") val id: String,
         val cname: String
-) : WithId, Parcelable {
+) : Parcelable {
 
     companion object {
         @JvmField val CREATOR = PaperParcelFilename.CREATOR

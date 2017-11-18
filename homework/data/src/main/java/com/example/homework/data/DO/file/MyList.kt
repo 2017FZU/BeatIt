@@ -1,4 +1,4 @@
-package com.example.homework.data.DO
+package com.example.homework.data.DO.file
 
 import android.os.Parcel
 import android.os.Parcelable
