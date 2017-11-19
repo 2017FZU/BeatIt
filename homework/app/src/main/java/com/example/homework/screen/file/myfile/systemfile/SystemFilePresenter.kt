@@ -59,9 +59,9 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
                             .observeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe {
-                                toast("上传成功")
+                                if (it == 1) toast("上传成功")
+                                else if (it == 0) toast("上传失败")
                             }
-
                 }
             }
         }

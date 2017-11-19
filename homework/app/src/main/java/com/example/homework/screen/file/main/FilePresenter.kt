@@ -12,6 +12,7 @@ import com.example.homework.screen.file.myfile.MyFileActivity
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith
@@ -23,7 +24,7 @@ import kotlin.collections.ArrayList
  */
 class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
-    var list = ArrayList<Filename>()
+    var list by state<ArrayList<Filename>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
 
@@ -65,12 +66,17 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
     }
 
     fun loadFile() {
-        FileService.getClassList(1)
+        if (list == null) {
+//            toast("null")
+            FileService.getClassList(1)
+        } else {
+            Observable.just(list)
+        }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { filenames ->
                     list = filenames
-                    filenames.map { FileItem.VO.fromFilename(it) }
+                    filenames!!.map { FileItem.VO.fromFilename(it) }
                 }
                 .zipWith(viewBehavior.toObservable()) { voList: List<FileItem.VO>, view: Contract.View ->
                     Pair(voList, view)

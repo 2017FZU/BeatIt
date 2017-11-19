@@ -26,6 +26,9 @@ object FileService {
                     .map {
                         it.data.classList
                     }
+                    .onErrorResumeNext { err: Throwable ->
+                        Observable.just(ArrayList())
+                    }
 
     fun getClassFile(cid: Int): Observable<ArrayList<TeachersFile>> =
             FileApi.IMPX.getClassFile(cid)
@@ -34,6 +37,9 @@ object FileService {
                     .map {
                         it.data.courseFile
                     }
+                    .onErrorResumeNext { err: Throwable ->
+                        Observable.just(ArrayList())
+                    }
 
     fun getSelfFile(sid: Int, cid: Int): Observable<ArrayList<MyFile>> =
             FileApi.IMPX.getSelfFile(sid, cid)
@@ -41,6 +47,9 @@ object FileService {
                     .observeOn(Schedulers.io())
                     .map {
                         it.data.selfFile
+                    }
+                    .onErrorResumeNext { err: Throwable ->
+                        Observable.just(ArrayList())
                     }
 
     fun UpLoad(sid: Int, cid: Int, file: File) : Observable<Int> {
@@ -55,6 +64,9 @@ object FileService {
                .map {
                    it.data.status
                }
+                .onErrorResumeNext { err: Throwable ->
+                    Observable.just(0)
+                }
     }
 
     fun DownLoad(url: String): Observable<ResponseBody> =
