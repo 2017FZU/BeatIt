@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import cn.nekocode.itempool.Item
 import com.example.homework.R
-import com.example.homework.data.DO.SystemFile
+import com.example.homework.data.DO.file.SystemFile
 import kotlinx.android.synthetic.main.item_myfile_systemfile.view.*
 
 /**

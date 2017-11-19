@@ -1,7 +1,8 @@
 package com.example.homework.data.service
 
-import com.example.homework.data.DO.*
-import com.example.homework.data.DataLayer
+import com.example.homework.data.DO.file.Filename
+import com.example.homework.data.DO.file.MyFile
+import com.example.homework.data.DO.file.TeachersFile
 
 import com.example.homework.data.api.FileApi
 import io.reactivex.Observable
@@ -23,8 +24,10 @@ object FileService {
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .map {
-                        println("==========${DataLayer.GSON!!.toJson(it)}")
                         it.data.classList
+                    }
+                    .onErrorResumeNext { err: Throwable ->
+                        Observable.just(ArrayList())
                     }
 
     fun getClassFile(cid: Int): Observable<ArrayList<TeachersFile>> =
@@ -32,8 +35,10 @@ object FileService {
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .map {
-                        println("==========${DataLayer.GSON!!.toJson(it)}")
                         it.data.courseFile
+                    }
+                    .onErrorResumeNext { err: Throwable ->
+                        Observable.just(ArrayList())
                     }
 
     fun getSelfFile(sid: Int, cid: Int): Observable<ArrayList<MyFile>> =
@@ -41,8 +46,10 @@ object FileService {
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .map {
-                        println("==========${DataLayer.GSON!!.toJson(it)}")
                         it.data.selfFile
+                    }
+                    .onErrorResumeNext { err: Throwable ->
+                        Observable.just(ArrayList())
                     }
 
     fun UpLoad(sid: Int, cid: Int, file: File) : Observable<Int> {
@@ -55,10 +62,11 @@ object FileService {
                .subscribeOn(Schedulers.io())
                .observeOn(Schedulers.io())
                .map {
-                   println("==========scuess")
-                   println("==========${DataLayer.GSON!!.toJson(it)}")
                    it.data.status
                }
+                .onErrorResumeNext { err: Throwable ->
+                    Observable.just(0)
+                }
     }
 
     fun DownLoad(url: String): Observable<ResponseBody> =

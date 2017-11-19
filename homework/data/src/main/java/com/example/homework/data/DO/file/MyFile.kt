@@ -1,7 +1,8 @@
-package com.example.homework.data.DO
+package com.example.homework.data.DO.file
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.example.homework.data.DO.WithId
 import com.google.gson.annotations.SerializedName
 import paperparcel.PaperParcel
 
@@ -9,19 +10,19 @@ import paperparcel.PaperParcel
  * Created by Administrator on 2017/11/8 0008.
  */
 @PaperParcel
-data class TeachersFile(
-        @SerializedName("_id") override  var id: String,
-        @SerializedName("cfname")var filename: String,
+data class MyFile(
+        @SerializedName("_id")   var id: String,
+        @SerializedName("fname")var fname: String,
         @SerializedName("url")var url: String
-) : WithId, Parcelable {
+) : Parcelable {
 
     companion object {
-        @JvmField val CREATOR = PaperParcelTeachersFile.CREATOR
+        @JvmField val CREATOR = PaperParcelMyFile.CREATOR
     }
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        PaperParcelTeachersFile.writeToParcel(this, dest, flags)
+        PaperParcelMyFile.writeToParcel(this, dest, flags)
     }
 }

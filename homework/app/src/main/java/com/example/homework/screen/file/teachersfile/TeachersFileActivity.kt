@@ -28,6 +28,20 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
         setTitle()
     }
 
+    override fun onCreatePresenter(presenterFactory: PresenterFactory) {
+        prestenter = presenterFactory.createOrGet(TeachersFilePresenter::class.java)
+    }
+
+    override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+        recyclerview_file_teachersfile_list.adapter = adapter
+    }
+
+    fun setTitle() {
+        val intent = intent
+        val name = intent.getStringExtra("name")
+        text_teachersfile_title.setText(name)
+    }
+
     fun setActionBar() {
         btn_file_teachersfile_own.setOnClickListener{
             val intent = Intent(this, MyFileActivity::class.java)
@@ -41,23 +55,9 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
             finish()
         }
 
-       btn_file_teachersfile_return.setOnClickListener{
+        btn_file_teachersfile_return.setOnClickListener{
             startActivity( Intent(this,FileActivity::class.java))
         }
-    }
-
-    override fun onCreatePresenter(presenterFactory: PresenterFactory) {
-        prestenter = presenterFactory.createOrGet(TeachersFilePresenter::class.java)
-    }
-
-    override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
-        recyclerview_file_teachersfile_list.adapter = adapter
-    }
-
-    fun setTitle() {
-        val intent = intent
-        val name = intent.getStringExtra("name")
-        text_teachersfile_title.setText(name)
     }
 
 }

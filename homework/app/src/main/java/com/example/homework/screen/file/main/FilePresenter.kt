@@ -5,13 +5,14 @@ import android.os.Bundle
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.Filename
+import com.example.homework.data.DO.file.Filename
 import com.example.homework.data.service.FileService
 import com.example.homework.item.FileItem
 import com.example.homework.screen.file.myfile.MyFileActivity
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith
@@ -23,7 +24,7 @@ import kotlin.collections.ArrayList
  */
 class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
-    var list = ArrayList<Filename>()
+    var list by state<ArrayList<Filename>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
 
@@ -38,6 +39,16 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
         super.onResume()
         loadFile()
     }
+
+    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
+        viewBehavior.onNext(view)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        saveInstanceState(outState ?: return)
+    }
+
 
     fun setFile() {
         itemPool.addType(FileItem::class.java)
@@ -55,12 +66,17 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
     }
 
     fun loadFile() {
+        if (list == null) {
+//            toast("null")
             FileService.getClassList(1)
+        } else {
+            Observable.just(list)
+        }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { filenames ->
                     list = filenames
-                    filenames.map { FileItem.VO.fromFilename(it) }
+                    filenames!!.map { FileItem.VO.fromFilename(it) }
                 }
                 .zipWith(viewBehavior.toObservable()) { voList: List<FileItem.VO>, view: Contract.View ->
                     Pair(voList, view)
@@ -74,12 +90,4 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
                 }, this::onError)
     }
 
-    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
-        viewBehavior.onNext(view)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        saveInstanceState(outState ?: return)
-    }
- }
+}
