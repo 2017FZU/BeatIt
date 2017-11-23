@@ -1,4 +1,4 @@
-package com.example.homework.data.DO
+package com.example.homework.data.DO.file
 
 import com.google.gson.annotations.SerializedName
 

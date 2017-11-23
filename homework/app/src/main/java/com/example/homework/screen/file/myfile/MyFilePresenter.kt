@@ -3,7 +3,6 @@ package com.example.homework.screen.file.myfile
 /**
  * Created by Administrator on 2017/11/7 0007.
  */
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -12,7 +11,7 @@ import android.os.Environment
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.MyFile
+import com.example.homework.data.DO.file.MyFile
 import com.example.homework.data.service.FileService
 import com.example.homework.item.MyFileItem
 import com.github.yamamotoj.pikkel.Pikkel
@@ -31,7 +30,7 @@ import java.io.File
  */
 class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
-    var fileList = ArrayList<MyFile>()
+    var fileList by state<ArrayList<MyFile>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
 
@@ -84,12 +83,12 @@ class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
 
     fun loadMyOwnFile() {
         val cid = arguments.get("cid").toString().toInt()
-        FileService.getSelfFile(1, cid)
+            FileService.getSelfFile(1, cid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { myownflie ->
                     fileList = myownflie
-                    myownflie.map { MyFileItem.VO.fromMyOwnFile(it) }
+                    myownflie!!.map { MyFileItem.VO.fromMyOwnFile(it) }
                 }
                 .zipWith(viewBehavior.toObservable()) { voList: List<MyFileItem.VO>, view: Contract.View ->
                     Pair(voList, view)

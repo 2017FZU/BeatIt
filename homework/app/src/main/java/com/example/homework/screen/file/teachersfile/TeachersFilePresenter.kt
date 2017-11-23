@@ -6,7 +6,7 @@ import android.os.Environment
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.TeachersFile
+import com.example.homework.data.DO.file.TeachersFile
 import com.example.homework.data.service.FileService
 import com.example.homework.item.TeachersFileItem
 import com.github.yamamotoj.pikkel.Pikkel
@@ -20,10 +20,11 @@ import org.jetbrains.anko.toast
 import java.io.File
 import android.content.ActivityNotFoundException
 import android.net.Uri
+import io.reactivex.Observable
 
 class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
-    var fileList = ArrayList<TeachersFile>()
+    var fileList by state<ArrayList<TeachersFile>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
 
@@ -67,12 +68,17 @@ class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter
 
     fun loadMyOwnFile() {
         val cid = arguments.get("cid").toString().toInt()
-        FileService.getClassFile(cid)
+        if (fileList == null) {
+
+            FileService.getClassFile(cid)
+        } else {
+            Observable.just(fileList)
+        }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { myownflie ->
                     fileList = myownflie
-                    myownflie.map { TeachersFileItem.VO.fromMyOwnFile(it) }
+                    myownflie!!.map { TeachersFileItem.VO.fromMyOwnFile(it) }
                 }
                 .zipWith(viewBehavior.toObservable()) { voList: List<TeachersFileItem.VO>, view: Contract.View ->
                     Pair(voList, view)

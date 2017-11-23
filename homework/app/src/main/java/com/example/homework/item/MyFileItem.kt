@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import cn.nekocode.itempool.Item
 import com.example.homework.R
-import com.example.homework.data.DO.MyFile
+import com.example.homework.data.DO.file.MyFile
 import com.example.homework.data.service.FileService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,7 +24,7 @@ class MyFileItem : Item<MyFileItem.VO>() {
 
     override fun onBindData(vo: MyFileItem.VO) {
         with(viewHolder.itemView) {
-            txt_itemmyfile_filename.text = vo.filename
+            text_itemmyfile_filename.text = vo.filename
 
             if (vo.filename.contains("doc"))
                 img_itemmyfile_type.setImageResource(R.drawable.icon_my_file_word)
@@ -33,10 +33,11 @@ class MyFileItem : Item<MyFileItem.VO>() {
 
             val file = File(Environment.getExternalStorageDirectory().toString() + File.separator + "MyFile/" + vo.filename)
             if (!file.exists()) {
-                txt_itemmyfile_time.text = "未下载"
+                text_itemmyfile_isdownload.text = "未下载"
+                img_myfile_isdownload.setImageResource(R.drawable.icon_teacher_file_download)
             } else {
-                txt_itemmyfile_time.text = "已下载"
-                img_myfile_isdownload.visibility = View.GONE
+                text_itemmyfile_isdownload.text = "已下载"
+                img_myfile_isdownload.setImageResource(R.drawable.icon_teacher_file_download_gone)
             }
             img_myfile_isdownload.setOnClickListener {
                 FileService.DownLoad(vo.url)
@@ -47,8 +48,8 @@ class MyFileItem : Item<MyFileItem.VO>() {
                         }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
-                            img_myfile_isdownload.visibility = View.GONE
-                            txt_itemmyfile_time.text = "已下载"
+                            img_myfile_isdownload.setImageResource(R.drawable.icon_teacher_file_download_gone)
+                            text_itemmyfile_isdownload.text = "已下载"
                         }
             }
         }
@@ -99,7 +100,6 @@ class MyFileItem : Item<MyFileItem.VO>() {
         } catch (e: IOException) {
 
         }
-        println("======downloading")
     }
 
     class VO(

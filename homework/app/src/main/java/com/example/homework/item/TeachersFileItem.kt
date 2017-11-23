@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import cn.nekocode.itempool.Item
 import com.example.homework.R
-import com.example.homework.data.DO.TeachersFile
+import com.example.homework.data.DO.file.TeachersFile
 import com.example.homework.data.service.FileService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,17 +23,18 @@ class TeachersFileItem : Item<TeachersFileItem.VO>(){
 
     override fun onBindData(vo: TeachersFileItem.VO) {
         with(viewHolder.itemView) {
-            txt_teachersfile_filename.text = vo.filename
+            text_teachersfile_filename.text = vo.filename
             if (vo.filename.contains("doc"))
                 img_teachersfile_type.setImageResource(R.drawable.icon_teacher_file_word)
             else img_teachersfile_type.setImageResource(R.drawable.icon_teacher_file_ppt)
 
             val file = File(Environment.getExternalStorageDirectory().toString() + File.separator + "TeachersFile/" + vo.filename)
             if (!file.exists()) {
-                txt_teachersfile_time.text = "未下载"
+                text_teachersfile_isdownload.text = "未下载"
+                img_teachersfile_isdownload.setImageResource(R.drawable.icon_teacher_file_download)
             } else {
-                txt_teachersfile_time.text = "已下载"
-                img_teachersfile_isdownload.visibility = View.GONE
+                text_teachersfile_isdownload.text = "已下载"
+                img_teachersfile_isdownload.setImageResource(R.drawable.icon_teacher_file_download_gone)
             }
             img_teachersfile_isdownload.setOnClickListener {
                 FileService.DownLoad(vo.url)
@@ -44,8 +45,8 @@ class TeachersFileItem : Item<TeachersFileItem.VO>(){
                         }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
-                            img_teachersfile_isdownload.visibility = View.GONE
-                            txt_teachersfile_time.text = "已下载"
+                            img_teachersfile_isdownload.setImageResource(R.drawable.icon_teacher_file_download_gone)
+                            text_teachersfile_isdownload.text = "已下载"
                         }
             }
         }
@@ -75,11 +76,8 @@ class TeachersFileItem : Item<TeachersFileItem.VO>(){
                     }
 
                     outputStream!!.write(fileReader, 0, read)
-
                     fileSizeDownloaded += read.toLong()
-
                 }
-
                 outputStream!!.flush()
 
             } catch (e: IOException) {
@@ -96,7 +94,6 @@ class TeachersFileItem : Item<TeachersFileItem.VO>(){
         } catch (e: IOException) {
 
         }
-        println("======downloading")
     }
 
     class VO(
