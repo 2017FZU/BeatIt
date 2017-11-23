@@ -4,7 +4,7 @@ import android.os.Bundle
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
-import com.example.homework.data.DO.SystemFile
+import com.example.homework.data.DO.file.SystemFile
 import com.example.homework.item.SystemFileItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
@@ -14,7 +14,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
-import android.R.attr.path
 import android.os.Environment
 import com.example.homework.data.service.FileService
 import org.jetbrains.anko.toast
@@ -28,7 +27,6 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
     var list = ArrayList<SystemFile>()
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +53,15 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
             val file = (event.data as SystemFileItem.VO).DO as SystemFile
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
+                    toast("开始上传")
                     FileService.UpLoad(1,arguments.get("cid").toString().toInt(),File(file.path))
                             .subscribeOn(Schedulers.io())
                             .observeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe {
-                                toast("上传成功")
+                                if (it == 1) toast("上传成功")
+                                else if (it == 0) toast("上传失败")
                             }
-
                 }
             }
         }
