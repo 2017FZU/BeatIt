@@ -48,8 +48,8 @@ class MyFileItem : Item<MyFileItem.VO>() {
                         }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
-                            img_myfile_isdownload.visibility = View.GONE
-                            text_itemmyfile_filename.text = "已下载"
+                            img_myfile_isdownload.setImageResource(R.drawable.icon_teacher_file_download_gone)
+                            text_itemmyfile_isdownload.text = "已下载"
                         }
             }
         }
