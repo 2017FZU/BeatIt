@@ -83,12 +83,7 @@ class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
 
     fun loadMyOwnFile() {
         val cid = arguments.get("cid").toString().toInt()
-        if (fileList == null) {
-
             FileService.getSelfFile(1, cid)
-        } else {
-            Observable.just(fileList)
-        }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { myownflie ->

@@ -77,6 +77,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
             intent.putExtra("cid",cid)
             intent.putExtra("name",name)
             startActivity(intent)
+            //finish()
         }
 
     }
