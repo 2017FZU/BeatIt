@@ -39,6 +39,7 @@ public class ResponseUtils {
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
+		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");  
         response.setHeader("Content-Type", "application/json;charset=utf-8");  
@@ -57,6 +58,7 @@ public class ResponseUtils {
 		String s = JsonWriter.toJson(obj, false);
 		response.setContentType("text/plain;charset=UTF-8");
 		response.setHeader("Pragma", "No-cache");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
 		try {

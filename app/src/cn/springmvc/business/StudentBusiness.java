@@ -65,14 +65,33 @@ public class StudentBusiness {
 	public static StatusObject addIntoClass(String cid, String sid) {
 		String sql = null;
 		DBHelper db = null;
-		sql = "insert into classstudentlist (cid, sid) values("+cid+","+sid+")";
+		sql = "select count(*) as cnt from classstudentlist where cid="+cid+" and sid="+sid;
+		
 		db = new DBHelper(sql);
 		StatusObject status = new StatusObject(); 		
 		status.setStatus(0);
-		int res = 0;
+		ResultSet res = null;
 		try {
-			res = db.pst.executeUpdate();
-			if(res > 0) {
+			res = db.pst.executeQuery();
+			
+			while(res.next()) {
+				System.out.println("aaaaaa");
+				int cnt = res.getInt("cnt");
+				System.out.println(cnt);
+				if(cnt>0) {
+					return status;
+				}
+			}
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		sql = "insert into classstudentlist (cid, sid) values("+cid+","+sid+")";
+		db = new DBHelper(sql);
+		int check = 0;
+		try {
+			check = db.pst.executeUpdate();
+			if(check > 0) {
 				status.setStatus(1);
 			}
 			db.close();//
