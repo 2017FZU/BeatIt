@@ -306,16 +306,22 @@ public class StudentServlet {
 		        	String oname = item.getOriginalFilename();
 		        	String name = new Date().getTime()+"_"+item.getOriginalFilename();
 		        	String url = "http://111.231.190.23/download/student/"+sid+"/"+name;
+		        	System.out.println("a");
 		            File filepath = new File(path);
+		            System.out.println("b");
 		            while(!filepath.exists()) {
 		            	filepath.mkdir();  
 		            }
+		            
 		            //将上传文件保存到一个目标文件当中
 		            File fi = new File(path+name);
+		            System.out.println("start");
 		            if(StudentBusiness.SaveSelfFile(cid, sid, url, oname) == 0) {
 		            	s.setStatus(0);
 		            	break;
 		            }
+		            System.out.println("Over");
+		            
 		            item.transferTo(fi);
 			 }
 	 	 }
