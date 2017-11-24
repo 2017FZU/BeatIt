@@ -5,6 +5,15 @@
 	id="WebApp_ID" version="2.5">
 	<!--配置 DispatcherServlet  -->
 	<!-- The front controller of this Spring Web application, responsible for handling all application requests -->
+	<welcome-file-list>
+	    <welcome-file>success.html</welcome-file>
+	    <welcome-file>success.htm</welcome-file>
+	    <welcome-file>success.jsp</welcome-file>
+	    <welcome-file>default.html</welcome-file>
+	    <welcome-file>default.htm</welcome-file>
+	    <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+
 	<servlet>
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -21,4 +30,12 @@
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<filter>
+      <filter-name>cors</filter-name>
+      <filter-class>cn.springmvc.HeadersCORSFilter</filter-class><!--你过滤器的包 -->
+    </filter>
+    <filter-mapping>
+      <filter-name>cors</filter-name>
+      <url-pattern>/web/*</url-pattern><!-- 你开放的接口前缀  -->
+    </filter-mapping>
 </web-app>
