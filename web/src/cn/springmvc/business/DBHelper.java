@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class DBHelper {
 	
-	 	public static final String url = "jdbc:mysql://111.231.190.23:3306/homework";  
+	 	public static final String url = "jdbc:mysql://localhost:3306/homework";  
 	 	
 	    public static final String name = "com.mysql.jdbc.Driver";  
 	    
