@@ -106,7 +106,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="17dp"
@@ -120,7 +120,16 @@
                     android:layout_height="130dp">
 
                 </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_course_detail_homework"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="当前无作业"
+                    android:textSize="24sp"
+                    android:visibility="gone"/>
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/btn_course_detail_notice"

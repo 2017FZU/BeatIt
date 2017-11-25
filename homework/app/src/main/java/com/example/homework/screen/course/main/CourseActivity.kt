@@ -67,8 +67,8 @@ class CourseActivity : BaseActivity(), Contract.View {
         }
         btn_course_add.setOnClickListener {
 //            activity_course_add.visibility = View.VISIBLE
-            checkCameraPermission()
-//            toast("loading...")
+//            checkCameraPermission()
+            toast("loading...")
         }
     }
 

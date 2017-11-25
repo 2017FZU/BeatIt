@@ -54,6 +54,10 @@ class HomeworkActivity : BaseActivity(), Contract.View {
             }
         }
 
+        if (homework.status == 0) {
+            btn_course_homework_submit.text = "查看作业"
+        }
+
         wid = homework.wid
         status = homework.status
     }

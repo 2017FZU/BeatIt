@@ -42,7 +42,8 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
 
     fun setupView() {
         btn_course_detail_notice.setOnClickListener {
-            gotoNotice(cid)
+            if (text_course_detail_notice_content.text !="当前无通知")
+                gotoNotice(cid)
         }
 //        presenter!!.bindData(text_course_detail_teacher_name, text_course_detail_teacher_email,
 //                text_course_detail_notice_content, text_course_detail_notice_date)
@@ -80,7 +81,7 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
     override fun setCourseDetail(courseDetail: CourseDetail) {
         text_course_detail_teacher_name.text = courseDetail.tname
         text_course_detail_teacher_email.text = courseDetail.temail
-        text_course_detail_notice_content.text = courseDetail.newnotice.content
+        text_course_detail_notice_content.text = courseDetail.newnotice.content?:"当前无通知"
         text_course_detail_notice_date.text = courseDetail.newnotice.time
     }
 
@@ -124,6 +125,10 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
 //            toast("loading...")
 
         }
+    }
+
+    override fun setNullHint() {
+        text_course_detail_homework.visibility = View.VISIBLE
     }
 
     fun gotoSubmit(sid: Int, wid: Int) {

@@ -105,6 +105,9 @@ class CourseDetailPresenter : BasePresenter<Contract.View>(), Contract.Presenter
                     itemPool.clear()
                     itemPool.addAll(voList)
                     view.setAdapter(itemPool.adapter)
+
+                    if (itemPool.size == 0)
+                        view.setNullHint()
                 }, this::onError)
     }
 
