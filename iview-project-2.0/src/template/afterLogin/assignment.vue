@@ -7,6 +7,14 @@
         <Input v-model="newTitle"></Input>
         <label for="">作业内容</label>
         <Input type="textarea" :autosize="true" v-model="newContent"></Input>
+        <RadioGroup v-model="type" style="margin:10px 0">
+        <Radio label="on">
+            <span>线上提交</span>
+        </Radio>
+        <Radio label="down">
+            <span>线下提交</span>
+        </Radio>
+    </RadioGroup>
         <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">截止日期</p>
         <Row>
           <Col span="18">
@@ -41,13 +49,14 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
     return {
+      type: 'on',
       newDeadline: {},
-      newTitle: '',
-      newContent: '',
+      newTitle: "",
+      newContent: "",
       modal1: false,
       modal2: false,
       detailTitle: 1,
@@ -86,7 +95,11 @@ export default {
                   on: {
                     click: () => {
                       // this.show(params.index);
-                      javascript:location.href= 'correct?index='+params.index+'&wid='+this.data1[params.index].wid
+                      javascript: location.href =
+                        "correct?index=" +
+                        params.index +
+                        "&wid=" +
+                        this.data1[params.index].wid;
                     }
                   }
                 },
@@ -102,7 +115,8 @@ export default {
                   on: {
                     click: () => {
                       // this.remove(params.index);
-                      javascript:location.href= 'solution?index='+params.index
+                      javascript: location.href =
+                        "solution?index=" + params.index;
                     }
                   }
                 },
@@ -174,13 +188,17 @@ export default {
     };
   },
 
-  mounted(){
-    const that = this
-    axios.post('http://111.231.190.23/web/getHomeWorkList?cid='+that.$store.getters.getCid)
-    .then(function(res){
-      console.log(res.data)
-      that.data1 = res.data.data.homeWorkList
-    })
+  mounted() {
+    const that = this;
+    axios
+      .post(
+        "http://111.231.190.23/web/getHomeWorkList?cid=" +
+          that.$store.getters.getCid
+      )
+      .then(function(res) {
+        console.log(res.data);
+        that.data1 = res.data.data.homeWorkList;
+      });
   },
   methods: {
     jump: function(res) {
@@ -189,31 +207,39 @@ export default {
       this.detailDeadline = res.deadline;
       this.modal2 = true;
     },
-    toFormat(num){
-      if(num < 10){
-        return '0'+num.toString()
+    toFormat(num) {
+      if (num < 10) {
+        return "0" + num.toString();
       } else {
-        return num.toString()
+        return num.toString();
       }
     },
     ok() {
-      
-      var mes = 'http://111.231.190.23/web/addHomeWork?cid='+this.$store.getters.getCid+'&title="'+this.newTitle+'"&content="'
-      +this.newContent+'"&online=1&deadline="'
-      mes += this.toFormat(this.newDeadline.getFullYear())+this.toFormat(this.newDeadline.getMonth()+1)+this.toFormat(this.newDeadline.getDate())
-      +this.toFormat(this.newDeadline.getHours())+this.toFormat(this.newDeadline.getMinutes())+this.toFormat(this.newDeadline.getSeconds())
-      mes += '"'
+      var mes =
+        "http://111.231.190.23/web/addHomeWork?cid=" +
+        this.$store.getters.getCid +
+        '&title="' +
+        this.newTitle +
+        '"&content="' +
+        this.newContent +
+        '"&online=1&deadline="';
+      mes +=
+        this.toFormat(this.newDeadline.getFullYear()) +
+        this.toFormat(this.newDeadline.getMonth() + 1) +
+        this.toFormat(this.newDeadline.getDate()) +
+        this.toFormat(this.newDeadline.getHours()) +
+        this.toFormat(this.newDeadline.getMinutes()) +
+        this.toFormat(this.newDeadline.getSeconds());
+      mes += '"';
 
-      axios.post(mes)
-      .then(function(res){
+      axios.post(mes).then(function(res) {
         console.log(res);
-      })
-      location.reload()
-      this.$Message.info("发布成功")
-      
+      });
+      location.reload();
+      this.$Message.info("发布成功");
     },
     cancel() {
-      this.$Message.info("取消发布")
+      this.$Message.info("取消发布");
     }
 
     // render() {
@@ -239,7 +265,7 @@ export default {
     //   })
     // }
   }
-}
+};
 </script>
 
 <style scoped>

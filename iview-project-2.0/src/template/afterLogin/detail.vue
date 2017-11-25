@@ -5,45 +5,35 @@
             <div class="layout-content">
                 <Row>
                     <Col span="5">
-                        <Menu width="200px">
-                            <Submenu name="1">
-                                <template slot="title">
-                                    <Icon type="ios-paper"></Icon>
-                                    <p @click="jump">课程作业</p>
-                                </template>
-                            </Submenu>
-                            <Submenu name="2">
-                                <template slot="title">
-                                    <Icon type="ios-people"></Icon> 
-                                    <a @click="$router.push({name:'correct'})">作业批改</a>
-                                </template>
-                              
-                            </Submenu>
-                            <Submenu name="3">
-                                <template slot="title">
-                                    <Icon type="ios-pricetag-outline"></Icon>
-                                    <a @click="$router.push({name:'studentList'})">学生总评</a>
-                                </template> 
-                                
-                            </Submenu>
-                            <Submenu name="4">
-                                <template slot="title">
-                                    <Icon type="social-wordpress-outline"></Icon>
-                                    <a @click="$router.push({name:'solution'})">作业解答</a>
-                                </template>
-                            </Submenu>
-                            <Submenu name="5">
-                                <template slot="title">
-                                    <Icon type="social-wordpress-outline"></Icon>
-                                    <a @click="$router.push({name:'courseware'})">课程资料</a>
-                                </template>                               
-                            </Submenu>
-                            <Submenu name="6">
-                                <template slot="title">
-                                    <Icon type="social-wordpress-outline"></Icon>
-                                    <a @click="$router.push({name:'notice'})">课程通知</a>
-                                </template>
-                            </Submenu>
+                        <Menu width="200px" >
+                            <MenuGroup title="课程管理">
+            <MenuItem name="1">
+                <Icon type="android-notifications-none"></Icon>
+                <a @click="$router.push({name:'notice'})">课程通知</a>
+            </MenuItem>
+            <MenuItem name="2">
+                <Icon type="document"></Icon>
+               <a @click="$router.push({name:'assignment'})">课程作业</a>
+            </MenuItem>
+            <MenuItem name="3">
+                <Icon type="ios-folder-outline"></Icon>
+               <a @click="$router.push({name:'courseware'})">课程资料</a>
+            </MenuItem>
+        </MenuGroup>
+        <MenuGroup title="学生管理">
+            <MenuItem name="4">
+                <Icon type="android-open"></Icon>
+                <a @click="$router.push({name:'correct'})">作业批改</a>
+            </MenuItem>
+            <MenuItem name="5">
+                <Icon type="help"></Icon>
+               <a @click="$router.push({name:'solution'})">作业解答</a>
+            </MenuItem>
+            <MenuItem name="6">
+                <Icon type="ios-pricetag-outline"></Icon>
+               <a @click="$router.push({name:'studentList'})">学生总评</a>
+            </MenuItem>
+        </MenuGroup>
                         </Menu>
                     </Col>
                     <Col span="19">
@@ -60,28 +50,21 @@
 <script>
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   components: {
     myHead: require("./courseHeader")
-  },
-  methods: {
-      jump() {
-          alert("fff");
-          this.$router.push({name:'assignment'});
-      }
   }
 };
 </script>
 
 <style scoped>
 .main {
-    height: 600px;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    background: #fdfdfc;
+  height: 600px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: #fdfdfc;
 }
 
 .layout {

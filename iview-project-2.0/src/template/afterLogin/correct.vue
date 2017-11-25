@@ -50,6 +50,9 @@
           <p class="correctInform">
             <label for="">得星数</label>
             <Rate disabled v-model="valueAfter" style="margin-left:130px;"></Rate>
+            <p class="correctInform">
+            <label for="">优秀作业</label>
+            <Radio disabled v-model="double"></Radio>
           </p>
       </Modal>
 
@@ -67,6 +70,7 @@ import BigImg from "../afterLogin/BigImg";
 export default {
   data() {
     return {
+      double :false,
       Sid: 0,
       inx: 0,
       showImg: false,
@@ -269,7 +273,7 @@ export default {
           that.value +
           "&comment=" +
           that.Comment +
-          "&isshow=" +
+          "&isview=" +
           that.single
       );
       this.$Message.success("批改成功!");
@@ -287,6 +291,7 @@ export default {
       this.Sid = res.sid;
       this.Sname = res.sname;
       this.Sno = res.sno;
+      this.double = res.isshow;
       this.valueAfter = res.score;
       for (var k = 0; k < res.working.length; k++) {
         var tmp = { value: 0, label: "" };
