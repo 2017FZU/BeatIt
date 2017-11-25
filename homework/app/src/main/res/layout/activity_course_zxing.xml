@@ -14,6 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/hw_black">
+
+        <ImageView
+            android:id="@+id/btn_course_zxing_return"
+            android:layout_width="@dimen/hw_img_length_normal"
+            android:layout_height="@dimen/hw_img_length_normal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_back"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
