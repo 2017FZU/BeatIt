@@ -12,6 +12,7 @@ import com.example.homework.data.DO.course.CourseDetail
 import com.example.homework.data.DO.course.Homework
 import com.example.homework.screen.course.excellent.ExcellentActivity
 import com.example.homework.screen.course.notice.NoticeActivity
+import com.example.homework.screen.course.submit.SubmitActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
 import kotlinx.android.synthetic.main.activity_course_homework.*
 import kotlinx.android.synthetic.main.item_course_homework.*
@@ -104,12 +105,6 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
                 text_course_homework_commit.text = "线上提交"
             }
         }
-
-        when (homework.status) {
-            0 -> img_item_homework_background.setImageResource(R.drawable.icon_lesson_detail_red_hw)
-            1 -> img_item_homework_background.setImageResource(R.drawable.icon_lesson_detail_green_hw)
-            2 -> img_item_homework_background.setImageResource(R.drawable.icon_lesson_detail_gray_hw)
-        }
     }
 
     fun setupHomeworkActionBar() {
@@ -126,7 +121,15 @@ class CourseDetailActivity : BaseActivity(), Contract.View {
 //            startActivity(Intent(this, ExcellentActivity::class.java))
         }
         btn_course_homework_submit.setOnClickListener {
-            toast("loading...")
+//            toast("loading...")
+
         }
+    }
+
+    fun gotoSubmit(sid: Int, wid: Int) {
+        val intent = Intent(this, SubmitActivity::class.java)
+        intent.putExtra("sid", sid)
+        intent.putExtra("wid", wid)
+        startActivity(intent)
     }
 }

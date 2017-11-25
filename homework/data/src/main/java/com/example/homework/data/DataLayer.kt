@@ -28,9 +28,9 @@ object DataLayer {
 
         CLIENT = OkHttpClient.Builder()
                 .cache(Cache(File(context.cacheDir, "okhttp"), 10 * 1024 * 1024L))
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(6000, TimeUnit.SECONDS)
+                .readTimeout(6000, TimeUnit.SECONDS)
+                .writeTimeout(6000, TimeUnit.SECONDS)
                 .build()
 
         GSON = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()

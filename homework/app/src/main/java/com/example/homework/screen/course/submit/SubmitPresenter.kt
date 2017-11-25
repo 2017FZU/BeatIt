@@ -1,10 +1,14 @@
 package com.example.homework.screen.course.submit
 
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.support.annotation.MainThread
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
 import com.example.homework.base.BasePresenter
 import com.example.homework.data.DO.course.Submission
+import com.example.homework.data.service.CourseService
+import com.example.homework.item.SubmissionItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
@@ -13,6 +17,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_course_submit.*
+import kotlinx.android.synthetic.main.dialog_submit_delete.*
+import org.jetbrains.anko.toast
+import java.io.File
 
 /**
  * Created by 59800 on 2017/11/9.
@@ -21,53 +29,72 @@ import io.reactivex.schedulers.Schedulers
 class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
 
-    var excellentList = ArrayList<Submission>()
+//    var submitList = ArrayList<Submission>()
+    var submitList by state<ArrayList<Submission>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
-/*
+    var wid = -1
+    var status = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
 
-        initData()
-        setupExcellent()
-        loadExcellent()
+//        initData()
+        setupSubmission()
+        loadSubmission()
     }
 
     fun initData(){
-        excellentList.clear()
+        submitList?.clear()
         for (i in 0..20) {
             val test = i.toString()
-            excellentList.add(Excellent(test, test, test, test))
+            submitList?.add(Submission(i, test, test))
         }
     }
 
-    fun setupExcellent() {
-        itemPool.addType(ExcellentItem::class.java)
-        itemPool.onEvent(ExcellentItem::class.java) { event ->
+    fun setupSubmission() {
+        itemPool.addType(SubmissionItem::class.java)
+        itemPool.onEvent(SubmissionItem::class.java) { event ->
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    val excellent = (event.data as ExcellentItem.VO).DO as Excellent
+                    val submission = (event.data as SubmissionItem.VO).DO as Submission
 
+                }
+                SubmissionItem.ITEM_LONG_CLICK -> {
+                    if (status != 0) {
+                        val position = event.data as Int
+                        val vo = itemPool[position] as SubmissionItem.VO
+                        view()!!.gotoDelete(position, vo)
+                    }
                 }
             }
         }
     }
 
-    fun loadExcellent() {
-//        if (homeworkList == null) {
-//            GankService.getMeizis(50, 1)
-//            toast("null")
-//        } else {
-        Observable.just(excellentList)
-//        }
+    fun loadSubmission() {
+        wid = arguments.getInt("wid")
+        status = arguments.getInt("status")
+        if (status == 0) {
+            CourseService.getSubmitEndMessage(1, wid)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        view()!!.setSubmitEnd(it.score, it.comment?:"无")
+                    }
+        }
+        if (submitList == null) {
+            CourseService.getHomeworkSubmissionList(1, wid)
+        } else {
+            Observable.just(submitList)
+        }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .map { excellent ->
-                    excellentList = excellent
-                    excellent.map { ExcellentItem.VO.fromExcellent(it) }
+                .map { submit ->
+                    submitList = submit
+                    submit!!.map { SubmissionItem.VO.fromSubmission(it) }
                 }
-                .zipWith(viewBehavior.toObservable()) { voList: List<ExcellentItem.VO>, view: Contract.View ->
+                .zipWith(viewBehavior.toObservable()) { voList: List<SubmissionItem.VO>, view: Contract.View ->
                     Pair(voList, view)
                 }
                 .bindToLifecycle(this)
@@ -78,7 +105,65 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
                     view.setAdapter(itemPool.adapter)
                 }, this::onError)
     }
-*/
+
+    override fun deletePicture(position: Int) {
+        val vo = itemPool[position] as SubmissionItem.VO
+        if (vo.wkid != -1) {
+            CourseService.deleteHomeworkImg(vo.wkid)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe{
+                        when (it.status) {
+                            0 -> toast("删除失败")
+                            1 -> {
+//                                deletePicture(position)
+                                itemPool.removeAt(position)
+                                itemPool.notifyItemRemoved(position)
+                            }
+                        }
+                    }
+        } else {
+//            deletePicture(position)
+            itemPool.removeAt(position)
+            itemPool.notifyItemRemoved(position)
+        }
+    }
+
+    override fun confirm() {
+        val fileList = itemPool
+                .filter { (it as SubmissionItem.VO).wkid == -1}
+                .map {
+                    it as SubmissionItem.VO
+                    File(it.url)
+                }
+        CourseService.uploadHomework(wid, 1, fileList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if (it.status == 1) {
+                        toast("上传成功")
+                        activity.finish()
+                    } else {
+                        toast("上传失败")
+                    }
+                }
+    }
+
+    override fun addPicture(fileName: String, filePath: String) {
+        itemPool.add(SubmissionItem.VO(-1, fileName,filePath, Submission(-1, fileName, filePath)))
+        itemPool.notifyItemInserted(itemPool.size)
+
+//        val fileList = ArrayList<File>()
+//        fileList.add(File(filePath))
+//        CourseService.uploadHomework(wid, 1, fileList)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe{
+////                    if (it.status == 1) toast("success")
+////                    else toast("fail")
+//                }
+    }
+
     override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         viewBehavior.onNext(view)
     }
