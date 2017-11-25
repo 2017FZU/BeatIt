@@ -2,20 +2,17 @@ import App from './app.vue'
 import index from './views/index.vue'
 import detail from './template/afterLogin/detail.vue'
 import solution from './template/afterLogin/solution.vue'
-import header from './template/afterLogin/header.vue'
+import courseHeader from './template/afterLogin/courseHeader.vue'
+import indexHeader from './template/afterLogin/indexHeader.vue'
 import assignment from './template/afterLogin/assignment.vue'
 import notice from './template/afterLogin/notice.vue'
 import commont from './template/afterLogin/commont.vue'
+import studentList from './template/afterLogin/studentList.vue'
 import correct from './template/afterLogin/correct.vue'
 import courseware from './template/afterLogin/courseware.vue'
 
 const routers = [
     {
-        // path: '/',
-        // meta: {
-        //     title: ''
-        // },
-        // component: (resolve) => require(['./views/index.vue'], resolve)
         path: '/',
         component: index,
         children: [
@@ -27,7 +24,6 @@ const routers = [
         ]
     },
     {
-        
         path: '/',
         component: detail,
         children: [
@@ -46,6 +42,12 @@ const routers = [
                 name: 'notice',
                 component: notice,
             },
+            {
+                path: 'studentList',
+                name: 'studentList',
+                component: studentList,
+            },
+            ,
             {
                 path: 'commont',
                 name: 'commont',

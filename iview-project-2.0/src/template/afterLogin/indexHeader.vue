@@ -1,21 +1,13 @@
 <template>
     <header>
         <div class="container">
-            <h1>高等数学B</h1>
-            <img src="/src/images/二维码.png" alt="" style="border-radius: 0px;margin-left:20px;" @click="modal1 = true">
-    <Modal
-        v-model="modal1"
-        title="二维码"
-        @on-ok="ok"
-        @on-cancel="cancel">
-        <img src="/src/images/二维码.png" alt="" style="margin-left:100px;">
-    </Modal>
+            <h1>作业来了</h1>
             <nav>
                 <img src="/src/images/教师头像.png"></img>
                 <h1 style="margin-right:20px;">Welcome,张老师</h1>
                 
                 <Dropdown trigger="click" placement="bottom-end">
-                    <Tooltip content="账户设置" placement="bottom-end" :disabled="disabled">
+                    <Tooltip content="账户设置" placement="bottom-end" :disabled="true">
                         <a @click="disabled = true">
                             <Icon type="navicon-round"></Icon>
                         </a>
@@ -40,20 +32,9 @@
 export default {
   data() {
     return {
-      disabled: false,
-      modal1: false
     };
   },
   methods: {
-    handleLogout() {
-      this.$store.commit("logout"), this.$router.push({ name: "signIn" });
-    },
-    ok() {
-      this.$Message.info("Clicked ok");
-    },
-    cancel() {
-      this.$Message.info("Clicked cancel");
-    }
   }
 };
 </script>

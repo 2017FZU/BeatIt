@@ -5,17 +5,16 @@
             <div class="layout-content">
                 <Row>
                     <Col span="5">
-                        <Menu width="200px" :open-names="['1','2','3']">
+                        <Menu width="200px">
                             <Submenu name="1">
                                 <template slot="title">
                                     <Icon type="ios-paper"></Icon>
-                                    <a @click="$router.push({name:'assignment'})">课程作业</a>
+                                    <p @click="jump">课程作业</p>
                                 </template>
-                                
                             </Submenu>
                             <Submenu name="2">
                                 <template slot="title">
-                                    <Icon type="ios-people"></Icon>
+                                    <Icon type="ios-people"></Icon> 
                                     <a @click="$router.push({name:'correct'})">作业批改</a>
                                 </template>
                               
@@ -23,8 +22,8 @@
                             <Submenu name="3">
                                 <template slot="title">
                                     <Icon type="ios-pricetag-outline"></Icon>
-                                    <a @click="$router.push({name:'commont'})">学生总评</a>
-                                </template>
+                                    <a @click="$router.push({name:'studentList'})">学生总评</a>
+                                </template> 
                                 
                             </Submenu>
                             <Submenu name="4">
@@ -56,17 +55,22 @@
             </div>
         </div>
         </div>
-</template>
+</template> 
 
 <script>
 export default {
   data() {
     return {
-      
     };
   },
   components: {
-    myHead: require("./header")
+    myHead: require("./courseHeader")
+  },
+  methods: {
+      jump() {
+          alert("fff");
+          this.$router.push({name:'assignment'});
+      }
   }
 };
 </script>

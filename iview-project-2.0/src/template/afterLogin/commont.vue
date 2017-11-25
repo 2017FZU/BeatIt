@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <img src="/src/images/搜索图标.png" alt="" style="float:left;margin-top:4px;margin-left:400px;margin-right:8px;">
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
-	<Form-item prop="search">
-		<Input v-model="formValidate.search" placeholder="输入姓名或学号" class="search" @on-enter="handleSubmit('formValidate')"></Input>
-	</Form-item>
 </Form>
 <div style="margin-left:140px;">
   <img class="pic" src="/src/images/作业总评.png" alt=""><h1>作业总评</h1>
@@ -33,33 +29,26 @@ export default {
       columns1: [
         {
           title: "学号",
-          key: "id"
+          key: "sno"
         },
         {
           title: "姓名",
-          key: "name"
+          key: "sname"
         },
         {
           title: "完成情况",
-          key: "all"
+          key: "scoreShow"
         },
         {
           title: "得星数",
-          key: "star"
+          key: "allStar"
         },
         {
           title: "优秀作业",
-          key: "nice"
+          key: "count"
         }
       ],
       data1: [
-        {
-          id: "031502666",
-          name: "John Brown",
-          all: "20/20",
-          star: "80/100",
-          nice: "5/20"
-        }
       ],
       columns2: [
         {
@@ -123,6 +112,25 @@ export default {
         }
       ]
     };
+  },
+  // sno: "031502666",
+  //         sname: "John Brown",
+  //         count: "20/20",
+  //         scoreShow: "80/100",
+  //         allStar: "5/20"
+  mounted () {
+    if (module.hot) {
+      module.hot.accept();
+    }
+    var that = this;
+    that.data1 = [];
+    var tmp= {sno: 0, sname: "",count: 0,scoreShow: "",allStar : 0};
+    tmp.sno = this.$route.query.sno;
+    tmp.sname = this.$route.query.sname;
+    tmp.count = this.$route.query.count;
+    tmp.scoreShow = this.$route.query.scoreShow;
+    tmp.allStar = this.$route.query.allStar;
+    that.data1.push(tmp);
   },
   methods: {
     handleSubmit(name) {
