@@ -28,6 +28,7 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
 //    var courseList = ArrayList<Course>()
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
+    var cid = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,6 +144,31 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
                 }, this::onError)
     }
 
+    override fun getCourseInfo(cid: Int) {
+        this.cid = cid
+        CourseService.getCourseInfo(cid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    view()!!.setDialogCourseAdd(it)
+                }
+    }
+
+    override fun onCourseAdd(courseName: String, teacherName: String) {
+        CourseService.addIntoClass(cid, 1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if (it.status == 1) {
+                        itemPool.add(CourseItem.VO(cid, courseName, CourseBrief(cid, courseName, teacherName)))
+                        itemPool.notifyItemInserted(itemPool.size)
+                        toast("加入成功")
+                    }
+                    else {
+                        toast("当前课程已存在")
+                    }
+                }
+    }
 
     override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         viewBehavior.onNext(view)

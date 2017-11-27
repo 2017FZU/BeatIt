@@ -75,8 +75,9 @@ class CourseDetailPresenter : BasePresenter<Contract.View>(), Contract.Presenter
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
                     val homework = (event.data as HomeworkItem.VO).DO as Homework
-                    view()!!.setHomeworkDetail(homework)
-                    view()!!.gotoHomework()
+//                    view()!!.setHomeworkDetail(homework)
+//                    view()!!.gotoHomework()
+                    gotoHomework(context, homework)
                 }
             }
         }
@@ -104,6 +105,9 @@ class CourseDetailPresenter : BasePresenter<Contract.View>(), Contract.Presenter
                     itemPool.clear()
                     itemPool.addAll(voList)
                     view.setAdapter(itemPool.adapter)
+
+                    if (itemPool.size == 0)
+                        view.setNullHint()
                 }, this::onError)
     }
 

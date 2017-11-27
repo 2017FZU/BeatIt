@@ -6,6 +6,9 @@ import com.example.homework.data.DataLayer
 import com.example.homework.data.api.CourseApi
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 import kotlin.collections.ArrayList
 
@@ -114,6 +117,16 @@ object CourseService {
                         Observable.just(ArrayList())
                     }
 
+    fun getSubmitEndMessage(sid: Int, wid: Int): Observable<SubmissionList> =
+            CourseApi.IMPL.getHomeworkSubmissionList(sid, wid)
+                    .subscribeOn(Schedulers.io())
+                    .map {
+                        it.data
+                    }
+                    .onErrorResumeNext { err: Throwable ->
+                        Observable.just(SubmissionList(-1, "failed", ArrayList()))
+                    }
+
     fun getExcellentList(wid: Int): Observable<ArrayList<ExcellentSingle>> =
             CourseApi.IMPL.getExcellentList(wid)
                     .subscribeOn(Schedulers.io())
@@ -125,14 +138,27 @@ object CourseService {
                         Observable.just(ArrayList())
                     }
 
-    fun uploadHomework(wid: Int, sid: Int, file: File): Observable<Status> =
-            CourseApi.IMPL.uploadHomework(wid, sid, file)
-                    .subscribeOn(Schedulers.io())
-                    .map {
-                        println("========= deleteHomeworkImg ========= ${DataLayer.GSON!!.toJson(it)}")
-                        it.data
-                    }
-                    .onErrorResumeNext { err: Throwable ->
-                        Observable.just(Status(-1))
-                    }
+    fun uploadHomework(wid: Int, sid: Int, fileList: List<File>): Observable<Status> {
+
+
+        val multipartBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+        fileList.forEach {
+            if (it.exists()) {
+                val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),it)
+                multipartBody.addFormDataPart("file", it.name, requestBody)
+            }
+        }
+//        val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+//        val multipartBody = MultipartBody.Part.createFormData("file", file.name, requestBody)
+
+        return CourseApi.IMPL.uploadHomework(wid, sid, multipartBody.build())
+                .subscribeOn(Schedulers.io())
+                .map {
+                    println("========= uploadHomework ========= ${DataLayer.GSON!!.toJson(it)}")
+                    it.data
+                }
+                .onErrorResumeNext { err: Throwable ->
+                    Observable.just(Status(-1))
+                }
+    }
 }

@@ -10,7 +10,7 @@ import paperparcel.PaperParcel
 @PaperParcel
 data class SubmissionList(
         val score: Int,
-        val comment: String,
+        val comment: String = "",
         val workimg: ArrayList<Submission>
 ) : Parcelable {
 

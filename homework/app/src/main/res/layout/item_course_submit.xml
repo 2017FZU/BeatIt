@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_course_submit"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,13 +17,13 @@
         android:paddingRight="17dp"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/text_item_excellent_name"
-            android:layout_width="45dp"
-            android:layout_height="60dp"
+            android:id="@+id/img_item_submit_show"
+            android:layout_width="57dp"
+            android:layout_height="68dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="17dp"
-            android:gravity="center"
-            android:text="姓名"/>
+            android:scaleType="centerCrop"
+            android:gravity="center"/>
         <TextView
             android:id="@+id/text_item_submit_name"
             android:layout_width="0dp"
