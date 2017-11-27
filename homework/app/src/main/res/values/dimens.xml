@@ -1,0 +1,16 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="hw_elevation_1">1dp</dimen>
+    <dimen name="hw_elevation_2">2dp</dimen>
+    <dimen name="hw_elevation_3">3dp</dimen>
+    <dimen name="hw_elevation_4">4dp</dimen>
+    <dimen name="hw_elevation_5">5dp</dimen>
+
+    <dimen name="hw_img_length_normal">20dp</dimen>
+    <dimen name="hw_img_length_normal_adjust">23dp</dimen>
+    <dimen name="hw_img_length_bottom_bar">25dp</dimen>
+    <dimen name="hw_img_length_red_point">5dp</dimen>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/hw_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/hw_black">
+            <ImageView
+                android:id="@+id/btn_course_search"
+                android:layout_width="@dimen/hw_img_length_normal_adjust"
+                android:layout_height="@dimen/hw_img_length_normal_adjust"
+                android:layout_marginLeft="19dp"
+                android:layout_gravity="center_vertical|left"
+                android:src="@drawable/icon_lesson_search_lesson"/>
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:text="课程列表"/>
+
+            <ImageView
+                android:id="@+id/btn_course_add"
+                android:layout_width="@dimen/hw_img_length_normal"
+                android:layout_height="@dimen/hw_img_length_normal"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_vertical|right"
+                android:src="@drawable/icon_lesson_scan"/>
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_course"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </android.support.v7.widget.RecyclerView>
+        <include
+            layout="@layout/bar_bottom" />
+    </LinearLayout>
+
+
+    <include
+        layout="@layout/dialog_course_add"
+        android:id="@+id/activity_course_add"
+        android:visibility="gone"/>
+
+
+
+</FrameLayout>

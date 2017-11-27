@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.homework">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <application
+        android:name=".App"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/HomeworkTheme">
+
+        <activity
+            android:name=".example.main.MainActivity"
+
+            android:label="@string/app_name">
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+
+        </activity>
+
+        <activity
+            android:name=".example.page2.Page2Activity"/>
+
+        <activity
+            android:name=".screen.course.main.CourseActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".screen.course.notice.NoticeActivity"/>
+        <activity android:name=".screen.course.detail.CourseDetailActivity"/>
+        <activity android:name=".screen.course.excellent.ExcellentActivity"/>
+        <activity android:name=".screen.course.zxing.ZxingScannerActivity"/>
+        <activity android:name=".screen.course.submit.SubmitActivity"/>
+        <activity android:name=".screen.course.homework.HomeworkActivity"/>
+
+
+        <activity android:name=".screen.file.main.FileActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.file.myfile.MyFileActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.file.myfile.systemfile.SystemFileActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.file.teachersfile.TeachersFileActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.personal.main.PersonalActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.personal.aboutus.AboutUsActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.personal.feedbk.FeedBKActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".screen.personal.personalsetting.PersonalSettingActivity"
+            android:launchMode="singleTask"/>
+
+
+    </application>
+
+</manifest>

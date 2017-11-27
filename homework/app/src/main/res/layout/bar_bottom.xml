@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bar_bottom_navigation"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/hw_black"
+    android:layout_gravity="bottom"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/tab_course"
+            android:layout_width="@dimen/hw_img_length_bottom_bar"
+            android:layout_height="@dimen/hw_img_length_bottom_bar"
+            android:layout_marginRight="89dp"
+            android:src="@drawable/icon_bottom_lesson"/>
+        <ImageView
+            android:id="@+id/tab_data"
+            android:layout_width="@dimen/hw_img_length_bottom_bar"
+            android:layout_height="@dimen/hw_img_length_bottom_bar"
+            android:layout_marginRight="89dp"
+            android:src="@drawable/icon_bottom_file"/>
+        <ImageView
+            android:id="@+id/tab_me"
+            android:layout_width="@dimen/hw_img_length_bottom_bar"
+            android:layout_height="@dimen/hw_img_length_bottom_bar"
+            android:src="@drawable/icon_bottom_person"/>
+    </LinearLayout>
+</LinearLayout>
