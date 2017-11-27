@@ -22,6 +22,7 @@ class SystemFileActivity: BaseActivity(), Contract.View {
         setContentView(R.layout.activity_myfile_systemfile)
 
         recyclerview_myfile_systemfile.layoutManager = LinearLayoutManager(this)
+        setTitle()
         setActionBar()
     }
 
@@ -37,6 +38,12 @@ class SystemFileActivity: BaseActivity(), Contract.View {
             //this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish()
         }
+    }
+
+    fun setTitle() {
+        val intent = intent
+        val name = intent.getStringExtra("name")
+        text_systemfile_foldername.text = name
     }
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {

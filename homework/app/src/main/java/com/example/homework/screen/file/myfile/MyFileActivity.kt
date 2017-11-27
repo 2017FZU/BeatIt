@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.example.homework.base.BaseActivity
 import com.example.homework.screen.file.myfile.systemfile.SystemFileActivity
 import com.example.homework.screen.file.teachersfile.TeachersFileActivity
 import kotlinx.android.synthetic.main.activity_file_myfile.*
+import java.io.File
 
 /**
  * Created by Administrator on 2017/11/7 0007.
@@ -73,9 +75,10 @@ class MyFileActivity : BaseActivity(), Contract.View {
             val intent = Intent(this, SystemFileActivity::class.java)
             val mintent = getIntent()
             val cid = mintent.getStringExtra("cid")
-            val name = mintent.getStringExtra("name")
-            intent.putExtra("cid",cid)
-            intent.putExtra("name",name)
+            val path = Environment.getExternalStorageDirectory().toString()
+            intent.putExtra("cid", cid)
+            intent.putExtra("path", path)
+            intent.putExtra("name", "手机")
             startActivity(intent)
             //finish()
         }

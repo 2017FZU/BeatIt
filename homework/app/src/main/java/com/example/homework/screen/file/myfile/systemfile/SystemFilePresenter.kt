@@ -1,5 +1,6 @@
 package com.example.homework.screen.file.myfile.systemfile
 
+import android.content.Intent
 import android.os.Bundle
 import cn.nekocode.itempool.Item
 import cn.nekocode.itempool.ItemPool
@@ -14,16 +15,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
-import android.os.Environment
 import com.example.homework.data.service.FileService
 import org.jetbrains.anko.toast
 import java.io.File
+import java.util.*
 
 
 /**
  * Created by Administrator on 2017/11/17 0017.
  */
-class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
+class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate(){
     var list = ArrayList<SystemFile>()
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
@@ -38,12 +39,13 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
     }
 
     fun initData(){
-        val path = Environment.getExternalStorageDirectory().toString()+File.separator+"MyFile"
+        val path = arguments.get("path").toString()
         val allFiles = File(path).listFiles()
         val length = allFiles.size
         for (i in 0 .. length-1) {
-            list!!.add(SystemFile(allFiles[i].name, allFiles[i].path))
+            list!!.add(SystemFile(allFiles[i].name, allFiles[i].path, allFiles[i].isDirectory))
         }
+        Collections.sort(list, compare())
     }
 
     fun setupFile() {
@@ -53,15 +55,24 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
             val file = (event.data as SystemFileItem.VO).DO as SystemFile
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    toast("开始上传")
-                    FileService.UpLoad(1,arguments.get("cid").toString().toInt(),File(file.path))
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe {
-                                if (it == 1) toast("上传成功")
-                                else if (it == 0) toast("上传失败")
-                            }
+                    if (file.isfolder == true) {
+                        val intent = Intent(context, SystemFileActivity::class.java)
+                        intent.putExtra("path", file.path)
+                        intent.putExtra("cid", arguments.get("cid").toString())
+                        intent.putExtra("name", file.path)
+                        startActivity(intent)
+                    }
+                    else {
+                        toast("开始上传")
+                        FileService.UpLoad(1,arguments.get("cid").toString().toInt(),File(file.path))
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe {
+                                    if (it == 1) toast("上传成功")
+                                    else if (it == 0) toast("上传失败")
+                                }
+                    }
                 }
             }
         }
@@ -94,5 +105,12 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         saveInstanceState(outState ?: return)
+    }
+
+    inner class compare: Comparator<SystemFile> {
+        override fun compare(o1: SystemFile?, o2: SystemFile?): Int {
+            if (o1!!.name.get(0) > o2!!.name.get(0)) return 1
+            else return -1
+        }
     }
 }
