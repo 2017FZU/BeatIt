@@ -116,7 +116,7 @@ class CourseActivity : BaseActivity(), Contract.View {
         return if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) {
             ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE_ZXING)
+                    arrayOf(Manifest.permission.CAMERA), REQUEST_CODE_ZXING)
         } else {
             gotoZxingScanner()
         }
