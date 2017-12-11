@@ -44,6 +44,11 @@
         <activity android:name=".screen.course.notice.NoticeActivity"/>
         <activity android:name=".screen.course.detail.CourseDetailActivity"/>
         <activity android:name=".screen.course.excellent.ExcellentActivity"/>
+        <activity android:name=".screen.course.zxing.ZxingScannerActivity"/>
+        <activity android:name=".screen.course.submit.SubmitActivity"/>
+        <activity android:name=".screen.course.homework.HomeworkActivity"/>
+
+
         <activity android:name=".screen.file.main.FileActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:launchMode="singleTask"/>
@@ -63,7 +68,6 @@
         <activity android:name=".screen.personal.personalsetting.PersonalSettingActivity"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".screen.course.zxing.ZxingScannerActivity"/>
 
     </application>
 

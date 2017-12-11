@@ -18,6 +18,7 @@ interface Contract {
         fun setCourseDetail(courseDetail: CourseDetail)
         fun setHomeworkDetail(homework: Homework)
         fun gotoHomework()
+        fun setNullHint()
     }
 
     interface Presenter: IPresenter {

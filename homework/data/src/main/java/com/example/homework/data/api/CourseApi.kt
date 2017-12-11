@@ -5,6 +5,7 @@ import com.example.homework.data.DO.reused.HomeworkResponse
 import com.example.homework.data.DO.reused.Status
 import com.example.homework.data.DataLayer
 import io.reactivex.Observable
+import okhttp3.MultipartBody
 import retrofit2.http.*
 import java.io.File
 
@@ -58,7 +59,7 @@ internal interface CourseApi {
     @POST("getShowList")
     fun getExcellentList(@Field("wid") wid: Int): Observable<HomeworkResponse<ExcellentShow>>
 
-    @FormUrlEncoded
+//    @Multipart
     @POST("UploadHomeWork")
-    fun uploadHomework(@Field("wid") wid: Int, @Field("sid") sid: Int, @Field("file") file: File): Observable<HomeworkResponse<Status>>
+    fun uploadHomework(@Query("wid") wid: Int, @Query("sid") sid: Int, @Body file: MultipartBody): Observable<HomeworkResponse<Status>>
 }

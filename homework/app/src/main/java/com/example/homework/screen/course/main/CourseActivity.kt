@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
+import com.example.homework.data.DO.course.CourseBrief
 import com.example.homework.screen.course.detail.CourseDetailActivity
 import com.example.homework.screen.course.zxing.ZxingScannerActivity
 import com.example.homework.screen.course.zxing.ZxingScannerActivity.Companion.INTENT_EXRA_ZXING
@@ -50,11 +51,18 @@ class CourseActivity : BaseActivity(), Contract.View {
         }
         dialog_course_add.setOnClickListener {  }
         btn_course_dialog_add_confirm.setOnClickListener {
+            presenter!!.onCourseAdd(text_dialog_course_add_course_name.text.toString(),
+                    text_dialog_course_add_teacher_name.text.toString())
             activity_course_add.visibility = View.GONE
         }
         btn_course_dialog_add_cancel.setOnClickListener {
             activity_course_add.visibility = View.GONE
         }
+    }
+
+    override fun setDialogCourseAdd(courseBrief: CourseBrief) {
+        text_dialog_course_add_course_name.text = courseBrief.cname
+        text_dialog_course_add_teacher_name.text = courseBrief.tname
     }
 
     fun setupCourseList(){
@@ -67,8 +75,8 @@ class CourseActivity : BaseActivity(), Contract.View {
         }
         btn_course_add.setOnClickListener {
 //            activity_course_add.visibility = View.VISIBLE
-//            checkCameraPermission()
-            toast("loading...")
+            checkCameraPermission()
+//            toast("loading...")
         }
     }
 
@@ -81,8 +89,8 @@ class CourseActivity : BaseActivity(), Contract.View {
         when(requestCode) {
             REQUEST_CODE_ZXING -> {
                 println("================" + data?.getStringExtra(INTENT_EXRA_ZXING))
-                toast(data!!.getStringExtra(INTENT_EXRA_ZXING))
-                gotoAddCourseDialog()
+//                toast(data!!.getStringExtra(INTENT_EXRA_ZXING))
+                gotoAddCourseDialog(data!!.getStringExtra(INTENT_EXRA_ZXING).toInt())
             }
         }
     }
@@ -114,8 +122,9 @@ class CourseActivity : BaseActivity(), Contract.View {
         }
     }
 
-    fun gotoAddCourseDialog() {
-            activity_course_add.visibility = View.VISIBLE
+    fun gotoAddCourseDialog(cid: Int) {
+        activity_course_add.visibility = View.VISIBLE
+        presenter!!.getCourseInfo(cid)
     }
 
     fun setupBottomBar(){
