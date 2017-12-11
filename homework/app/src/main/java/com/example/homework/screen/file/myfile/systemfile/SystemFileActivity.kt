@@ -15,35 +15,39 @@ import kotlinx.android.synthetic.main.activity_myfile_systemfile.*
 class SystemFileActivity: BaseActivity(), Contract.View {
 
     var presenter: Contract.Presenter? = null
-
+    var cid = -1;
+    var name = ""
+    var mtitle =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_myfile_systemfile)
 
         recyclerview_myfile_systemfile.layoutManager = LinearLayoutManager(this)
+
+        getId()
         setTitle()
         setActionBar()
+    }
+
+    fun getId() {
+        cid = intent.getIntExtra("cid", -1)
+        name = intent.getStringExtra("name")
+        mtitle = intent.getStringExtra("title")
     }
 
     fun setActionBar() {
         btn_systemfile_return.setOnClickListener{
             val intent = Intent(this, MyFileActivity::class.java)
-            val mintent = getIntent()
-            val cid = mintent.getStringExtra("cid")
-            val name = mintent.getStringExtra("name")
             intent.putExtra("cid",cid)
             intent.putExtra("name",name)
             startActivity(intent)
-            //this.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             finish()
         }
     }
 
     fun setTitle() {
-        val intent = intent
-        val name = intent.getStringExtra("name")
-        text_systemfile_foldername.text = name
+        text_systemfile_foldername.text = mtitle
     }
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {

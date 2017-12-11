@@ -11,7 +11,7 @@ import paperparcel.PaperParcel
  */
 @PaperParcel
 data class Filename(
-        @SerializedName("cid") val id: String,
+        @SerializedName("cid") val id: Int,
         val cname: String
 ) : Parcelable {
 

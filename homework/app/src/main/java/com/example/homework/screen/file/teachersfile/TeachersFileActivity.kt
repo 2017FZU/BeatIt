@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_file_teachersfile.*
 class TeachersFileActivity : BaseActivity(), Contract.View {
 
     var prestenter: Contract.Presenter? = null
+    var name = ""
+    var cid = -1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +25,8 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
 
         recyclerview_file_teachersfile_list.layoutManager = LinearLayoutManager(this)
 
+        getId()
         setActionBar()
-
         setTitle()
     }
 
@@ -36,18 +38,18 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
         recyclerview_file_teachersfile_list.adapter = adapter
     }
 
+    fun getId(){
+        name = intent.getStringExtra("name")
+        cid = intent.getIntExtra("cid", -1)
+    }
+
     fun setTitle() {
-        val intent = intent
-        val name = intent.getStringExtra("name")
         text_teachersfile_title.setText(name)
     }
 
     fun setActionBar() {
         btn_file_teachersfile_own.setOnClickListener{
             val intent = Intent(this, MyFileActivity::class.java)
-            val mintent = getIntent()
-            val cid = mintent.getStringExtra("cid")
-            val name = mintent.getStringExtra("name")
             intent.putExtra("cid",cid)
             intent.putExtra("name",name)
             startActivity(intent)
@@ -56,7 +58,7 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
         }
 
         btn_file_teachersfile_return.setOnClickListener{
-            startActivity( Intent(this,FileActivity::class.java))
+            startActivity(Intent(this,FileActivity::class.java))
         }
     }
 

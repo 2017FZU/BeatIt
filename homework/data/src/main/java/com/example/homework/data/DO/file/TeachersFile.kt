@@ -10,7 +10,7 @@ import paperparcel.PaperParcel
  */
 @PaperParcel
 data class TeachersFile(
-        @SerializedName("_id") var id: String,
+        @SerializedName("_id") var id: Int,
         @SerializedName("cfname")var filename: String,
         @SerializedName("url")var url: String
 ) :Parcelable {

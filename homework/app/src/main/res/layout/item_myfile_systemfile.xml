@@ -26,7 +26,8 @@
             android:layout_marginLeft="5dp"
             android:gravity="center_vertical"
             android:text="aaaa"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:maxLines="1"/>
 
     </LinearLayout>
 

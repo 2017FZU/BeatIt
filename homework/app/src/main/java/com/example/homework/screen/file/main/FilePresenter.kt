@@ -27,6 +27,7 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
     var list by state<ArrayList<Filename>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
+    var sid = -1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,9 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
         saveInstanceState(outState ?: return)
     }
 
+    fun getSid() {
+        sid = arguments.get("sid").toString().toInt();
+    }
 
     fun setFile() {
         itemPool.addType(FileItem::class.java)

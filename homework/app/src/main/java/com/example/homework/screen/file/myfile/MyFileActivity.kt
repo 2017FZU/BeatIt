@@ -24,6 +24,9 @@ class MyFileActivity : BaseActivity(), Contract.View {
     companion object {
         val REQUEST_CODE_STORAGE = 1001
         val PERMISSIONS_STORAGE = arrayOf("android.permission.WRITE_EXTERNAL_STORAGE")
+        var cid = -1
+        var name = ""
+        var sid = -1
     }
 
     var prestenter: Contract.Presenter? = null
@@ -34,7 +37,8 @@ class MyFileActivity : BaseActivity(), Contract.View {
 
         recyclerview_file_myfile_list.layoutManager = LinearLayoutManager(this)
 
-       checkPemission()
+        getid();
+        checkPemission()
         setActionBar()
         setTitle()
     }
@@ -45,6 +49,11 @@ class MyFileActivity : BaseActivity(), Contract.View {
 
     override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
         recyclerview_file_myfile_list.adapter = adapter
+    }
+
+    fun getid() {
+        cid = intent.getIntExtra("cid", -1);
+        name = intent.getStringExtra("name");
     }
 
     fun checkPemission() {
@@ -61,9 +70,6 @@ class MyFileActivity : BaseActivity(), Contract.View {
 
         btn_file_myfile_teacher.setOnClickListener {
             val intent = Intent(this, TeachersFileActivity::class.java)
-            val mintent = getIntent()
-            val cid = mintent.getStringExtra("cid")
-            val name = mintent.getStringExtra("name")
             intent.putExtra("cid",cid)
             intent.putExtra("name",name)
             startActivity(intent)
@@ -73,21 +79,17 @@ class MyFileActivity : BaseActivity(), Contract.View {
 
         btn_myfile_tosystemfile.setOnClickListener {
             val intent = Intent(this, SystemFileActivity::class.java)
-            val mintent = getIntent()
-            val cid = mintent.getStringExtra("cid")
             val path = Environment.getExternalStorageDirectory().toString()
             intent.putExtra("cid", cid)
             intent.putExtra("path", path)
-            intent.putExtra("name", "手机")
+            intent.putExtra("name", name)
+            intent.putExtra("title", "手机")
             startActivity(intent)
             //finish()
         }
-
     }
 
     fun setTitle() {
-        val intent = intent
-        val name = intent.getStringExtra("name")
         text_myfile_title.setText(name)
     }
 }
