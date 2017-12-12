@@ -18,10 +18,11 @@
             android:src="@drawable/icon_back"/>
 
         <TextView
+            android:id="@+id/text_systemfile_foldername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="MyFile"
+            android:layout_marginLeft="35dp"
+            android:layout_gravity="center_vertical"
             android:textColor="#ffffff" />
 
     </FrameLayout>

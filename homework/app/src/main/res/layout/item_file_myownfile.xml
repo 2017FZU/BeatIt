@@ -11,8 +11,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:background="#DDDDDD"/>
+        android:layout_marginLeft="10dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -25,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="9dp"
-            android:layout_marginTop="9dp" />
+            android:layout_marginTop="9dp"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/text_itemmyfile_isdownload"

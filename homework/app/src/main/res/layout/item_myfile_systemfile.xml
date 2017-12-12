@@ -11,8 +11,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:background="#DDDDDD"/>
+        android:layout_marginLeft="10dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -27,7 +26,8 @@
             android:layout_marginLeft="5dp"
             android:gravity="center_vertical"
             android:text="aaaa"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:maxLines="1"/>
 
     </LinearLayout>
 

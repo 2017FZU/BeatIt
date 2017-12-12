@@ -11,7 +11,7 @@ import paperparcel.PaperParcel
  */
 @PaperParcel
 data class MyFile(
-        @SerializedName("_id")   var id: String,
+        @SerializedName("_id")   var id: Int,
         @SerializedName("fname")var fname: String,
         @SerializedName("url")var url: String
 ) : Parcelable {

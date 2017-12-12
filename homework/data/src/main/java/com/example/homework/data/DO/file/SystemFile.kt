@@ -11,7 +11,8 @@ import paperparcel.PaperParcel
 @PaperParcel
 data class SystemFile(
         val name: String,
-        val path: String
+        val path: String,
+        val isfolder: Boolean
 ) : Parcelable {
 
     companion object {
