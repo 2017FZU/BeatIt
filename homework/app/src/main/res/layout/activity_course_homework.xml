@@ -116,7 +116,7 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:layout_marginTop="15dp"
-        android:text="查看讲解"
+        android:text="优秀作业"
         android:background="@drawable/background_rectangle_round_white"
         android:clipToPadding="true"
         android:elevation="@dimen/hw_elevation_1"/>
