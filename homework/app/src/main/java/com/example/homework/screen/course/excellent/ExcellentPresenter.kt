@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
  * Created by 59800 on 2017/11/9.
  */
 
-class ExcellenPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
+class ExcellentPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
 
 
     var excellentList = ArrayList<Excellent>()

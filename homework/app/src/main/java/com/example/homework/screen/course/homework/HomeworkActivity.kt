@@ -71,8 +71,8 @@ class HomeworkActivity : BaseActivity(), Contract.View {
     fun setupView() {
 
         btn_course_homework_explain.setOnClickListener {
-            toast("loading...")
-//            startActivity(Intent(this, ExcellentActivity::class.java))
+//            toast("loading...")
+            startActivity(Intent(this, ExcellentActivity::class.java))
         }
         btn_course_homework_submit.setOnClickListener {
             gotoSubmit(1, wid)

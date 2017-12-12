@@ -38,7 +38,7 @@ class ExcellentActivity : BaseActivity(), Contract.View {
     }
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {
-        presenter = presenterFactory.createOrGet(ExcellenPresenter::class.java)
+        presenter = presenterFactory.createOrGet(ExcellentPresenter::class.java)
     }
 
 }
