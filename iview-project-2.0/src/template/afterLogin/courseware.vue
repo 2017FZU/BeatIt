@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="publish">
-      <!-- <Button type="ghost" id="upload" icon="ios-cloud-upload-outline" @click="uploadModal=true">上传</Button>   -->
+      <Button type="ghost" id="upload" icon="ios-cloud-upload-outline" @click="uploadModal=true">上传</Button>  
        <!-- <Upload multiple action="http://111.231.190.23/web/UploadCourseFile" data="{tid:1,cid:1}">
         <Button name="file" id="upload" type="ghost" icon="ios-cloud-upload-outline">上传</Button>
       </Upload>        -->
-      <!-- <Modal v-model="uploadModal" title="上传资料" ok-text="" cancel-text="">
+      <Modal v-model="uploadModal" title="上传资料" ok-text="" cancel-text="">
         <form method="post" action="http://111.231.190.23/web/UploadCourseFile" enctype="multipart/form-data">
           <div class="fileList"></div>
           <input type="hidden" name="cid" value="1">
@@ -15,10 +15,10 @@
             <input type="submit" value="提交" >
           </div>
         </form>  
-      </Modal>   -->
-        <Upload action="http://111.231.190.23/web/UploadCourseFile">
+      </Modal>  
+        <!-- <Upload action="http://111.231.190.23/web/UploadCourseFile">
         <Button type="ghost" icon="ios-cloud-upload-outline">Upload files</Button>
-    </Upload>
+    </Upload> -->
     </div>
     <div class="container-main">
       <div class="row">
