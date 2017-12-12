@@ -16,6 +16,13 @@ Vue.use(VueRouter);
 Vue.use(iView);
 //Vue.use(VueResource);
 
+//请求配置
+axios.defaults.timeout = 5000;
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+axios.defaults.baseURL = 'http://111.231.190.23';// 服务器IP地址
+
+
+
 // 路由配置
 const RouterConfig = {
     mode: 'history',
@@ -28,6 +35,46 @@ router.beforeEach((to, from, next) => {
     Util.title(to.meta.title);
     next();
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
+        if (!localStorage.currenUser_token) {
+            store.commit('setToken', localStorage.getItem('currentUser_token'));
+        }   
+        if (store.state.token) {  // 通过vuex state获取当前的token是否存在
+            next();
+        }
+        else {
+            next({
+                path: '',
+                query: { redirect: to.fullPath }  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+            });
+        }
+    }
+    else {
+        next();
+    }
+});
+
+// http response 拦截器
+axios.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        if (error.response) {
+            switch (error.response.status) {
+                case 401:
+                    // 返回 401 清除token信息并跳转到登录页面
+                    store.commit('logout');
+                    router.replace({
+                        path: '/',
+                        query: { redirect: router.currentRoute.fullPath }
+                    });
+            }
+        }
+        return Promise.reject(error.response.data);   // 返回接口返回的错误信息
+    });
 
 router.afterEach((to, from, next) => {
     iView.LoadingBar.finish();
