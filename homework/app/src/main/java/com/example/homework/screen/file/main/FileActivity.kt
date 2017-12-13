@@ -2,20 +2,14 @@ package com.example.homework.screen.file.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
-import com.example.homework.data.service.FileService
 import com.example.homework.screen.course.main.CourseActivity
 import com.example.homework.screen.personal.main.PersonalActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_file.*
 import kotlinx.android.synthetic.main.bar_bottom.*
-import okhttp3.ResponseBody
-import java.io.*
 
 /**
  * Created by Administrator on 2017/11/6 0006.
@@ -24,6 +18,7 @@ import java.io.*
 class FileActivity : BaseActivity(), Contract.View {
 
     var prestenter: Contract.Presenter? = null
+    var sid = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +26,7 @@ class FileActivity : BaseActivity(), Contract.View {
 
         recyclerview_file_list.layoutManager = LinearLayoutManager(this)
 
+        getId()
         setupBottomBar()
     }
 
@@ -40,6 +36,10 @@ class FileActivity : BaseActivity(), Contract.View {
 
     override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
         recyclerview_file_list.adapter = adapter
+    }
+
+    fun getId() {
+        sid = intent.getIntExtra("sid", 1)
     }
 
     fun setupBottomBar(){
@@ -55,7 +55,9 @@ class FileActivity : BaseActivity(), Contract.View {
         }
 
         tab_me.setOnClickListener {
-            startActivity(Intent(this, PersonalActivity::class.java))
+            val intent = Intent(this, PersonalActivity::class.java)
+            intent.putExtra("sid", sid)
+            startActivity(intent)
             finish()
         }
     }
