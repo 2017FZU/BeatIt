@@ -35,6 +35,7 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
     var wid = -1
     var status = -1
+    var score = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +63,7 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
 
                 }
                 SubmissionItem.ITEM_LONG_CLICK -> {
-                    if (status != 0) {
+                    if (score == 0) {
                         val position = event.data as Int
                         val vo = itemPool[position] as SubmissionItem.VO
                         view()!!.gotoDelete(position, vo)
@@ -75,14 +76,17 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     fun loadSubmission() {
         wid = arguments.getInt("wid")
         status = arguments.getInt("status")
-        if (status == 0) {
+//        if (status == 0) {
             CourseService.getSubmitEndMessage(1, wid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
-                        view()!!.setSubmitEnd(it.score, it.comment?:"无")
+                        if (it.score != 0) {
+                            score = it.score
+                            view()!!.setSubmitEnd(it.score, it.comment?:"无")
+                        }
                     }
-        }
+//        }
         if (submitList == null) {
             CourseService.getHomeworkSubmissionList(1, wid)
         } else {
@@ -136,17 +140,21 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
                     it as SubmissionItem.VO
                     File(it.url)
                 }
-        CourseService.uploadHomework(wid, 1, fileList)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (it.status == 1) {
-                        toast("上传成功")
-                        activity.finish()
-                    } else {
-                        toast("上传失败")
+        if (fileList.isEmpty()) {
+            toast("当前无可提交作业")
+        } else {
+            CourseService.uploadHomework(wid, 1, fileList)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (it.status == 1) {
+                            toast("上传成功")
+                            activity.finish()
+                        } else {
+                            toast("上传失败")
+                        }
                     }
-                }
+        }
     }
 
     override fun addPicture(fileName: String, filePath: String) {

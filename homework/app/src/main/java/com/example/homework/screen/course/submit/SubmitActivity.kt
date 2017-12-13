@@ -70,8 +70,14 @@ class SubmitActivity : BaseActivity(), Contract.View {
     }
 
     override fun setSubmitEnd(score: Int, comment: String) {
+        if (score != 0) {
+            views_course_submit.visibility = View.GONE
+            views_course_submit_end.visibility = View.VISIBLE
+        }
         when(score) {
-            0 -> img_course_submit_end_grade.setImageResource(R.drawable.icon_hw_show_0star)
+            0 -> {
+                img_course_submit_end_grade.setImageResource(R.drawable.icon_hw_show_0star)
+            }
             1 -> img_course_submit_end_grade.setImageResource(R.drawable.icon_hw_show_1star)
             2 -> img_course_submit_end_grade.setImageResource(R.drawable.icon_hw_show_2star)
             3 -> img_course_submit_end_grade.setImageResource(R.drawable.icon_hw_show_3star)
@@ -167,10 +173,10 @@ class SubmitActivity : BaseActivity(), Contract.View {
     fun setupView() {
         status = intent.getIntExtra("status", -1)
 
-        if (status == 0) {
-            views_course_submit.visibility = View.GONE
-            views_course_submit_end.visibility = View.VISIBLE
-        }
+//        if (status == 0) {
+//            views_course_submit.visibility = View.GONE
+//            views_course_submit_end.visibility = View.VISIBLE
+//        }
 
         btn_course_submit_add.setOnClickListener {
             openAlbum()
