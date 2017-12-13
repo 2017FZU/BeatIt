@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
@@ -18,6 +20,7 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
     var prestenter: Contract.Presenter? = null
     var name = ""
     var cid = -1;
+    var sid = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,7 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
     }
 
     fun getId(){
+        sid = intent.getIntExtra("sid", 1)
         name = intent.getStringExtra("name")
         cid = intent.getIntExtra("cid", -1)
     }
@@ -50,6 +54,7 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
     fun setActionBar() {
         btn_file_teachersfile_own.setOnClickListener{
             val intent = Intent(this, MyFileActivity::class.java)
+            intent.putExtra("sid", sid)
             intent.putExtra("cid",cid)
             intent.putExtra("name",name)
             startActivity(intent)
@@ -58,8 +63,22 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
         }
 
         btn_file_teachersfile_return.setOnClickListener{
-            startActivity(Intent(this,FileActivity::class.java))
+            finish()
         }
+
+        edt_file_teachersfile_search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(cs: CharSequence, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(cs: CharSequence, start: Int, before: Int, count: Int) {
+                prestenter?.search(cs.toString())
+            }
+
+            override fun afterTextChanged(cs: Editable) {
+
+            }
+        })
     }
 
 }

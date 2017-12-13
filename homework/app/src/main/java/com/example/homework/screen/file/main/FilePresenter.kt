@@ -27,7 +27,7 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
     var list by state<ArrayList<Filename>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
-    var sid = -1;
+    var sid = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +61,7 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
                     val intent = Intent(context, MyFileActivity::class.java)
+                    intent.putExtra("sid", sid)
                     intent.putExtra("cid",filename.id)
                     intent.putExtra("name",filename.cname)
                     startActivity(intent)
@@ -72,7 +73,7 @@ class FilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
     fun loadFile() {
         if (list == null) {
 //            toast("null")
-            FileService.getClassList(1)
+            FileService.getClassList(sid)
         } else {
             Observable.just(list)
         }

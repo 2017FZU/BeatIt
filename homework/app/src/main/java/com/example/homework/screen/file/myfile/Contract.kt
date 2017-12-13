@@ -15,7 +15,7 @@ interface Contract {
     }
 
     interface Presenter: IPresenter {
-
+        fun search(str: String)
     }
 
 }

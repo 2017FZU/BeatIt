@@ -121,6 +121,7 @@ v
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/btn_personal_quit"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="169dp"

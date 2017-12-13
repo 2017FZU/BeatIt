@@ -35,10 +35,10 @@
         <activity
             android:name=".screen.course.main.CourseActivity">
 
-            <intent-filter>
-                 <action android:name="android.intent.action.MAIN"/>
-                 <category android:name="android.intent.category.LAUNCHER"/>
-             </intent-filter>
+            <!--<intent-filter> -->
+             <!--    <action android:name="android.intent.action.MAIN"/>-->
+             <!--    <category android:name="android.intent.category.LAUNCHER"/>-->
+            <!-- </intent-filter>-->
         </activity>
 
         <activity android:name=".screen.course.notice.NoticeActivity"/>
@@ -49,8 +49,8 @@
         <activity android:name=".screen.course.homework.HomeworkActivity"/>
         <activity android:name=".screen.course.ZoomImageView">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
 
@@ -73,14 +73,16 @@
              android:launchMode="singleTask"/>
          <activity android:name=".screen.personal.personalsetting.PersonalSettingActivity"
              android:launchMode="singleTask"/>
-         <activity android:name=".screen.register_and_login.login.LoginActivity">
-             <!--<intent-filter>-->
-                 <!--<action android:name="android.intent.action.MAIN"/>-->
-                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-             <!--</intent-filter>-->
+         <activity android:name=".screen.register_and_login.login.LoginActivity"
+             android:launchMode="singleTask">
+             <intent-filter>-->
+                 <action android:name="android.intent.action.MAIN"/>-->
+                 <category android:name="android.intent.category.LAUNCHER"/>-->
+             </intent-filter>-->
          </activity>
 
-         <activity android:name=".screen.register_and_login.register.RegisterActivity"></activity>
+         <activity android:name=".screen.register_and_login.register.RegisterActivity"
+             android:launchMode="singleTask"></activity>
 
      </application>
 
