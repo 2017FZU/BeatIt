@@ -19,7 +19,7 @@ class ExcellentItem : Item<ExcellentItem.VO>() {
     override fun onBindData(vo: ExcellentItem.VO) {
         with (viewHolder.itemView) {
             text_item_excellent_name.text = vo.name
-            text_item_excellent_comment.text = vo.comment
+//            text_item_excellent_comment.text = vo.comment
 //            text_item_excellent_grade.src=
         }
     }
