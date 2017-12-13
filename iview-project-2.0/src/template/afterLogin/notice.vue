@@ -4,20 +4,22 @@
       <Button type="primary" icon="paper-airplane" @click="modal1 = true">发布通知</Button>
       <Modal v-model="modal1" title="发布通知" @on-ok="ok" @on-cancel="cancel">
         <p style="margin-top:4px;margin-bottom:4px;font-size:14px;">通知内容</p>
-        <textarea name="" id="" cols="66" rows="6" style="font-size:14px;"></textarea>
+        <textarea v-model="noticeContent" name="" id="" cols="66" rows="6" style="font-size:14px;"></textarea>
       </Modal>
     </div>
     <div style="margin-left:220px;">
-      <Table height:200 border :columns="columns1" :data="data1" style="width:800px;"></Table>
+      <Table height:200 border :columns="columns1" :data="noticeList" style="width:800px;"></Table>
     </div>
 
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
+      noticeContent: " ",
       modal1: false,
       columns1: [
         {
@@ -31,7 +33,6 @@ export default {
           render: (h, params) => {
             return h("div", [h("strong", params.row.content)]);
           }
-
         },
         {
           title: "操作",
@@ -40,24 +41,6 @@ export default {
           align: "center",
           render: (h, params) => {
             return h("div", [
-              h(
-                "Button",
-                {
-                  props: {
-                    type: "primary",
-                    size: "small"
-                  },
-                  style: {
-                    marginRight: "5px"
-                  },
-                  on: {
-                    click: () => {
-                      this.show(params.index);
-                    }
-                  }
-                },
-                "修改"
-              ),
               h(
                 "Button",
                 {
@@ -77,32 +60,54 @@ export default {
           }
         }
       ],
-      data1: [
-        {
-          time: 20171002,
-          content: "明晚七点东三100补课"
-        },
-        {
-          time: 20171002,
-          content: "明晚七点东三100补课"
-        },
-        {
-          time: 20171002,
-          content: "明晚七点东三100补课"
-        },
-        {
-          time: 20171002,
-          content: "明晚七点东三100补课"
-        }
-      ]
+      noticeList: []
     };
+  },
+  mounted() {
+    const that = this;
+    axios
+      .post("http://111.231.190.23/web/getNoticeList?cid="+that.$store.getters.getCid)
+      .then(function(res) {
+        that.noticeList = res.data.data.noticeList;
+      });
   },
   methods: {
     ok() {
-      this.$Message.info("作业发布成功");
+      const that = this;
+      axios
+        .post(
+          'http://111.231.190.23/web/addNotice?cid='+that.$store.getters.getCid+'&title="oj8k"&content="' +
+            this.noticeContent +
+            '"'
+        )
+        .then(function(res) {
+          console.log(res);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+      this.$Message.success("通知发布成功!");
+      location.reload();
     },
     cancel() {
       this.$Message.info("取消发布");
+    },
+    remove(index) {
+      const that = this;
+      axios
+        .post(
+          "http://111.231.190.23/web/UpdateNotice?nid=" +
+            this.noticeList[index].nid +
+            "&tid=1&op=0"
+        )
+        .then(function(res) {
+          console.log(res);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+      this.$Message.success("通知删除成功!");
+      location.reload();
     }
   }
 };

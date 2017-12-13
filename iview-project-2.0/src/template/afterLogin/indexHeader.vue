@@ -3,11 +3,11 @@
         <div class="container">
             <h1>作业来了</h1>
             <nav>
-                <img src="../../images/教师头像.png"></img>
+                <img src="/src/images/教师头像.png"></img>
                 <h1 style="margin-right:20px;">Welcome,张老师</h1>
                 
                 <Dropdown trigger="click" placement="bottom-end">
-                    <Tooltip content="账户设置" placement="bottom-end" :disabled="disabled">
+                    <Tooltip content="账户设置" placement="bottom-end" :disabled="true">
                         <a @click="disabled = true">
                             <Icon type="navicon-round"></Icon>
                         </a>
@@ -32,13 +32,9 @@
 export default {
   data() {
     return {
-      disabled: false
     };
   },
   methods: {
-    handleLogout() {
-      this.$store.commit("logout"), this.$router.push({ name: "signIn" });
-    }
   }
 };
 </script>

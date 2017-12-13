@@ -1,65 +1,82 @@
 <template>
   <div class="container">
-    <div class="select_work">
-      <img src="/src/images/作业图标.png" alt="">
-      <Select v-model="model1" style="width:200px;margin-left:20px;margin-top:-20px;">
+        <div class="select_work">
+            <img src="/src/images/作业图标.png" alt="">
+            <Select @on-change="change" v-model="model1"  style="width:200px;margin-left:6px;margin-top:-20px;">
         <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-      </Select>
-    </div>
-    <div style="margin-top:10px;">
-      <h1>作业标题</h1> <input type="text" name="" id="" style="font-size:14px;margin-left:20px;margin-top:8px;width:48%;height:28px;">
-    </div>
-    <div>
-      <h1>作业详情</h1>
-      <textarea name="textarea1" id="1" cols="67" rows="10" style="font-size:14px;margin-left:20px;margin-top:10px;"></textarea>
-    </div>
-    <div>
-      <h1>作业解答</h1>
-      <Upload action="//jsonplaceholder.typicode.com/posts/">
-        <Button type="ghost" icon="ios-cloud-upload-outline" style="float:left;margin-left:20px;">Upload files</Button>
+    </Select>
+        </div>
+        <div style="margin-top:10px;">
+            <h1>作业标题:</h1>
+            <h1>{{cityList[model1].label}}</h1>
+        </div>
+        <br>
+        <br>
+        <div>
+            <h1>作业详情:</h1>
+            <h1>{{cityList[model1].content}}</h1>
+            </div>
+            <br>
+        <br>
+            <div>
+            <h1>作业解答:</h1>
+
+    <Upload multiple action="http://111.231.190.23/web/upExplainFile" data="{wid:this.cityList[model1].wid}">
+        <Button name="file" type="ghost" icon="ios-cloud-upload-outline"  style="float:left;margin-left:8px;">上传</Button>
       </Upload>
-      <textarea name="textarea1" id="1" cols="67" rows="10" style="font-size:14px;margin-left:100px;"></textarea>
-      <div style="margin-left:290px;">
-        <Button type="success" icon="checkmark-round">
-          <span>完成解答</span>
-        </Button>
-      </div>
-    </div>
+            <div style="margin-top:200px;margin-left:100px;">
+            <Button @click="ok" type="success"  icon="checkmark-round">
+        <span >完成解答</span>
+    </Button>   
+    </div>         
+            </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      cityList: [
-        {
-          value: "第一章习题一",
-          label: "第一章习题一"
-        },
-        {
-          value: "第一章习题二",
-          label: "第一章习题二"
-        },
-        {
-          value: "第一章习题三",
-          label: "第一章习题三"
-        },
-        {
-          value: "第二章习题一",
-          label: "第二章习题一"
-        },
-        {
-          value: "第二章习题二",
-          label: "第二章习题二"
-        },
-        {
-          value: "第二章习题三",
-          label: "第二章习题三"
-        }
-      ],
-      model1: ""
+      cityList: [],
+      test: [],
+      model1: 0
     };
+  },
+  methods: {
+    change: function(res) {
+      this.inx = res;
+      this.model1 = res;
+    },
+    ok() {
+      this.$Message.info("解答成功");
+    }
+  },
+  mounted() {
+    if (module.hot) {
+      module.hot.accept();
+    }
+    const that = this;
+    var passIndex = this.$route.query.index;
+    if (passIndex >= 0) {
+      that.model1 = passIndex;
+    }
+    axios
+      .post(
+        "http://111.231.190.23/web/getHomeWorkList?cid=" +
+          that.$store.getters.getCid
+      )
+      .then(function(res) {
+        that.test = res.data.data.homeWorkList;
+        for (var i = 0; i < that.test.length; ++i) {
+          var tmp = { value: 0, label: "", wid: 0 };
+          tmp.value = i;
+          tmp.wid = that.test[i].wid;
+          tmp.label = that.test[i].title;
+          tmp.content = that.test[i].content;
+          that.cityList.push(tmp);
+        }
+      });
   }
 };
 </script>
@@ -76,11 +93,11 @@ export default {
 }
 
 .container {
-  margin-left: 160px;
+  margin-left: 320px;
   height: 600px;
 }
 
 .select_work {
-  margin-left: 38px;
+  margin-left: 40px;
 }
 </style>

@@ -1,80 +1,57 @@
 <template>
   <div class="container">
     <div class="publish">
-      <p><img src="../../images/文件夹.png" alt="">高等数学</p>
-      <!-- <img src="../../images/上传.png" alt=""> -->
-      <Upload multiple action="">
-        <Button id="upload" type="ghost" icon="ios-cloud-upload-outline">上传</Button>
-      </Upload>
+      <Button type="ghost" id="upload" icon="ios-cloud-upload-outline" @click="uploadModal=true">上传</Button>  
+       <!-- <Upload multiple action="http://111.231.190.23/web/UploadCourseFile" data="{tid:1,cid:1}">
+        <Button name="file" id="upload" type="ghost" icon="ios-cloud-upload-outline">上传</Button>
+      </Upload>        -->
+      <Modal v-model="uploadModal" title="上传资料" ok-text="" cancel-text="">
+        <form method="post" action="http://111.231.190.23/web/UploadCourseFile" enctype="multipart/form-data">
+          <div class="fileList"></div>
+          <input type="hidden" name="cid" value="1">
+          <input type="hidden" name="tid" value="1">
+          <div class="fileButton">
+            <input type="file" multiple="multiple" name="file">
+            <input type="submit" value="提交" >
+          </div>
+        </form>  
+      </Modal>  
+        <!-- <Upload action="http://111.231.190.23/web/UploadCourseFile">
+        <Button type="ghost" icon="ios-cloud-upload-outline">Upload files</Button>
+    </Upload> -->
     </div>
     <div class="container-main">
       <div class="row">
-        <div class="data">
-          <img src="../../images/word.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/word.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/word.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/word.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/word.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/word.png" alt="">
-          <p>习题一</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="data">
-          <img src="../../images/ppt.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/ppt.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/ppt.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/ppt.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/ppt.png" alt="">
-          <p>习题一</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="data">
-          <img src="../../images/pdf.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/pdf.png" alt="">
-          <p>习题一</p>
-        </div>
-        <div class="data">
-          <img src="../../images/pdf.png" alt="">
-          <p>习题一</p>
+        <div class="data" v-for="item in classData" :key="item.cfid">
+          <a :href="item.url"><img src="../../images/word.png" alt=""></a>
+          <p>{{item.cfname}}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import axios from "axios";
 
+export default {
+  data() {
+    return {
+      classData: " ",
+      uploadModal: false
+    };
+  },
+  mounted() {
+    axios.post("http://111.231.190.23/web/getCourseList?cid=1").then(res => {
+      this.classData = res.data.data.courseList;
+      console.log(res.data.data);
+    });
+  },
+  methods: {
+    jump() {
+      this.$router.go(-1);
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -82,23 +59,13 @@
   margin-left: -100px;
   margin-top: -10px;
   padding: 0;
-  height: 600px;
+  min-height: 600px;
 }
 
-.publish>p {
-  font-family: PingFangSC-Medium;
-  font-size: 30px;
-  color: #4A4A4A;
-  display: flex;
-  align-items: center;
-  margin-left: 440px;
-}
-
-.publish>p>img {
+.publish > p > img {
   position: relative;
   margin-right: 5px;
 }
-
 .publish #upload {
   display: flex;
   align-items: center;
@@ -107,28 +74,50 @@
   left: 1000px;
   height: 42px;
   width: 110px;
-  border-radius: 15px;
+  border-radius: 20px;
   background-color: rgb(126, 211, 33);
   color: white;
   font-size: 20px;
 }
-
+.fileList {
+  min-height: 150px;
+  border: 1px solid rgb(190, 190, 190);
+}
+.fileButton {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  padding: 0 15px 0 15px;
+}
+.fileButton input:nth-child(1) {
+  width: 200px;
+  color: blue;
+}
+.fileButton input:nth-child(2) {
+  width: 50px;
+}
 .container-main {
-  padding: 15px 40px;
+  padding: 15px 150px;
 }
 
 .container-main .row {
   display: flex;
+  flex-wrap: wrap;
 }
-
+.container-main .row img {
+  display: block;
+  margin: auto;
+}
 .container-main .row .data {
-  margin: 30px 20px;
+  width: 20%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .container-main .row .data p {
   text-align: center;
   font-family: PingFangSC-Regular;
   font-size: 25px;
-  color: #4A4A4A;
+  color: #4a4a4a;
 }
 </style>

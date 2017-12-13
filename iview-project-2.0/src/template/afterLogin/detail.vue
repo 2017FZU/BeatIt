@@ -5,102 +5,89 @@
             <div class="layout-content">
                 <Row>
                     <Col span="5">
-                    <Menu width="200px" :open-names="['1','2','3']">
-                        <Submenu name="1">
-                            <template slot="title">
-                                <Icon type="ios-paper"></Icon>
-                                <a @click="$router.push({name:'assignment'})">课程作业</a>
-                            </template>
-
-                        </Submenu>
-                        <Submenu name="2">
-                            <template slot="title">
-                                <Icon type="ios-people"></Icon>
-                                <a @click="$router.push({name:'correct'})">作业批改</a>
-                            </template>
-
-                        </Submenu>
-                        <Submenu name="3">
-                            <template slot="title">
-                                <Icon type="ios-pricetag-outline"></Icon>
-                                学生总评
-                            </template>
-
-                        </Submenu>
-                        <Submenu name="4">
-                            <template slot="title">
-                                <Icon type="social-wordpress-outline"></Icon>
-                                <a @click="$router.push({name:'solution'})">作业解答</a>
-                            </template>
-                        </Submenu>
-                        <Submenu name="5">
-                            <template slot="title">
-                                <Icon type="social-wordpress-outline"></Icon>
-                                <a @click="$router.push({name:'courseware'})">课程资料</a>
-                            </template>
-                        </Submenu>
-                        <Submenu name="6">
-                            <template slot="title">
-                                <Icon type="social-wordpress-outline"></Icon>
-                                <a @click="$router.push({name:'notice'})">课程通知</a>
-                            </template>
-                        </Submenu>
-                    </Menu>
+                        <Menu width="200px" >
+                            <MenuGroup title="课程管理">
+            <MenuItem name="1">
+                <Icon type="android-notifications-none"></Icon>
+                <a @click="$router.push({name:'notice'})">课程通知</a>
+            </MenuItem>
+            <MenuItem name="2">
+                <Icon type="document"></Icon>
+               <a @click="$router.push({name:'assignment'})">课程作业</a>
+            </MenuItem>
+            <MenuItem name="3">
+                <Icon type="ios-folder-outline"></Icon>
+               <a @click="$router.push({name:'courseware'})">课程资料</a>
+            </MenuItem>
+        </MenuGroup>
+        <MenuGroup title="学生管理">
+            <MenuItem name="4">
+                <Icon type="android-open"></Icon>
+                <a @click="$router.push({name:'correct'})">作业批改</a>
+            </MenuItem>
+            <MenuItem name="5">
+                <Icon type="help"></Icon>
+               <a @click="$router.push({name:'solution'})">作业解答</a>
+            </MenuItem>
+            <MenuItem name="6">
+                <Icon type="ios-pricetag-outline"></Icon>
+               <a @click="$router.push({name:'studentList'})">学生总评</a>
+            </MenuItem>
+        </MenuGroup>
+                        </Menu>
                     </Col>
                     <Col span="19">
-                    <div class="layout-content-main">
-                        <router-view></router-view>
-                    </div>
+                        <div class="layout-content-main">
+                            <router-view></router-view>
+                        </div>
                     </Col>
                 </Row>
             </div>
         </div>
-    </div>
-</template>
+        </div>
+</template> 
 
 <script>
 export default {
-    data() {
-        return {
-
-        };
-    },
-    components: {
-        myHead: require("./header")
-    }
+  data() {
+    return {};
+  },
+  components: {
+    myHead: require("./courseHeader")
+  }
 };
 </script>
 
 <style scoped>
 .main {
-    height: 600px;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    background: #fdfdfc;
+  height: 600px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: #fdfdfc;
 }
 
 .layout {
-    border: 1px solid #d7dde4;
-    background: #f2f2f3;
-    height: 686px;
+  border: 1px solid #d7dde4;
+  background: #f2f2f3;
+  height: 686px;
 }
 
 .layout-content {
-    min-height: 200px;
-    margin: 15px;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 4px;
+  min-height: 200px;
+  margin: 15px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 4px;
 }
 
 .layout-content-main {
-    padding: 25px 0;
+  padding: 25px 0;
 }
 
 .layout-copy {
-    text-align: center;
-    padding: 10px 0 20px;
-    color: #9ea7b4;
+  text-align: center;
+  padding: 10px 0 20px;
+  color: #9ea7b4;
 }
 </style>
