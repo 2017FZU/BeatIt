@@ -60,7 +60,8 @@ class LoginActivity : BaseActivity(), Contract.View {
                 println("=========$PHONENUM")
                 println("=========$PASSWORDS")
             }
-
+            println("=========$PHONENUM")
+            println("=========$PASSWORDS")
             if (!PHONENUM.matches(REGEX_MOBILE))
                 toast("请输入正确的手机号")
 

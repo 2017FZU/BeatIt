@@ -41,11 +41,11 @@ class LoginPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikke
     }
 
     override fun returnPasswords(): String {
-       return getEditor!!.getString("PHONENUM", "")
+       return getEditor!!.getString("PASSWORDS", "")
     }
 
     override fun returnPhoneNum(): String {
-        return getEditor!!.getString("PASSWORDS", "")
+        return getEditor!!.getString("PHONENUM", "")
     }
 
     override fun saveData(PHONENUM: String, PASSWORDS: String) {
