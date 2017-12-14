@@ -8,6 +8,7 @@ import signIn from './template/befoLogin/signIn.vue'
 
 import header from './template/befoLogin/header.vue'
 
+import test from './template/afterLogin/test.vue'
 import detail from './template/afterLogin/detail.vue'
 import solution from './template/afterLogin/solution.vue'
 import courseHeader from './template/afterLogin/courseHeader.vue'
@@ -54,8 +55,9 @@ const routers = [
             }
         ]
     },
-    {
-        path: '/:userId',
+    {   
+        // path: '/:userId',
+        path: '/',
         component: detail, 
         meta: {
             requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
@@ -114,6 +116,14 @@ const routers = [
                 path: 'courseware',
                 name: 'courseware',
                 component: courseware,
+                meta: {
+                    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                },
+            },
+            {
+                path: 'test',
+                name: 'test',
+                component: test,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
                 },
