@@ -5,12 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.springmvc.MD5Util;
 import cn.springmvc.json.*;
 import cn.springmvc.model.*;
 /**
  */
 public class StudentBusiness {
-
+	
 	// 获取课堂列表
 	public static List<Classes> getClassList(String sid) {
 		List<Classes> list = new ArrayList<Classes>();
@@ -475,5 +476,68 @@ public class StudentBusiness {
 			e.printStackTrace();
 		}
 		return 1;
+	}
+
+	public static User CheckLogin(String phone, String psw) {
+		User person = new User();
+		person.setSuccess(false);
+		psw = MD5Util.getMD5(psw);
+		System.out.println("密码: "+psw);
+		String sql = null;
+		DBHelper db = null;
+		sql = "select * from student where tel = "+phone+" AND psw = '"+psw+"'";
+		db = new DBHelper(sql);
+		ResultSet res = null;
+		try {
+			res = db.pst.executeQuery();
+			while(res.next()) {
+				String stuno = res.getString("stuno");
+				String sname = res.getString("sname");
+				String img = res.getString("img");
+				String tel = res.getString("tel");
+				boolean ison = res.getBoolean("ison");
+				int sid = res.getInt("sid");
+				person.setImg(img);
+				person.setIson(ison);
+				person.setSid(sid);
+				person.setSname(sname);
+				person.setTel(tel);
+				person.setStuno(stuno);
+				person.setSuccess(true);
+			}
+			if(person.isSuccess() == false) {
+				person.setError("帐号不存在或密码错误");
+			}
+			res.close();
+			db.close();//
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return person;
+	}
+
+	public static User CheckRegister(String phone, String psw, String sname, String stuno) {
+		User person = new User();
+		
+		String sql = null;
+		DBHelper db = null;
+		sql = "insert into student (stuno, sname, psw, tel) values('"+stuno+"', '"+sname+"','"+MD5Util.getMD5(psw)+"',"+phone+")";
+		db = new DBHelper(sql);
+		int res = 0;
+		try {
+			res = db.pst.executeUpdate();
+			if(res <= 0) {
+				person.setError("网络异常，操作失败");
+				person.setSuccess(false);
+			} else {
+				person = CheckLogin(phone, psw);
+			}
+			db.close();//
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return person;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,35 +14,79 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import cn.springmvc.MySessionContext;
 import cn.springmvc.business.StudentBusiness;
 import cn.springmvc.json.*;
 import cn.springmvc.model.*;
 
 @Controller
 public class StudentServlet {
-	@RequestMapping("/getClassList") // 获取课堂列表
-	public void getClassList(HttpServletRequest request, HttpServletResponse response) {
-		
-		// 获取参数
-	    String sid = request.getParameter("sid");
-		
-	    // 处理
-	    List<Classes> ClassList =  StudentBusiness.getClassList(sid);
-	    
-	    ClassListObject data = new ClassListObject();
-	    
-	    data.setClassList(ClassList);
-	    
+	public MySessionContext myc= MySessionContext.getInstance();
+	
+	@RequestMapping("/getVcode") // 获取手机验证码
+	public void getVcode(HttpServletRequest request, HttpServletResponse response) {
+		String phone = request.getParameter("phone");
+
 	    ListObject listObject = new ListObject();
-		
-	    listObject.setData(data);
-		
+	    listObject.setData(phone);
 	    listObject.setCode(StatusCode.CODE_SUCCESS);
 		listObject.setMsg("success");
-		
-		
 		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
 	}
+	@RequestMapping("/userLogin") // 获取课堂列表
+	public void userLogin(HttpServletRequest request, HttpServletResponse response) {
+		String phone = request.getParameter("phone");
+		String psw = request.getParameter("psw");
+		User person = StudentBusiness.CheckLogin(phone, psw);
+		if(person.isSuccess() == true) {
+			HttpSession session = request.getSession();
+			person.setSession(session.getId());
+		}		
+	    ListObject listObject = new ListObject();
+	    listObject.setData(person);
+	    listObject.setCode(StatusCode.CODE_SUCCESS);
+		listObject.setMsg("success");
+		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
+	}
+	@RequestMapping("/register") // 获取课堂列表
+	public void register(HttpServletRequest request, HttpServletResponse response) {
+		String phone = request.getParameter("phone");
+		String psw = request.getParameter("psw");
+		String vcode = request.getParameter("vcode");
+		String sname = request.getParameter("sname");
+		String stuno = request.getParameter("stuno");
+
+		User person = StudentBusiness.CheckRegister(phone, psw, sname, stuno);
+		
+//		HttpSession session = request.getSession();
+//		String sessionid =session.getId();
+//		HttpSession sess = myc.getSession(sessionid);  
+		if(person.isSuccess() == true) {
+			HttpSession session = request.getSession();
+			person.setSession(session.getId());
+		}		
+		ListObject listObject = new ListObject();
+	    listObject.setData(person);
+	    listObject.setCode(StatusCode.CODE_SUCCESS);
+		listObject.setMsg("success");
+		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
+	}
+	@RequestMapping("/getClassList") // 获取课堂列表
+	public void getClassList(HttpServletRequest request, HttpServletResponse response) {
+	    String sid = request.getParameter("sid");		
+	    List<Classes> ClassList =  StudentBusiness.getClassList(sid);
+	    ClassListObject data = new ClassListObject();
+	    data.setClassList(ClassList);
+	    ListObject listObject = new ListObject();
+	    listObject.setData(data);
+	    listObject.setCode(StatusCode.CODE_SUCCESS);
+		listObject.setMsg("success");
+		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
+	}
+	
+	
+	
+	
 	@RequestMapping("/getHomeWorkHistory") // 获取课堂列表
 	public void getHomeWorkHistory(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -51,7 +96,7 @@ public class StudentServlet {
 		
 	    // 处理
 	    HistoryObject data =  StudentBusiness.getHomeWorkHistory(sid, wid);
-	   
+	    
 	    
 	    ListObject listObject = new ListObject();
 		
@@ -213,10 +258,8 @@ public class StudentServlet {
 	}
 	@RequestMapping("/getClassHomeWorkList") // 加入课堂
 	public void getClassHomeWorkList(HttpServletRequest request, HttpServletResponse response) {
-		
-		// 获取参数
 	    String cid = request.getParameter("cid");
-	    // 处理
+
 	    List<HomeWork> res =  StudentBusiness.getClassHomeWorkList(cid);
 	    HomeWorkListObject data = new HomeWorkListObject();
 	    data.setHomeWork(res);
@@ -269,7 +312,7 @@ public class StudentServlet {
 			        	String url = "http://111.231.190.23/download/workimg/"+sid+"/"+name;
 			            File filepath = new File(path);
 			            while(!filepath.exists()) {
-			            	filepath.mkdir();  
+			            	filepath.mkdirs();  
 			            }
 			            //将上传文件保存到一个目标文件当中
 			            File fi = new File(path+name);
