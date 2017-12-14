@@ -7,11 +7,11 @@
       </Upload>        -->
       <Modal v-model="uploadModal" title="上传资料" ok-text="" cancel-text="">
         <form method="post" action="http://111.231.190.23/web/UploadCourseFile" enctype="multipart/form-data">
-          <div class="fileList"></div>
+          <div class="fileList" id="fileList"></div>
           <input type="hidden" name="cid" value="1">
           <input type="hidden" name="tid" value="1">
           <div class="fileButton">
-            <input type="file" multiple="multiple" name="file">
+            <input type="file" id="filePlace" multiple="multiple" name="file" @change="addFilesName">
             <input type="submit" value="提交" >
           </div>
         </form>  
@@ -49,6 +49,14 @@ export default {
   methods: {
     jump() {
       this.$router.go(-1);
+    },
+    addFilesName(){
+      var file = document.getElementById("filePlace")
+      var fileList = document.getElementById("fileList")
+      fileList.innerHTML = ""
+      for(var i = 0; i < file.files.length; i++){
+        fileList.innerHTML += file.files[i].name + "<br />"
+      }
     }
   }
 };
@@ -82,6 +90,7 @@ export default {
 .fileList {
   min-height: 150px;
   border: 1px solid rgb(190, 190, 190);
+  padding: 10px;
 }
 .fileButton {
   display: flex;

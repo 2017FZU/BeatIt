@@ -14,7 +14,8 @@
             </Form-item>
             <Form-item>
                 <a class="forget-password">忘记密码</a>
-                <Button type="success" long @click="handleSubmit('formValidate')">登录</Button>
+                <Button type="success" long @click="$router.push({name:'test'})">登录</Button>
+                <!-- <Button type="success" long @click="handleSubmit('formValidate')">登录</Button> -->
             </Form-item>
         </Form>
     </div>
@@ -43,7 +44,7 @@ export default {
         }
     },
     methods: {
-        handleSubmit(name) {
+        /* handleSubmit(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
                     var that = this;
@@ -67,7 +68,7 @@ export default {
                     that.$Message.error('error');
                 }
             })
-        },
+        }, */
     },
   
 }
