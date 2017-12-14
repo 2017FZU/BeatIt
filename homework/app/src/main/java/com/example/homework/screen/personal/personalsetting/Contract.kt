@@ -10,11 +10,14 @@ import com.example.homework.base.IView
 interface Contract {
 
     interface View : IView {
-
+        fun getName(name: String)
+        fun getStuno(stuno: String)
+        fun getTel(tel: String)
     }
 
     interface Presenter: IPresenter {
-        fun setSharedPreferences(editor : SharedPreferences.Editor)
-        fun saveData(PHONENUM: String, PASSWORDS: String)
+
+        fun setSharedPreferences(getEditor : SharedPreferences, editor :SharedPreferences.Editor)
+        fun saveData()
     }
 }

@@ -32,7 +32,7 @@ class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     var fileList by state<ArrayList<MyFile>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
-    var sid = 1
+    var sid = -1
     var cid = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {

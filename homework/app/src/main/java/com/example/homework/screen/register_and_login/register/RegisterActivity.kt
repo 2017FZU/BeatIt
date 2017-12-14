@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
+import com.example.homework.data.DO.login_and_register.Register
 import com.example.homework.screen.register_and_login.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.startActivity
@@ -21,6 +22,8 @@ class RegisterActivity : BaseActivity(), Contract.View {
     var STUNUM = ""
     var PASSWORDS = ""
     var PHONENUM = ""
+    var VCODE = ""
+    var register = Register(false, -1, "", "", "" ,"")
     val REGEX_NAME = "^[\\u4e00-\\u9fa5]+(·[\\u4e00-\\u9fa5]+)*\$".toRegex()
     val REGEX_STUNUM = "^\\d{9,}\$".toRegex()
     val REGEX_PASSWORDS = "^[a-zA-Z]\\w{5,17}\$".toRegex()
@@ -36,6 +39,12 @@ class RegisterActivity : BaseActivity(), Contract.View {
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {
         prestenter = presenterFactory.createOrGet(RegisterPresenter::class.java)
+    }
+
+    override fun GotoNext() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 
@@ -54,6 +63,7 @@ class RegisterActivity : BaseActivity(), Contract.View {
             STUNUM = text_register_stunum.text.toString()
             PASSWORDS = text_register_passwords.text.toString()
             PHONENUM = text_register_phonenum.text.toString()
+            VCODE = text_register_confirmnum.text.toString()
             if (!NAME.matches(REGEX_NAME))
                 toast("请输入正确的姓名")
             else if (!STUNUM.matches(REGEX_STUNUM))
@@ -62,7 +72,9 @@ class RegisterActivity : BaseActivity(), Contract.View {
                 toast("用户密码必须以字母开头，长度为16~20个字符")
             else if (!PHONENUM.matches(REGEX_MOBILE))
                 toast("请输入正确的手机号")
-            else startActivity(Intent(this, LoginActivity::class.java))
+            else {
+                prestenter!!.isuserLogin(PHONENUM, PASSWORDS,STUNUM, NAME, VCODE)
+            }
         }
     }
 

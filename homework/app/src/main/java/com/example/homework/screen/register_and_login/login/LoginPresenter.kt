@@ -2,12 +2,19 @@ package com.example.homework.screen.register_and_login.login
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import com.example.homework.base.BasePresenter
+import com.example.homework.data.DO.login_and_register.Login
+import com.example.homework.data.service.LoginService
+import com.example.homework.screen.course.main.CourseActivity
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
+import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.toast
 
 /**
  * Created by Administrator on 2017/12/2 0002.
@@ -17,6 +24,7 @@ class LoginPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikke
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
     var getEditor : SharedPreferences ?= null
     var editor :SharedPreferences.Editor ?= null
+    var login = Login(false, -1000, "", "", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,4 +68,27 @@ class LoginPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikke
         this.editor = editor
     }
 
+    override fun isuserLogin(phone: String, psw: String) {
+        LoginService.userLogin(phone, psw)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.success) {
+                        login = it
+                        toast("登入成功")
+                        editor!!.putString("STUNUM", login.stuno)
+                        editor!!.putString("SNAME", login.sname)
+                        editor!!.putInt("sid", login.sid)
+                        editor!!.apply()
+                        view()!!.GotoNext(it.sid)
+                    }
+                    else {
+                        login.sname = ""
+                        login.sid = -1000
+                        login.tel = ""
+                        toast("登入失败")
+                    }
+                }, this::onError)
+        println("&&&&&"+login.sid)
+    }
 }
