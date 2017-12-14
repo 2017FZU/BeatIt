@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.springmvc.MD5Util;
 import cn.springmvc.json.*;
 import cn.springmvc.model.*;
 
@@ -258,7 +259,7 @@ public class StudentBusiness {
 		String sql1 = null;
 		DBHelper db = null;
 		DBHelper db1 = null;
-		sql = "select student.sid, student.stuno,  student.sname, sum(score) as score, "+ "sum(isshow)  as count , count(*) as scoreshow from student,"+ " homeworkstudent, homework where student.sid =  homeworkstudent.sid "+ " and homework.wid = homeworkstudent.wid and homework.cid = "+ id;
+		sql = "select student.sid, student.stuno,  student.sname, sum(score) as score, "+ "sum(isshow)  as count , count(*) as scoreshow from student,"+ " homeworkstudent, homework where student.sid =  homeworkstudent.sid "+ " and homework.wid = homeworkstudent.wid and homework.cid = "+ id+" group by student.sid";
 		sql1 = "select count(distinct wid) as count from homework where cid = "+ id ;
 		db = new DBHelper(sql);
 		db1 = new DBHelper(sql1);
@@ -451,6 +452,68 @@ public class StudentBusiness {
 			e.printStackTrace();
 		}
 		return s;
+	}
+
+	public static User CheckRegister(String phone, String psw, String tname, String email) {
+		User person = new User();
+		person.setError("no error");
+		String sql = null;
+		DBHelper db = null;
+		sql = "insert into teacher (temail, tname, psw, tel) values('"+email+"', '"+tname+"','"+MD5Util.getMD5(psw)+"',"+phone+")";
+		db = new DBHelper(sql);
+		int res = 0;
+		try {
+			res = db.pst.executeUpdate();
+			if(res <= 0) {
+				person.setError("网络异常，操作失败");
+				person.setSuccess(false);
+			} else {
+				person = CheckLogin(phone, psw);
+			}
+			db.close();//
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return person;
+	}
+
+	public static User CheckLogin(String phone, String psw) {
+		User person = new User();
+		person.setSuccess(false);
+		person.setError("");
+		psw = MD5Util.getMD5(psw);
+		System.out.println("密码: "+psw);
+		String sql = null;
+		DBHelper db = null;
+		sql = "select * from teacher where tel = "+phone+" AND psw = '"+psw+"'";
+		db = new DBHelper(sql);
+		ResultSet res = null;
+		try {
+			res = db.pst.executeQuery();
+			while(res.next()) {
+				String email = res.getString("temail");
+				String tname = res.getString("tname");
+				String img = res.getString("img");
+				String tel = res.getString("tel");
+				int tid = res.getInt("tid");
+				person.setImg(img);
+				person.setTid(tid);
+				person.setTname(tname);
+				person.setTel(tel);
+				person.setEmail(email);
+				person.setSuccess(true);
+			}
+			if(person.isSuccess() == false) {
+				person.setError("帐号不存在或密码错误");
+			}
+			res.close();
+			db.close();//
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return person;
 	}
 
 }

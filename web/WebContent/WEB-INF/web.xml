@@ -13,7 +13,9 @@
 	    <welcome-file>default.htm</welcome-file>
 	    <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
-
+    <listener>  
+		<listener-class>cn.springmvc.SessionListener</listener-class>  
+	</listener>  
 	<servlet>
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

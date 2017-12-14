@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +32,51 @@ import cn.springmvc.model.CourseLists;
 import cn.springmvc.model.NoticeLists;
 import cn.springmvc.model.Studenthomeworks;
 import cn.springmvc.model.Teachers;
+import cn.springmvc.model.User;
 import cn.springmvc.model.WorkLists;
 
 @Controller
 public class StudentServlet {
+	@RequestMapping("/userLogin") // 登录
+	public void userLogin(HttpServletRequest request, HttpServletResponse response) {
+		String phone = request.getParameter("phone");
+		String psw = request.getParameter("psw");
+		User person = StudentBusiness.CheckLogin(phone, psw);
+		if(person.isSuccess() == true) {
+			HttpSession session = request.getSession();
+			person.setSession(session.getId());
+		}		
+	    ListObject listObject = new ListObject();
+	    listObject.setdata(person);
+	    listObject.setCode(StatusCode.CODE_SUCCESS);
+		listObject.setMsg("success");
+		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
+	}
+	
+	@RequestMapping("/register") // 注册
+	public void register(HttpServletRequest request, HttpServletResponse response) {
+		String phone = request.getParameter("phone");
+		String psw = request.getParameter("psw");
+		String vcode = request.getParameter("vcode");
+		String tname = request.getParameter("tname");
+		String email = request.getParameter("temail");
+
+		User person = StudentBusiness.CheckRegister(phone, psw, tname, email);
+		
+//		HttpSession session = request.getSession();
+//		String sessionid =session.getId();
+//		HttpSession sess = myc.getSession(sessionid);  
+		if(person.isSuccess() == true) {
+			HttpSession session = request.getSession();
+			person.setSession(session.getId());
+		}		
+		ListObject listObject = new ListObject();
+	    listObject.setdata(person);
+	    listObject.setCode(StatusCode.CODE_SUCCESS);
+		listObject.setMsg("success");
+		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
+	}
+	
 	@RequestMapping("/CommentHomeWork")
 	public void CommentHomeWork(HttpServletRequest request, HttpServletResponse response) {
 		String sid = request.getParameter("sid");
@@ -97,20 +139,16 @@ public class StudentServlet {
 	}
 	@RequestMapping("/getAllTeacher")
 	public void getAllTeacher(HttpServletRequest request, HttpServletResponse response) {
-		
 		String username = request.getParameter("tid");
 		Teachers data = StudentBusiness.getTeacher(username);
 	   // CreateClassList a = new CreateClassList();
 		//CreateTeacher data = new CreateTeacher();
 		//data.setTeacher(data);
 		ListObject listObject = new ListObject();
-		
 		listObject.setdata(data);
 		listObject.setCode(StatusCode.CODE_SUCCESS);
 		listObject.setMsg("success");
-		
 		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
-		
 	}
 	
 	@RequestMapping("/getClassList")
