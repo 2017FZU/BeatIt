@@ -3,7 +3,7 @@
     <div class="publish">
       <Button type="ghost" id="upload" icon="ios-cloud-upload-outline" @click="uploadModal=true">上传</Button>  
        <!-- <Upload multiple action="http://111.231.190.23/web/UploadCourseFile" data="{tid:1,cid:1}">
-        <Button name="file" id="upload" type="ghost" icon="ios-cloud-upload-outline">上传</Button>
+        <Button name="file" type="ghost" icon="ios-cloud-upload-outline">上传</Button>
       </Upload>        -->
       <Modal v-model="uploadModal" title="上传资料" ok-text="" cancel-text="">
         <form method="post" action="http://111.231.190.23/web/UploadCourseFile" enctype="multipart/form-data">
@@ -47,15 +47,13 @@ export default {
     });
   },
   methods: {
-    jump() {
-      this.$router.go(-1);
-    },
     addFilesName(){
       var file = document.getElementById("filePlace")
       var fileList = document.getElementById("fileList")
+      fileList.classList.add("fileName")
       fileList.innerHTML = ""
       for(var i = 0; i < file.files.length; i++){
-        fileList.innerHTML += file.files[i].name + "<br />"
+        fileList.innerHTML += "<h3>文件"+ (i+1)+": "+file.files[i].name + ";</h3><br />"
       }
     }
   }
@@ -128,5 +126,9 @@ export default {
   font-family: PingFangSC-Regular;
   font-size: 25px;
   color: #4a4a4a;
+}
+
+.fileName{
+  border-color: red;
 }
 </style>
