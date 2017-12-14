@@ -28,7 +28,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
         val PERMISSIONS_STORAGE = arrayOf("android.permission.WRITE_EXTERNAL_STORAGE")
         var cid = -1
         var name = ""
-        var sid = 1
+        var sid = -1000
     }
 
     var prestenter: Contract.Presenter? = null
@@ -54,7 +54,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
     }
 
     fun getid() {
-        sid = intent.getIntExtra("sid", 1);
+        sid = intent.getIntExtra("sid", -1000);
         cid = intent.getIntExtra("cid", -1);
         name = intent.getStringExtra("name");
     }

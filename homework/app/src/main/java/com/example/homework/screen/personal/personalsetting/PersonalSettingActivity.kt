@@ -1,6 +1,7 @@
 package com.example.homework.screen.personal.personalsetting
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.KeyEvent
 import com.example.homework.R
@@ -20,15 +21,16 @@ class PersonalSettingActivity: BaseActivity(), Contract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personal_setting)
-        var editor = getSharedPreferences("datax", 0).edit()
-        presenter!!.setSharedPreferences(editor)
+        var editor: SharedPreferences.Editor = getSharedPreferences("datap", 0).edit()
+        var getEditor = getSharedPreferences("datap", 0)
+        presenter!!.setSharedPreferences(getEditor, editor)
         getId()
         ActionBar()
         ViewBar()
     }
 
     fun getId() {
-        sid = intent.getIntExtra("sid", 1)
+        sid = intent.getIntExtra("sid", -1)
     }
 
     fun ActionBar() {
@@ -42,7 +44,7 @@ class PersonalSettingActivity: BaseActivity(), Contract.View {
 
     fun ViewBar() {
         btn_personal_quit.setOnClickListener {
-            presenter!!.saveData("", "")
+            presenter!!.saveData()
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
@@ -58,5 +60,17 @@ class PersonalSettingActivity: BaseActivity(), Contract.View {
             finish()
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun getName(name: String) {
+        text_personalsetting_name.text = name
+    }
+
+    override fun getStuno(stuno: String) {
+        text_personalsetting_stuno.text = stuno
+    }
+
+    override fun getTel(tel: String) {
+       text_personalsetting_tel.text = tel
     }
 }

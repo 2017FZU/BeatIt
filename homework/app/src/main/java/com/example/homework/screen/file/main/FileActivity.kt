@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.bar_bottom.*
 class FileActivity : BaseActivity(), Contract.View {
 
     var prestenter: Contract.Presenter? = null
-    var sid = 1
+    var sid = -1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,9 @@ class FileActivity : BaseActivity(), Contract.View {
     }
 
     fun getId() {
-        sid = intent.getIntExtra("sid", 1)
+        var getEditor = getSharedPreferences("datap", 0)
+        sid = getEditor.getInt("sid", -1000)
+        prestenter!!.getSid(sid)
     }
 
     fun setupBottomBar(){

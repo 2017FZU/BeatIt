@@ -30,7 +30,7 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
     var path = ""
     var cid = -1
-    var sid = 1
+    var sid = -1
     var name = ""
 
 
