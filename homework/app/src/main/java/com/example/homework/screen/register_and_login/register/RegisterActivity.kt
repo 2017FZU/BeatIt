@@ -17,6 +17,14 @@ import org.jetbrains.anko.textColor
 class RegisterActivity : BaseActivity(), Contract.View {
 
     var prestenter: Contract.Presenter? = null
+    var NAME = ""
+    var STUNUM = ""
+    var PASSWORDS = ""
+    var PHONENUM = ""
+    val REGEX_NAME = "^[\\u4e00-\\u9fa5]+(·[\\u4e00-\\u9fa5]+)*\$".toRegex()
+    val REGEX_STUNUM = "^\\d{9,}\$".toRegex()
+    val REGEX_PASSWORDS = "^[a-zA-Z]\\w{5,17}\$".toRegex()
+    val REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$".toRegex()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +50,19 @@ class RegisterActivity : BaseActivity(), Contract.View {
         }
 
         btn_register_submit.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            NAME = text_register_name.text.toString()
+            STUNUM = text_register_stunum.text.toString()
+            PASSWORDS = text_register_passwords.text.toString()
+            PHONENUM = text_register_phonenum.text.toString()
+            if (!NAME.matches(REGEX_NAME))
+                toast("请输入正确的姓名")
+            else if (!STUNUM.matches(REGEX_STUNUM))
+                toast("请输入正确的学号")
+            else if (!PASSWORDS.matches(REGEX_PASSWORDS))
+                toast("用户密码必须以字母开头，长度为16~20个字符")
+            else if (!PHONENUM.matches(REGEX_MOBILE))
+                toast("请输入正确的手机号")
+            else startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 

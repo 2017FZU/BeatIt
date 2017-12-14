@@ -28,18 +28,31 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
     var list = ArrayList<SystemFile>()
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
+    var path = ""
+    var cid = -1
+    var sid = 1
+    var name = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
 
+        getid()
         initData()
         setupFile()
         loadFile()
     }
 
+    fun getid() {
+        path = arguments.get("path").toString()
+        cid = arguments.get("cid").toString().toInt()
+        name = arguments.get("name").toString().toString()
+        sid = arguments.get("sid").toString().toInt()
+    }
+
     fun initData(){
-        val path = arguments.get("path").toString()
+
         val allFiles = File(path).listFiles()
         val length = allFiles.size
         for (i in 0 .. length-1) {
@@ -58,13 +71,15 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
                     if (file.isfolder == true) {
                         val intent = Intent(context, SystemFileActivity::class.java)
                         intent.putExtra("path", file.path)
-                        intent.putExtra("cid", arguments.get("cid").toString())
-                        intent.putExtra("name", file.path)
+                        intent.putExtra("cid", cid)
+                        intent.putExtra("sid", cid)
+                        intent.putExtra("title", file.path)
+                        intent.putExtra("name",  name)
                         startActivity(intent)
                     }
                     else {
                         toast("开始上传")
-                        FileService.UpLoad(1,arguments.get("cid").toString().toInt(),File(file.path))
+                        FileService.UpLoad(sid, cid, File(file.path))
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())

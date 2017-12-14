@@ -9,6 +9,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import com.example.homework.screen.file.myfile.systemfile.SystemFileActivity
@@ -26,7 +28,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
         val PERMISSIONS_STORAGE = arrayOf("android.permission.WRITE_EXTERNAL_STORAGE")
         var cid = -1
         var name = ""
-        var sid = -1
+        var sid = 1
     }
 
     var prestenter: Contract.Presenter? = null
@@ -52,6 +54,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
     }
 
     fun getid() {
+        sid = intent.getIntExtra("sid", 1);
         cid = intent.getIntExtra("cid", -1);
         name = intent.getStringExtra("name");
     }
@@ -70,6 +73,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
 
         btn_file_myfile_teacher.setOnClickListener {
             val intent = Intent(this, TeachersFileActivity::class.java)
+            intent.putExtra("sid", sid)
             intent.putExtra("cid",cid)
             intent.putExtra("name",name)
             startActivity(intent)
@@ -80,6 +84,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
         btn_myfile_tosystemfile.setOnClickListener {
             val intent = Intent(this, SystemFileActivity::class.java)
             val path = Environment.getExternalStorageDirectory().toString()
+            intent.putExtra("sid", sid)
             intent.putExtra("cid", cid)
             intent.putExtra("path", path)
             intent.putExtra("name", name)
@@ -87,6 +92,20 @@ class MyFileActivity : BaseActivity(), Contract.View {
             startActivity(intent)
             //finish()
         }
+
+        edt_file_myfile_search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(cs: CharSequence, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(cs: CharSequence, start: Int, before: Int, count: Int) {
+                prestenter?.search(cs.toString())
+            }
+
+            override fun afterTextChanged(cs: Editable) {
+
+            }
+        })
     }
 
     fun setTitle() {

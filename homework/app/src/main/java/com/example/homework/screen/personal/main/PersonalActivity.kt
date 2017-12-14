@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.bar_bottom.*
 class PersonalActivity: BaseActivity(), Contract.View {
 
     var presenter: Contract.Presenter? = null
+    var sid = 1;
 
 
     override fun onCreatePresenter(presenterFactory: BaseActivity.PresenterFactory) {
@@ -28,8 +29,13 @@ class PersonalActivity: BaseActivity(), Contract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personal)
 
+        getId()
         setupBottomBar()
         setActionBar()
+    }
+
+    fun getId() {
+        sid = intent.getIntExtra("sid", 1)
     }
 
     fun setActionBar() {
@@ -43,7 +49,6 @@ class PersonalActivity: BaseActivity(), Contract.View {
         btn_personal_enteradvice.setOnClickListener{
             val intent = Intent(this, FeedBKActivity::class.java)
             startActivity(intent)
-            toast("click advice")
         }
 
         btn_personal_entermessage.setOnClickListener{
@@ -60,8 +65,9 @@ class PersonalActivity: BaseActivity(), Contract.View {
 
         btn_personal_enterpersonal.setOnClickListener {
             val intent = Intent(this, PersonalSettingActivity::class.java)
+            intent.putExtra("sid", sid)
             startActivity(intent)
-            toast("click personal")
+            finish()
         }
 
     }

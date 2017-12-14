@@ -35,10 +35,11 @@
             android:background="@drawable/background_rectangle_round_login_input"
             android:gravity="center"
             android:hint="手机号"
+            android:maxLines="1"
             android:textCursorDrawable="@color/colorPrimary" />
 
         <EditText
-            android:id="@+id/text_login_passworod"
+            android:id="@+id/text_login_passwords"
             android:layout_width="211dp"
             android:layout_height="33dp"
             android:layout_gravity="center_horizontal"
