@@ -18,6 +18,7 @@ import com.example.homework.screen.course.zxing.ZxingScannerActivity
 import com.example.homework.screen.course.zxing.ZxingScannerActivity.Companion.INTENT_EXRA_ZXING
 import com.example.homework.screen.file.main.FileActivity
 import com.example.homework.screen.personal.main.PersonalActivity
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.bar_bottom.*
 import kotlinx.android.synthetic.main.dialog_course_add.*

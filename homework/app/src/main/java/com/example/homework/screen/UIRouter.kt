@@ -6,13 +6,16 @@ import cn.nekocode.meepo.annotation.TargetClass
 import cn.nekocode.meepo.Meepo
 import com.example.homework.data.DO.Course
 import com.example.homework.data.DO.Meizi
+import com.example.homework.data.DO.course.ExcellentSubmission
 import com.example.homework.data.DO.course.Homework
 import com.example.homework.example.page2.Page2Activity
 import com.example.homework.example.page2.Page2Presenter
 import com.example.homework.item.HomeworkItem
+import com.example.homework.item.ModelItem
 import com.example.homework.screen.course.detail.CourseDetailActivity
 import com.example.homework.screen.course.detail.CourseDetailPresenter
 import com.example.homework.screen.course.homework.HomeworkActivity
+import com.example.homework.screen.course.model.ModelActivity
 
 interface UIRouter {
 
@@ -34,4 +37,9 @@ interface UIRouter {
     fun gotoHomework(context: Context?, @Bundle(HomeworkItem.PARCELABLE_HOMEWORK) homework: Homework) {
         IMPL.gotoHomework(context, homework)
     }
+
+//    @TargetClass(ModelActivity::class)
+//    fun gotoModel(context: Context?, @Bundle(ModelItem.PARCELABLE_MODEL) images: ArrayList<ExcellentSubmission>) {
+//        IMPL.gotoModel(context, images)
+//    }
 }

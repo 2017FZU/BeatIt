@@ -11,6 +11,7 @@ import com.example.homework.item.CourseItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
+import io.paperdb.Paper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
@@ -94,6 +95,13 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe { }
+
+        CourseService.getModelList(4, 0)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe {
+
+                }
     }
 
     fun initDate(){
@@ -120,9 +128,10 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     }
 
     fun loadCourse() {
+        val sid = Paper.book().read<Int>("sid")
         if (courseList == null) {
 //            toast("null")
-            CourseService.getCourseList(1)
+            CourseService.getCourseList(sid)
         } else {
             Observable.just(courseList)
         }
