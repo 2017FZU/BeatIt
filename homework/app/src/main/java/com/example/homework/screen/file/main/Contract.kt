@@ -14,5 +14,6 @@ interface Contract {
     }
 
     interface Presenter: IPresenter {
+        fun getSid(sid: Int)
     }
 }

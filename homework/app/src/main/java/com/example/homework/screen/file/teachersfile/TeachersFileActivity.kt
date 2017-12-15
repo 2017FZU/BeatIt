@@ -20,7 +20,7 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
     var prestenter: Contract.Presenter? = null
     var name = ""
     var cid = -1;
-    var sid = 1
+    var sid = -1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
     }
 
     fun getId(){
-        sid = intent.getIntExtra("sid", 1)
+        sid = intent.getIntExtra("sid", 1000)
         name = intent.getStringExtra("name")
         cid = intent.getIntExtra("cid", -1)
     }
@@ -72,7 +72,7 @@ class TeachersFileActivity : BaseActivity(), Contract.View {
             }
 
             override fun onTextChanged(cs: CharSequence, start: Int, before: Int, count: Int) {
-                prestenter?.search(cs.toString())
+                prestenter?.search(cs.toString()) // 过滤数据
             }
 
             override fun afterTextChanged(cs: Editable) {

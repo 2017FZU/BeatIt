@@ -8,6 +8,7 @@ import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import com.example.homework.screen.course.main.CourseActivity
 import com.example.homework.screen.personal.main.PersonalActivity
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_file.*
 import kotlinx.android.synthetic.main.bar_bottom.*
 
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.bar_bottom.*
 class FileActivity : BaseActivity(), Contract.View {
 
     var prestenter: Contract.Presenter? = null
-    var sid = 1
+    var sid = -1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,8 @@ class FileActivity : BaseActivity(), Contract.View {
     }
 
     fun getId() {
-        sid = intent.getIntExtra("sid", 1)
+        sid = Paper.book().read("sid")
+        prestenter!!.getSid(sid)
     }
 
     fun setupBottomBar(){

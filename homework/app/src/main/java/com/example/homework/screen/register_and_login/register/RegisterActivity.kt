@@ -8,8 +8,10 @@ import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import com.example.homework.screen.register_and_login.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_register.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.textColor
+import java.io.InputStreamReader
+import java.net.URLEncoder
+import java.nio.charset.Charset
 
 /**
  * Created by Administrator on 2017/12/2 0002.
@@ -21,9 +23,10 @@ class RegisterActivity : BaseActivity(), Contract.View {
     var STUNUM = ""
     var PASSWORDS = ""
     var PHONENUM = ""
+    var VCODE = ""
     val REGEX_NAME = "^[\\u4e00-\\u9fa5]+(·[\\u4e00-\\u9fa5]+)*\$".toRegex()
     val REGEX_STUNUM = "^\\d{9,}\$".toRegex()
-    val REGEX_PASSWORDS = "^[a-zA-Z]\\w{5,17}\$".toRegex()
+    val REGEX_PASSWORDS = "^[a-zA-Z0-9]\\w{5,17}\$".toRegex()
     val REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$".toRegex()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,11 +41,31 @@ class RegisterActivity : BaseActivity(), Contract.View {
         prestenter = presenterFactory.createOrGet(RegisterPresenter::class.java)
     }
 
+    override fun GotoNext() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
     fun setupViewBar() {
         btn_register_getconfirmnum.setOnClickListener {
             val mycountdowntime = MyCountDownTimer(60000, 1000)
             mycountdowntime.start()
+            NAME = text_register_name.text.toString()
+            STUNUM = text_register_stunum.text.toString()
+            PASSWORDS = text_register_passwords.text.toString()
+            PHONENUM = text_register_phonenum.text.toString()
+            VCODE = text_register_confirmnum.text.toString()
+            if (!NAME.matches(REGEX_NAME))
+                toast("请输入正确的姓名")
+            else if (!STUNUM.matches(REGEX_STUNUM))
+                toast("请输入正确的学号")
+            else if (!PASSWORDS.matches(REGEX_PASSWORDS))
+                toast("用户密码必须以字母开头，长度为16~20个字符")
+            else if (!PHONENUM.matches(REGEX_MOBILE))
+                toast("请输入正确的手机号")
+            else
+                prestenter!!.getVcode(PHONENUM)
         }
 
         btn_register_return.setOnClickListener {
@@ -54,6 +77,7 @@ class RegisterActivity : BaseActivity(), Contract.View {
             STUNUM = text_register_stunum.text.toString()
             PASSWORDS = text_register_passwords.text.toString()
             PHONENUM = text_register_phonenum.text.toString()
+            VCODE = text_register_confirmnum.text.toString()
             if (!NAME.matches(REGEX_NAME))
                 toast("请输入正确的姓名")
             else if (!STUNUM.matches(REGEX_STUNUM))
@@ -62,7 +86,12 @@ class RegisterActivity : BaseActivity(), Contract.View {
                 toast("用户密码必须以字母开头，长度为16~20个字符")
             else if (!PHONENUM.matches(REGEX_MOBILE))
                 toast("请输入正确的手机号")
-            else startActivity(Intent(this, LoginActivity::class.java))
+            else if (VCODE.equals(""))
+                toast("请输入验证码")
+            else {
+                println("&&&&&&&&&&&$NAME")
+                prestenter!!.isuserLogin(PHONENUM, PASSWORDS,STUNUM, NAME, VCODE)
+            }
         }
     }
 

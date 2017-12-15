@@ -1,6 +1,7 @@
 package com.example.homework.screen.personal.main
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import com.example.homework.R
 import com.example.homework.base.BaseActivity
@@ -9,6 +10,7 @@ import com.example.homework.screen.file.main.FileActivity
 import com.example.homework.screen.personal.aboutus.AboutUsActivity
 import com.example.homework.screen.personal.feedbk.FeedBKActivity
 import com.example.homework.screen.personal.personalsetting.PersonalSettingActivity
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_personal.*
 import kotlinx.android.synthetic.main.bar_bottom.*
 
@@ -18,28 +20,28 @@ import kotlinx.android.synthetic.main.bar_bottom.*
 class PersonalActivity: BaseActivity(), Contract.View {
 
     var presenter: Contract.Presenter? = null
-    var sid = 1;
+    var sid = -1;
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_personal)
+        var editor: SharedPreferences.Editor = getSharedPreferences("datap", 0).edit()
+        var getEditor = getSharedPreferences("datap", 0)
+        presenter!!.setSharedPreferences(getEditor, editor)
+        sid  = Paper.book().read("sid")
+        setupBottomBar()
+        setActionBar()
+    }
 
     override fun onCreatePresenter(presenterFactory: BaseActivity.PresenterFactory) {
         presenter = presenterFactory.createOrGet(PersonalPresenter::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_personal)
-
-        getId()
-        setupBottomBar()
-        setActionBar()
-    }
-
-    fun getId() {
-        sid = intent.getIntExtra("sid", 1)
+    override fun getName(name: String) {
+        text_personal_name.text = name
     }
 
     fun setActionBar() {
-
         btn_personal_enteraboutus.setOnClickListener{
             val intent = Intent(this, AboutUsActivity::class.java)
             startActivity(intent)

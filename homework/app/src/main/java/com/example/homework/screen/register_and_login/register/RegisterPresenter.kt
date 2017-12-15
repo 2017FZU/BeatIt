@@ -1,12 +1,14 @@
 package com.example.homework.screen.register_and_login.register
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import com.example.homework.base.BasePresenter
+import com.example.homework.data.service.LoginService
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
-import kotlinx.android.synthetic.main.activity_register.*
+import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.toast
 
 /**
  * Created by Administrator on 2017/12/2 0002.
@@ -33,4 +35,31 @@ class RegisterPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pi
         saveInstanceState(outState ?: return)
     }
 
+    override fun isuserLogin(phone: String, psw: String, stuno: String, sname: String, vcode: String) {
+        LoginService.userRegister(phone, psw, stuno, sname, vcode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if (it.success) {
+                        toast("注册成功")
+                        view()!!.GotoNext()
+                    }
+                    else {
+                        toast(it.error)
+                    }
+                }
+    }
+
+    override fun getVcode(phone: String) {
+        LoginService.getVcode(phone)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if (it.success) {
+                        toast("已发送")
+                    }
+                    else {
+                        toast(it.error)
+                    }
+                }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.homework.screen.personal.main
 
+import android.content.SharedPreferences
 import com.example.homework.base.IPresenter
 import com.example.homework.base.IView
 
@@ -9,10 +10,10 @@ import com.example.homework.base.IView
 interface Contract {
 
     interface View : IView {
-
+        fun getName(name: String)
     }
 
     interface Presenter: IPresenter {
-
+        fun setSharedPreferences(getEditor : SharedPreferences, editor : SharedPreferences.Editor)
     }
 }
