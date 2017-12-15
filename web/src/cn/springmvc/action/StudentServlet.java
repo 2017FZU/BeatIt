@@ -2,7 +2,9 @@ package cn.springmvc.action;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,7 @@ import cn.springmvc.json.ResponseUtils;
 import cn.springmvc.json.StatusCode;
 import cn.springmvc.json.StatusObject;
 import cn.springmvc.json.StuHomeworkObject;
+import cn.springmvc.json.VcodeStatus;
 import cn.springmvc.json.WorkObject;
 import cn.springmvc.model.ClassLists;
 import cn.springmvc.model.CourseLists;
@@ -33,10 +36,42 @@ import cn.springmvc.model.NoticeLists;
 import cn.springmvc.model.Studenthomeworks;
 import cn.springmvc.model.Teachers;
 import cn.springmvc.model.User;
+import cn.springmvc.model.VcodeModify;
 import cn.springmvc.model.WorkLists;
 
 @Controller
 public class StudentServlet {
+	public HashMap<String,String>   ModifyVcode     =     new HashMap();     
+	@RequestMapping("/getVcode") // 获取手机验证码
+	public void getVcode(HttpServletRequest request, HttpServletResponse response) {
+		String phone = request.getParameter("phone");
+		VcodeModify data  = new VcodeModify();
+		data.setSuccess(false);
+		data.setError("");
+		boolean isexist = StudentBusiness.ModifyQuery(phone);
+		if(isexist == false) {
+			data.setError("该手机号码已被使用!");
+		} else {
+			Random random = new Random();
+			String vcode = "";
+			for (int i=0;i<6;i++)  {  
+			    vcode+=random.nextInt(10);  
+			}  
+			System.out.println("验证码:"+vcode);
+			VcodeStatus res = SendVcode.Send(phone, vcode);
+			data.setSuccess(res.isSuccess());
+			if(res.isSuccess()) {
+				ModifyVcode.put(phone, vcode);
+				System.out.println("add into map\n");
+			}
+			data.setError(res.getError());
+		}
+		ListObject listObject = new ListObject();
+	    listObject.setdata(data);
+	    listObject.setCode(StatusCode.CODE_SUCCESS);
+		listObject.setMsg("success");
+		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
+	}
 	@RequestMapping("/userLogin") // 登录
 	public void userLogin(HttpServletRequest request, HttpServletResponse response) {
 		String phone = request.getParameter("phone");
@@ -60,16 +95,23 @@ public class StudentServlet {
 		String vcode = request.getParameter("vcode");
 		String tname = request.getParameter("tname");
 		String email = request.getParameter("temail");
-
-		User person = StudentBusiness.CheckRegister(phone, psw, tname, email);
-		
+		User person = new User();
+		person.setSuccess(false);
+		person.setError("");
+		System.out.println(ModifyVcode.get(phone)+" "+vcode);
+		String check = ModifyVcode.get(phone);
+		if(check!=null && check.equals(vcode)) {
+			person = StudentBusiness.CheckRegister(phone, psw, tname, email);
+			if(person.isSuccess() == true) {
+				HttpSession session = request.getSession();
+				person.setSession(session.getId());
+			}
+		} else {
+			person.setError("验证码错误");
+		}
 //		HttpSession session = request.getSession();
 //		String sessionid =session.getId();
-//		HttpSession sess = myc.getSession(sessionid);  
-		if(person.isSuccess() == true) {
-			HttpSession session = request.getSession();
-			person.setSession(session.getId());
-		}		
+//		HttpSession sess = myc.getSession(sessionid);
 		ListObject listObject = new ListObject();
 	    listObject.setdata(person);
 	    listObject.setCode(StatusCode.CODE_SUCCESS);
@@ -91,37 +133,10 @@ public class StudentServlet {
 		listObject.setMsg("success");
 		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
 	}
-	@RequestMapping("/Test")
-	public void Test(HttpServletRequest request, HttpServletResponse response) {
-		
-		String Uid = "Kaloneme1";
-		//接口安全秘钥
-		String Key = "e385a8c673e18c5e129d";
-		String smsMob = "17720806830";
-		//短信内容
-		String smsText = "验证码：8888";
-		System.out.println("start");
-		HttpClientUtil client = HttpClientUtil.getInstance();
-		System.out.println("it is ok");
-		//GBK发送
-		int resultGbk = client.sendMsgGbk(Uid, Key, smsText, smsMob );
-		if(resultGbk>0){
-			System.out.println("GBK成功发送条数=="+resultGbk);
-		}else{
-			System.out.println(client.getErrorMsg(resultGbk));
-		}
-		StatusObject s = new StatusObject();
-		s.setStatus(1);
-		ListObject listObject = new ListObject();
-		listObject.setdata(s);
-		listObject.setCode(StatusCode.CODE_SUCCESS);
-		listObject.setMsg("success");
-		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
-	}
+
 	@RequestMapping("/UpdateNotice")
 	public void UpdateNotice(HttpServletRequest request, HttpServletResponse response) {
 		String nid = request.getParameter("nid");
-//		String tid = request.getParameter("tid");
 		int op = Integer.parseInt( request.getParameter("op"));
 		StatusObject s = new StatusObject();
 		String content  = null;
@@ -137,19 +152,7 @@ public class StudentServlet {
 		listObject.setMsg("success");
 		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
 	}
-	@RequestMapping("/getAllTeacher")
-	public void getAllTeacher(HttpServletRequest request, HttpServletResponse response) {
-		String username = request.getParameter("tid");
-		Teachers data = StudentBusiness.getTeacher(username);
-	   // CreateClassList a = new CreateClassList();
-		//CreateTeacher data = new CreateTeacher();
-		//data.setTeacher(data);
-		ListObject listObject = new ListObject();
-		listObject.setdata(data);
-		listObject.setCode(StatusCode.CODE_SUCCESS);
-		listObject.setMsg("success");
-		ResponseUtils.renderJson(response, JackJsonUtils.toJson(listObject));
-	}
+
 	
 	@RequestMapping("/getClassList")
 	public void getClassList(HttpServletRequest request, HttpServletResponse response) {

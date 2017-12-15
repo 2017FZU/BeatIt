@@ -455,6 +455,7 @@ public class StudentBusiness {
 	}
 
 	public static User CheckRegister(String phone, String psw, String tname, String email) {
+		System.out.print(phone+" "+psw+" "+tname+" "+email);
 		User person = new User();
 		person.setError("no error");
 		String sql = null;
@@ -514,6 +515,29 @@ public class StudentBusiness {
 			e.printStackTrace();
 		}
 		return person;
+	}
+
+	public static boolean ModifyQuery(String phone) {
+		String sql = null;
+		DBHelper db = null;
+		sql = "select * from teacher where tel = "+phone;
+		db = new DBHelper(sql);
+		ResultSet res = null;
+		try {
+			res = db.pst.executeQuery();
+			int check = 0;
+			while(res.next()) {
+				check++;
+			}
+			if(check == 0) {
+				return true;
+			}
+			db.close();//
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }
