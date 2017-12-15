@@ -9,14 +9,6 @@
         android:layout_height="40dp"
         android:background="@color/hw_black">
 
-        <ImageView
-            android:id="@+id/btn_systemfile_return"
-            android:layout_width="@dimen/hw_img_length_normal"
-            android:layout_height="@dimen/hw_img_length_normal"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_back"/>
-
         <TextView
             android:id="@+id/text_systemfile_foldername"
             android:layout_width="wrap_content"
