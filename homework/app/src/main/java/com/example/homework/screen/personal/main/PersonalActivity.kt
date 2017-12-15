@@ -10,6 +10,7 @@ import com.example.homework.screen.file.main.FileActivity
 import com.example.homework.screen.personal.aboutus.AboutUsActivity
 import com.example.homework.screen.personal.feedbk.FeedBKActivity
 import com.example.homework.screen.personal.personalsetting.PersonalSettingActivity
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_personal.*
 import kotlinx.android.synthetic.main.bar_bottom.*
 
@@ -27,7 +28,7 @@ class PersonalActivity: BaseActivity(), Contract.View {
         var editor: SharedPreferences.Editor = getSharedPreferences("datap", 0).edit()
         var getEditor = getSharedPreferences("datap", 0)
         presenter!!.setSharedPreferences(getEditor, editor)
-        getId()
+        sid  = Paper.book().read("sid")
         setupBottomBar()
         setActionBar()
     }
@@ -38,10 +39,6 @@ class PersonalActivity: BaseActivity(), Contract.View {
 
     override fun getName(name: String) {
         text_personal_name.text = name
-    }
-
-    fun getId() {
-        sid = intent.getIntExtra("sid", -1)
     }
 
     fun setActionBar() {

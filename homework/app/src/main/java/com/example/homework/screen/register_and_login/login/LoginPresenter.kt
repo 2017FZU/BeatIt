@@ -11,6 +11,7 @@ import com.example.homework.data.service.LoginService
 import com.example.homework.screen.course.main.CourseActivity
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
+import io.paperdb.Paper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.schedulers.Schedulers
@@ -24,7 +25,6 @@ class LoginPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikke
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
     var getEditor : SharedPreferences ?= null
     var editor :SharedPreferences.Editor ?= null
-    var login = Login(false, -1000, "", "", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,21 +74,16 @@ class LoginPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikke
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.success) {
-                        login = it
                         toast("登入成功")
-                        editor!!.putString("STUNUM", login.stuno)
-                        editor!!.putString("SNAME", login.sname)
-                        editor!!.putInt("sid", login.sid)
+                        editor!!.putString("STUNUM", it.stuno)
+                        editor!!.putString("SNAME", it.sname)
+                        Paper.book().write("sid", it.sid)
                         editor!!.apply()
                         view()!!.GotoNext(it.sid)
                     }
                     else {
-                        login.sname = ""
-                        login.sid = -1000
-                        login.tel = ""
-                        toast("登入失败")
+                        toast(it.error)
                     }
-                }, this::onError)
-        println("&&&&&"+login.sid)
+                })
     }
 }

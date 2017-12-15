@@ -14,5 +14,6 @@ interface Contract {
 
     interface Presenter: IPresenter {
         fun isuserLogin(phone: String, psw: String, stuno: String, sname: String, vcode: String)
+        fun getVcode(phone: String)
     }
 }

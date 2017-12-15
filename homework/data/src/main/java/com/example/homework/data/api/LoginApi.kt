@@ -18,9 +18,12 @@ internal interface LoginApi {
     @GET("userLogin")
     fun userLogin(@Query("phone")phone: String, @Query("psw")psw: String): Observable<Datalist<Login>>
 
-    @FormUrlEncoded
-    @POST("register")
-    fun userRegister(@Field("phone")phone: String, @Field("psw")psw: String,
-                     @Field("stuno")stuno: String, @Field("stuno")sname: String,
-                     @Field("vcode")vcode: String): Observable<Datalist<Register>>
+    //@FormUrlEncoded
+    @GET("register")
+    fun userRegister(@Query("phone")phone: String, @Query("psw")psw: String,
+                     @Query("stuno")stuno: String, @Query("sname")sname: String,
+                     @Query("vcode")vcode: String): Observable<Datalist<Register>>
+
+    @GET("getVcode")
+    fun getVcode(@Query("phone")phone: String): Observable<Datalist<GetVcode>>
 }

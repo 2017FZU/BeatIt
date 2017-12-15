@@ -8,6 +8,7 @@ import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import com.example.homework.screen.course.main.CourseActivity
 import com.example.homework.screen.personal.main.PersonalActivity
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_file.*
 import kotlinx.android.synthetic.main.bar_bottom.*
 
@@ -39,8 +40,7 @@ class FileActivity : BaseActivity(), Contract.View {
     }
 
     fun getId() {
-        var getEditor = getSharedPreferences("datap", 0)
-        sid = getEditor.getInt("sid", -1000)
+        sid = Paper.book().read("sid")
         prestenter!!.getSid(sid)
     }
 

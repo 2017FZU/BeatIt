@@ -39,7 +39,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
 
         recyclerview_file_myfile_list.layoutManager = LinearLayoutManager(this)
 
-        getid();
+        getid()
         checkPemission()
         setActionBar()
         setTitle()
@@ -56,7 +56,7 @@ class MyFileActivity : BaseActivity(), Contract.View {
     fun getid() {
         sid = intent.getIntExtra("sid", -1000);
         cid = intent.getIntExtra("cid", -1);
-        name = intent.getStringExtra("name");
+        name = intent.getStringExtra("name")
     }
 
     fun checkPemission() {
@@ -85,12 +85,12 @@ class MyFileActivity : BaseActivity(), Contract.View {
             val intent = Intent(this, SystemFileActivity::class.java)
             val path = Environment.getExternalStorageDirectory().toString()
             intent.putExtra("sid", sid)
+            println("&&&&&&$sid")
             intent.putExtra("cid", cid)
             intent.putExtra("path", path)
             intent.putExtra("name", name)
             intent.putExtra("title", "手机")
             startActivity(intent)
-            //finish()
         }
 
         edt_file_myfile_search.addTextChangedListener(object : TextWatcher {

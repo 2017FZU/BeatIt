@@ -14,8 +14,8 @@ data class Login(
         var sid: Int,
         var stuno: String,
         var sname: String,
-        var tel: String
-    //    @SerializedName("error")val error: String
+        var tel: String,
+        @SerializedName("error")var error: String
 ) : Parcelable {
 
     companion object {

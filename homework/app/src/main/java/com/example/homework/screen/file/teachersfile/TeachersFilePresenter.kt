@@ -37,6 +37,11 @@ class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter
         loadMyOwnFile("")
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadMyOwnFile("")
+    }
+
     override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         viewBehavior.onNext(view)
     }

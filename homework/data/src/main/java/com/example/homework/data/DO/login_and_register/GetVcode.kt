@@ -6,21 +6,21 @@ import com.google.gson.annotations.SerializedName
 import paperparcel.PaperParcel
 
 /**
- * Created by Administrator on 2017/12/14 0014.
+ * Created by Administrator on 2017/12/15 0015.
  */
 @PaperParcel
-class Register (
-        @SerializedName("success")val success: Boolean,
-        @SerializedName("error")val error: String
+class GetVcode(
+        @SerializedName("success")var success: Boolean,
+        @SerializedName("error")var error: String
 ) : Parcelable {
 
     companion object {
-        @JvmField val CREATOR = PaperParcelRegister.CREATOR
+        @JvmField val CREATOR = PaperParcelGetVcode.CREATOR
     }
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        PaperParcelRegister.writeToParcel(this, dest, flags)
+        PaperParcelGetVcode.writeToParcel(this, dest, flags)
     }
 }

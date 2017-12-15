@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_personal_setting.*
 class PersonalSettingActivity: BaseActivity(), Contract.View {
 
     var presenter: Contract.Presenter? = null
-    var sid = 1
+    var sid = -1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +30,11 @@ class PersonalSettingActivity: BaseActivity(), Contract.View {
     }
 
     fun getId() {
-        sid = intent.getIntExtra("sid", -1)
+        sid = intent.getIntExtra("sid", -1000)
     }
 
     fun ActionBar() {
         btn_personal_me_return.setOnClickListener {
-            val intent = Intent(this, PersonalActivity::class.java)
-            intent.putExtra("sid", sid)
-            startActivity(intent)
             finish()
         }
     }

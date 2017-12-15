@@ -30,7 +30,7 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
     var path = ""
     var cid = -1
-    var sid = -1
+    var sid = -1000
     var name = ""
 
 
@@ -47,8 +47,9 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
     fun getid() {
         path = arguments.get("path").toString()
         cid = arguments.get("cid").toString().toInt()
-        name = arguments.get("name").toString().toString()
+        name = arguments.get("name").toString()
         sid = arguments.get("sid").toString().toInt()
+        println("&&&&&&$sid")
     }
 
     fun initData(){
@@ -72,7 +73,7 @@ class SystemFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, 
                         val intent = Intent(context, SystemFileActivity::class.java)
                         intent.putExtra("path", file.path)
                         intent.putExtra("cid", cid)
-                        intent.putExtra("sid", cid)
+                        intent.putExtra("sid", sid)
                         intent.putExtra("title", file.path)
                         intent.putExtra("name",  name)
                         startActivity(intent)
