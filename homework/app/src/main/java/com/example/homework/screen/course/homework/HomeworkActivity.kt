@@ -11,6 +11,7 @@ import com.example.homework.base.BaseActivity
 import com.example.homework.data.DO.course.CourseDetail
 import com.example.homework.data.DO.course.Homework
 import com.example.homework.screen.course.excellent.ExcellentActivity
+import com.example.homework.screen.course.model.ModelActivity
 import com.example.homework.screen.course.notice.NoticeActivity
 import com.example.homework.screen.course.submit.SubmitActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
@@ -56,6 +57,12 @@ class HomeworkActivity : BaseActivity(), Contract.View {
 
         if (homework.status == 0) {
             btn_course_homework_submit.text = "查看作业"
+            btn_course_homework_explain.setOnClickListener {
+                val intent = Intent(this, ExcellentActivity::class.java)
+                intent.putExtra("wid", homework.wid)
+                startActivity(intent)
+//                startActivity(Intent(this, ModelActivity::class.java))
+            }
         }
 
         wid = homework.wid
@@ -71,8 +78,8 @@ class HomeworkActivity : BaseActivity(), Contract.View {
     fun setupView() {
 
         btn_course_homework_explain.setOnClickListener {
-//            toast("loading...")
-            startActivity(Intent(this, ExcellentActivity::class.java))
+            toast("当前作业未截止")
+//            startActivity(Intent(this, ExcellentActivity::class.java))
         }
         btn_course_homework_submit.setOnClickListener {
             gotoSubmit(1, wid)
