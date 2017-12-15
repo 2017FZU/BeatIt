@@ -17,7 +17,6 @@ import com.example.homework.item.MyFileItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.rxkotlin.zipWith
@@ -33,18 +32,22 @@ class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     var fileList by state<ArrayList<MyFile>?>(null)
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
+    var sid = 1
+    var cid = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
+
+        getid()
         createFile()
         setupMyOwnFile()
-        loadMyOwnFile()
+        loadMyOwnFile("")
     }
 
     override fun onResume() {
         super.onResume()
-        loadMyOwnFile()
+        loadMyOwnFile("")
     }
 
     override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
@@ -54,6 +57,15 @@ class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         saveInstanceState(outState ?: return)
+    }
+
+    override fun search(str: String) {
+        loadMyOwnFile(str)
+    }
+
+    fun getid() {
+        sid = arguments.get("sid").toString().toInt()
+        cid = arguments.get("cid").toString().toInt()
     }
 
     fun createFile() {
@@ -81,9 +93,8 @@ class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
         }
     }
 
-    fun loadMyOwnFile() {
-        val cid = arguments.get("cid").toString().toInt()
-            FileService.getSelfFile(1, cid)
+    fun loadMyOwnFile(str: String) {
+            FileService.getSelfFile(sid, cid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { myownflie ->
@@ -96,9 +107,24 @@ class MyFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
                 .bindToLifecycle(this)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ (voList, view) ->
-                    itemPool.clear()
-                    itemPool.addAll(voList)
-                    view.setAdapter(itemPool.adapter)
+                    if (str.equals("")) {
+                        itemPool.clear()
+                        itemPool.addAll(voList)
+                        view.setAdapter(itemPool.adapter)
+                    }
+                    else {
+                        val mlist = ArrayList<MyFileItem.VO>()
+                        var max = voList.size
+                        for(i in 0 until max) {
+                            val cs = voList[i]
+                            if (cs.filename.contains(str)) {
+                                mlist.add(cs)
+                            }
+                        }
+                        itemPool.clear()
+                        itemPool.addAll(mlist)
+                        view.setAdapter(itemPool.adapter)
+                    }
                 }, this::onError)
     }
 

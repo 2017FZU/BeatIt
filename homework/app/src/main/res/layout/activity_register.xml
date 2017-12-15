@@ -25,13 +25,14 @@
                 android:layout_height="16dp"
                 android:layout_marginLeft="59dp"
                 android:text="姓名" />
-            
+
             <EditText
+                android:id="@+id/text_register_name"
                 android:layout_width="239dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textCursorDrawable="@color/colorPrimary"
-                android:hint="请输入真实姓名"
+                android:hint="请输入姓名"
                 android:background="@drawable/background_rectangle_round_register_input"/>
         </LinearLayout>
 
@@ -46,12 +47,12 @@
                 android:text="学号" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/text_register_stunum"
                 android:layout_width="239dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/background_rectangle_round_register_input"
-                android:gravity="center"
+                android:hint="请输入学号"
                 android:textCursorDrawable="@color/colorPrimary" />
         </LinearLayout>
 
@@ -66,11 +67,13 @@
                 android:text="密码" />
 
             <EditText
+                android:id="@+id/text_register_passwords"
                 android:layout_width="239dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textCursorDrawable="@color/colorPrimary"
-                android:hint="密码长度为8-20个字符"
+                android:hint="以字母开头,长度在8-16之间"
+                android:inputType="textPassword"
                 android:background="@drawable/background_rectangle_round_register_input"/>
         </LinearLayout>
 
@@ -85,11 +88,12 @@
                 android:text="手机" />
 
             <EditText
+                android:id="@+id/text_register_phonenum"
                 android:layout_width="239dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
                 android:textCursorDrawable="@color/colorPrimary"
-                android:gravity="center"
+                android:hint="请输入11位手机号"
                 android:background="@drawable/background_rectangle_round_register_input"/>
         </LinearLayout>
 
@@ -107,6 +111,7 @@
                 android:text="验证码" />
 
             <EditText
+                android:id="@+id/text_register_confirmnum"
                 android:layout_width="139dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"

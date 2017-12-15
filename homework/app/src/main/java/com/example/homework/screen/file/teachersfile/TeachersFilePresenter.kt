@@ -34,11 +34,15 @@ class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter
 
         createFile()
         setupMyOwnFile()
-        loadMyOwnFile()
+        loadMyOwnFile("")
     }
 
     override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         viewBehavior.onNext(view)
+    }
+
+    override fun search(str: String) {
+        loadMyOwnFile(str)
     }
 
     fun createFile() {
@@ -66,10 +70,9 @@ class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter
         }
     }
 
-    fun loadMyOwnFile() {
+    fun loadMyOwnFile(str: String) {
         val cid = arguments.get("cid").toString().toInt()
         if (fileList == null) {
-
             FileService.getClassFile(cid)
         } else {
             Observable.just(fileList)
@@ -86,9 +89,24 @@ class TeachersFilePresenter : BasePresenter<Contract.View>(), Contract.Presenter
                 .bindToLifecycle(this)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ (voList, view) ->
-                    itemPool.clear()
-                    itemPool.addAll(voList)
-                    view.setAdapter(itemPool.adapter)
+                    if (str.equals("")) {
+                        itemPool.clear()
+                        itemPool.addAll(voList)
+                        view.setAdapter(itemPool.adapter)
+                    }
+                    else {
+                        val mlist = ArrayList<TeachersFileItem.VO>()
+                        var max = voList.size
+                        for(i in 0 until max) {
+                            val cs = voList[i]
+                            if (cs.filename.contains(str)) {
+                                mlist.add(cs)
+                            }
+                        }
+                        itemPool.clear()
+                        itemPool.addAll(mlist)
+                        view.setAdapter(itemPool.adapter)
+                    }
                 }, this::onError)
     }
 

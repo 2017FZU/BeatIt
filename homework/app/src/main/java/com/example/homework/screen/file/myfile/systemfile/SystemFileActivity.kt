@@ -37,13 +37,7 @@ class SystemFileActivity: BaseActivity(), Contract.View {
     }
 
     fun setActionBar() {
-        btn_systemfile_return.setOnClickListener{
-            val intent = Intent(this, MyFileActivity::class.java)
-            intent.putExtra("cid",cid)
-            intent.putExtra("name",name)
-            startActivity(intent)
-            finish()
-        }
+
     }
 
     fun setTitle() {
