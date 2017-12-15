@@ -127,12 +127,27 @@ object CourseService {
                         Observable.just(SubmissionList(-1, "failed", ArrayList()))
                     }
 
-    fun getExcellentList(wid: Int): Observable<ArrayList<ExcellentSingle>> =
+    fun getExcellentList(wid: Int): Observable<ArrayList<ExcellentBrief>> =
             CourseApi.IMPL.getExcellentList(wid)
                     .subscribeOn(Schedulers.io())
                     .map {
                         println("========= getExcellentList ========== ${DataLayer.GSON!!.toJson(it)}")
-                        it.data.showList
+                        val excellentBrief = it.data.showList
+                                .map {
+                                    ExcellentBrief(it.sname, it.score, it.comment)
+                                } as ArrayList<ExcellentBrief>
+                        excellentBrief
+                    }
+                    .onErrorResumeNext { err: Throwable ->
+                        Observable.just(ArrayList())
+                    }
+
+    fun getModelList(wid: Int, position: Int):Observable<ArrayList<ExcellentSubmission>> =
+            CourseApi.IMPL.getExcellentList(wid)
+                    .subscribeOn(Schedulers.io())
+                    .map {
+                        println("========= getModelList ========== ${DataLayer.GSON!!.toJson(it)}")
+                        it.data.showList[position].workimg
                     }
                     .onErrorResumeNext { err: Throwable ->
                         Observable.just(ArrayList())

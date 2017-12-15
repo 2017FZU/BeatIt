@@ -47,11 +47,13 @@
         <activity android:name=".screen.course.zxing.ZxingScannerActivity"/>
         <activity android:name=".screen.course.submit.SubmitActivity"/>
         <activity android:name=".screen.course.homework.HomeworkActivity"/>
-        <activity android:name=".screen.course.ZoomImageView">
+        <activity android:name=".screen.course.model.ModelActivity">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN"/>-->
             <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".screen.course.zoom.ZoomImageActivity">
         </activity>
 
 
@@ -75,10 +77,10 @@
              android:launchMode="singleTask"/>
          <activity android:name=".screen.register_and_login.login.LoginActivity"
              android:launchMode="singleTask">
-             <intent-filter>-->
-                 <action android:name="android.intent.action.MAIN"/>-->
-                 <category android:name="android.intent.category.LAUNCHER"/>-->
-             </intent-filter>-->
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN"/>
+                 <category android:name="android.intent.category.LAUNCHER"/>
+             </intent-filter> 
          </activity>
 
          <activity android:name=".screen.register_and_login.register.RegisterActivity"
