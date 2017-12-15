@@ -1,6 +1,7 @@
 package cn.springmvc.json;
 
-import cn.springmvc.model.User;
+import cn.springmvc.model.*;
+import cn.springmvc.json.*;
 
 public class ListObject extends AbstractJsonObject {
 

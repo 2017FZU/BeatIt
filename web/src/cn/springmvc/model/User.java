@@ -7,7 +7,6 @@ public class User {
 	private String email; 
 	private String tname;
 	private String tel;
-	private boolean ison;
 	private String img;
 	private String error;
 	public String getError() {
@@ -33,12 +32,6 @@ public class User {
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
-	}
-	public boolean isIson() {
-		return ison;
-	}
-	public void setIson(boolean ison) {
-		this.ison = ison;
 	}
 	public String getImg() {
 		return img;
