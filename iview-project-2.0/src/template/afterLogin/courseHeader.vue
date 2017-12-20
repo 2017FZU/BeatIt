@@ -8,15 +8,13 @@
             <img v-bind:src="QRcode" alt="" style="border-radius: 0px;margin-left:20px;" @click="modal1 = true">
     <Modal
         v-model="modal1"
-        title="二维码"
-        @on-ok="ok"
-        @on-cancel="cancel">
+        title="二维码">
         <img v-bind:src="QRcode" alt="" style="margin-left:100px;">
     </Modal>
-    <a href="/" class="homePage">首页</a>
+    <a href="./" class="homePage">首页</a>
             <nav>
                 <img src="/src/images/教师头像.png"></img>
-                <h1 style="margin-right:20px;">Welcome,张老师</h1>
+                <h1 style="margin-right:20px;">Welcome,{{teacherName}}</h1>
                 
                 <Dropdown trigger="click" placement="bottom-end">
                     <Tooltip content="账户设置" placement="bottom-end" :disabled="disabled">
@@ -45,6 +43,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      teacherName:'',
       headTitle: this.$store.getters.getCourseName,
       disabled: false,
       modal1: false,
@@ -54,10 +53,13 @@ export default {
     };
   },
   mounted () {
+    this.teacherName = this.$store.getters.getTname;
     var that = this;
     that.code = that.$store.getters.getCid;
     axios
-    .post("http://111.231.190.23/web/getClassList?tid=1")
+    .post("http://111.231.190.23/web/getClassList?tid="+
+    that.$store.getters.getTid
+    )
     .then(function(res) {
       that.test = res.data.data.classList;
       for (var i = 0; i < that.test.length; i++) {
@@ -71,15 +73,6 @@ export default {
   methods: {
     handleLogout() {
       this.$store.commit("logout"), this.$router.push({ name: "signIn" });
-    },
-    ok() {
-      this.$Message.info("Clicked ok");
-    },
-    cancel() {
-      this.$Message.info("Clicked cancel");
-    },
-    jump() {
-      this.$router.go({name:'index'});
     }
   }
 };
@@ -89,7 +82,7 @@ export default {
 header {
   height: 48px;
   background: #9fc1fe;
-  padding-left: 24px;
+  margin-left: -50px;
 }
 
 header .container {
@@ -138,7 +131,7 @@ header nav a:hover {
   padding: 8px 26px;
 }
 .homePage {
-  margin-left: 12px;
+  margin-left: 20px;
   line-height: 48px;
   font-size: 18px;
   float: left;

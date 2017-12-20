@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   data() {
@@ -42,42 +42,48 @@ export default {
       newClassButton: false,
       classList: " ",
       courseName: " "
-    }
+    };
   },
-  mounted () {
-    const that = this
-    axios.post("http://111.231.190.23/web/getClassList?tid=1")
-    // .then(response => {
-    //   this.classList = response.data.data.classList
-    //   })
-    .then(function(response) {
-      that.classList = response.data.data.classList
-      console.log(response.data.data.classList)
-    })
+  mounted() {
+    const that = this;
+    axios
+      .post("http://111.231.190.23/web/getClassList?tid=1")
+      // .then(response => {
+      //   this.classList = response.data.data.classList
+      //   })
+      .then(function(response) {
+        that.classList = response.data.data.classList;
+        console.log(response.data.data.classList);
+      });
   },
   methods: {
-    click(e,cid) {
-      this.$store.commit('setCid', cid);
+    click(e, cid) {
+      this.$store.commit("setCid", cid);
       var cn = e.currentTarget.innerHTML;
-      this.$store.commit('setCourseName', cn);
+      this.$store.commit("setCourseName", cn);
       this.$router.push({ name: "assignment" });
     },
     createClass() {
-      axios.post('http://111.231.190.23/web/CreateClass?tid=1&cname="'+this.courseName+'"')
-      .then(function(response){
-        console.log(response)
-      }).catch(function(error){
-        console.log(error)
-      })
-      this.$Message.info("创建课堂成功！")
-      location.reload()
+      axios
+        .post(
+          'http://111.231.190.23/web/CreateClass?tid=1&cname="' +
+            this.courseName +
+            '"'
+        )
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.$Message.info("创建课堂成功！");
+      location.reload();
     }
   },
   components: {
     myHead: require("../template/afterLogin/indexHeader")
   }
 };
-
 </script>
 
 <style scoped>
@@ -113,13 +119,11 @@ export default {
     #bde9fc 100%
   );
 }
-
 .layout-content-topbar .layout-title {
   width: 220px;
   font-size: 48px;
   color: white;
 }
-
 .layout-content-topbar .layout-inform {
   width: 300px;
   margin-left: auto;
@@ -198,7 +202,7 @@ export default {
 }
 .layout-content-class-row {
   margin-top: 20px;
-  padding:4px 68px 4px 68px;
+  padding: 4px 68px 4px 68px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;

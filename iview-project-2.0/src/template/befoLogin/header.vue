@@ -4,14 +4,14 @@
       <h1>作业来了</h1>
       <nav>
         <a @click="$router.push({name:'signIn'}), SignIn()" :class="{choosen:ifSin}">Sign in</a>
-        <span>or</span>
+        <span>|</span>
         <a @click="$router.push({name:'signUp'}), SignUp()" :class="{choosen:ifSup}">Sign up</a>
       </nav>
-      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
+      <!-- <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
         <Form-item prop="search">
           <Input v-model="formValidate.search" placeholder="search here" class="search" @on-enter="handleSubmit('formValidate')"></Input>
         </Form-item>
-      </Form>
+      </Form> -->
     </div>
   </header>
 </template>
@@ -55,8 +55,8 @@ export default {
 <style scoped>
 header {
   height: 48px;
-  background: #24292e;
-  padding: 0px 24px;
+  background: #9fc1fe;
+  
 }
 
 header .container {
@@ -88,6 +88,7 @@ header nav {
   float: right;
   font-size: 17px;
   line-height: 48px;
+  margin-right: 40px;
 }
 
 
@@ -96,7 +97,7 @@ header nav a {
 }
 
 .choosen {
-  color: #f9d490;
+  color: #FF7F00;
 }
 
 header nav span {

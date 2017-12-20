@@ -1,9 +1,10 @@
 <template>
   <div class="container">
+    <big-img class="box" @cancelShow="cancelShow" v-if="showImg" :imgSrc="imgSrc" :showImg="showImg" @onmousewheel="bigimg(this)"></big-img>
     <div class="select">
       <img src="../../images/选择作业图标.png" alt="">
       <Select @on-change="change" v-model="homework" style="width:200px">
-        <Option v-for="item in homeworkList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        <Option  v-for="item in homeworkList" :value="item.value" :key="item.value">{{ item.label}}</Option>
       </Select>
       <Modal v-model="modal1" title="作业批改" @on-ok="ok" @on-cancel="cancel" >
         
@@ -19,7 +20,6 @@
                     <img class="demo-carousel" v-bind:src="item.label" @click="clickImg($event)">
                   </CarouselItem>
               </Carousel>
-              <big-img @cancelShow="cancelShow" v-if="showImg"  :imgSrc="imgSrc" :showImg="showImg" @onmousewheel="bigimg(this)"></big-img>
           <p class="correctInform">
             <label for="">得星数</label>
             <Rate v-model="value" style="margin-left:130px;" @on-change="rateChange"></Rate>
@@ -46,7 +46,7 @@
                     <img class="demo-carousel" v-bind:src="item.label" @click="clickImg($event)">
                   </CarouselItem>
               </Carousel>
-              <big-img @cancelShow="cancelShow" v-if="showImg"  :imgSrc="imgSrc" :showImg="showImg"></big-img>
+              <big-img  @cancelShow="cancelShow" v-if="showImg"  :imgSrc="imgSrc" :showImg="showImg"></big-img>
           <p class="correctInform">
             <label for="">得星数</label>
             <Rate disabled v-model="valueAfter" style="margin-left:130px;"></Rate>
@@ -70,7 +70,7 @@ import BigImg from "../afterLogin/BigImg";
 export default {
   data() {
     return {
-      double :false,
+      double: false,
       Sid: 0,
       inx: 0,
       showImg: false,
@@ -118,37 +118,36 @@ export default {
           align: "center",
           width: 248,
           render: (h, params) => {
-            if(params.row.score==0) {
+            if (params.row.score == 0) {
               return h(
-              "Button",
-              {
-                props: {
-                  type: "primary"
-                },
-                on: {
-                  click: () => {
-                    this.modal1 = true;
+                "Button",
+                {
+                  props: {
+                    type: "primary"
+                  },
+                  on: {
+                    click: () => {
+                      this.modal1 = true;
+                    }
                   }
-                }
-              },
-              "未批改"
-            );
-            }
-            else {
+                },
+                "未批改"
+              );
+            } else {
               return h(
-              "Button",
-              {
-                props: {
-                  type: "success"
-                },
-                on: {
-                  click: () => {
-                    this.modal2 = true;
+                "Button",
+                {
+                  props: {
+                    type: "success"
+                  },
+                  on: {
+                    click: () => {
+                      this.modal2 = true;
+                    }
                   }
-                }
-              },
-              "已批改"
-            );
+                },
+                "已批改"
+              );
             }
           }
         }
@@ -160,17 +159,24 @@ export default {
     "big-img": BigImg
   },
   mounted() {
+    console.log("begin");
     if (module.hot) {
       module.hot.accept();
     }
+    var passIndex;
     const that = this;
     that.testHomework = [];
     that.testStu = [];
     that.data1 = [];
-    var passIndex = this.$route.query.index;
-    if (passIndex >= 0) {
-      that.homework = passIndex;
+    console.log("begin1");
+    if (that.$route.query.index >= 0) {
+      passIndex = that.$route.query.index;
+    } else {
+      passIndex = that.homework;
     }
+
+    console.log("begin2");
+    console.log(passIndex);
     axios
       .post(
         "http://111.231.190.23/web/getHomeWorkList?cid=" +
@@ -186,13 +192,16 @@ export default {
           tmp.content = that.testHomework[i].content;
           that.homeworkList.push(tmp);
         }
+        console.log("middle", passIndex);
         axios
           .post(
             "http://111.231.190.23/web/getStudentHomeWork?wid=" +
-              that.homeworkList[that.homework].wid
+              that.homeworkList[passIndex].wid
           )
           .then(function(res) {
+            console.log("success");
             that.testStu = res.data.data.work;
+            console.log("stu ", that.testStu);
             for (var i = 0; i < that.testStu.length; ++i) {
               var tmp = {
                 title: "",
@@ -212,11 +221,15 @@ export default {
               tmp.working = that.testStu[i].workimg;
               that.data1.push(tmp);
             }
+            console.log("begin3");
+            that.homework = passIndex;
+            console.log("end");
           });
       });
   },
   methods: {
     bigimg: function(i) {
+      console.log('bigimg已执行---');
       var zoom = parseInt(i.style.zoom, 10) || 100;
       zoom += event.wheelDelta / 12;
       if (zoom > 0) i.style.zoom = zoom + "%";
@@ -226,16 +239,26 @@ export default {
       modal1 = true;
     },
     change: function(res) {
+      this.inx = res;
       var that = this;
-      that.homework = res;
+      console.log("res=>", res);
+      console.log("w => ", that.homework);
       that.testStu = [];
       that.data1 = [];
+      if (that.homeworkList.length == 0) return;
+      console.log("list", that.homeworkList);
+      var ary = that.homeworkList;
+      console.log("show => ", ary.length);
+
+      console.log("index =>" + that.homework);
+      console.log("now =>" + that.homeworkList[that.homework].wid);
       return axios
         .post(
           "http://111.231.190.23/web/getStudentHomeWork?wid=" +
             that.homeworkList[that.homework].wid
         )
         .then(function(res) {
+          console.log(that.homeworkList[that.homework].wid);
           that.testStu = res.data.data.work;
           for (var i = 0; i < that.testStu.length; ++i) {
             var tmp = {
@@ -279,9 +302,7 @@ export default {
       this.$Message.success("批改成功!");
       //location.reload();
     },
-    cancel() {
-      this.$Message.info("取消发布");
-    },
+    cancel() {},
     click: function(res) {
       this.value = 0;
       this.single = false;
@@ -363,5 +384,12 @@ export default {
 
 .correctInform inputfirst {
   color: black;
+}
+.box{
+  z-index: 1200;
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: fixed;
 }
 </style>

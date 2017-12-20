@@ -8,10 +8,11 @@ import 'iview/dist/styles/iview.css';
 import axios from 'axios'
 import './config/config'
 import store from './store/store';
+
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
-Vue.prototype.$http = axios
+Vue.prototype.$http = axios;
 Vue.use(VueRouter);
 Vue.use(iView);
 //Vue.use(VueResource);
@@ -44,6 +45,7 @@ router.beforeEach((to, from, next) => {
         if (store.state.token) {  // 通过vuex state获取当前的token是否存在
             next();
         }
+        
         else {
             next({
                 path: '',
@@ -53,6 +55,22 @@ router.beforeEach((to, from, next) => {
     }
     else {
         next();
+    }
+    if(store.state.tid==-1)
+    {
+        store.commit('setTid', localStorage.getItem('currentUser_tid'));
+    }
+    if(store.state.cid==-1)
+    {
+        store.commit('setCid', localStorage.getItem('currentCourse_cid'));
+    }
+    if(store.state.teacherName=='defaultTeacherName')
+    {
+        store.commit('setTName', localStorage.getItem('currentUser_tName'));
+    }
+    if(store.state.courseName=='defaultCourseName')
+    {
+        store.commit('setCourseName', localStorage.getItem('currentCourse_cname'));
     }
 });
 

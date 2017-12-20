@@ -8,7 +8,9 @@ import signIn from './template/befoLogin/signIn.vue'
 
 import header from './template/befoLogin/header.vue'
 
+import test from './template/afterLogin/test.vue'
 import detail from './template/afterLogin/detail.vue'
+import index from './template/afterLogin/index.vue'
 import solution from './template/afterLogin/solution.vue'
 import courseHeader from './template/afterLogin/courseHeader.vue'
 import indexHeader from './template/afterLogin/indexHeader.vue'
@@ -28,7 +30,18 @@ const routers = [
             {
                 path:'',
                 name:'signIn',
-                component:signIn
+                component:signIn,
+                children:[
+                    {
+                        path: 'index',
+                        name: 'index',
+                        component: index,
+                        meta: {
+                            requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                            keepAlive: true
+                        },
+                    }
+                ]
             },
             {
                 path: 'signUp',
@@ -38,11 +51,8 @@ const routers = [
         ]
     },
     {
-        path: '/:userId',
-        component: afterLogin,
-        meta: {
-            requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-        },
+        path: '/userId',
+        component: index,
         children: [
             {
                 path: 'detail',
@@ -50,16 +60,14 @@ const routers = [
                 component: detail,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
                 },
             }
         ]
     },
-    {
-        path: '/:userId',
+    {   
+        path: '/userId',
         component: detail, 
-        meta: {
-            requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-        },
         children: [
             {
                 path: 'solution',
@@ -67,6 +75,7 @@ const routers = [
                 component: solution,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
                 },
             },
             {
@@ -75,6 +84,7 @@ const routers = [
                 component: assignment,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
                 },
             },
             {
@@ -83,6 +93,7 @@ const routers = [
                 component: notice,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
                 },
             },
             {
@@ -91,6 +102,7 @@ const routers = [
                 component: studentList,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
                 },
             },
             ,
@@ -100,6 +112,7 @@ const routers = [
                 component: commont,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
                 },
             },
             {
@@ -108,6 +121,7 @@ const routers = [
                 component: correct,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
                 },
             },
             {
@@ -116,6 +130,16 @@ const routers = [
                 component: courseware,
                 meta: {
                     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
+                },
+            },
+            {
+                path: 'test',
+                name: 'test',
+                component: test,
+                meta: {
+                    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                    keepAlive: true
                 },
             }
         ]

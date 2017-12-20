@@ -25,10 +25,6 @@
                 <Icon type="android-open"></Icon>
                 <a @click="$router.push({name:'correct'})">作业批改</a>
             </MenuItem>
-            <MenuItem name="5">
-                <Icon type="help"></Icon>
-               <a @click="$router.push({name:'solution'})">作业解答</a>
-            </MenuItem>
             <MenuItem name="6">
                 <Icon type="ios-pricetag-outline"></Icon>
                <a @click="$router.push({name:'studentList'})">学生总评</a>
@@ -38,7 +34,9 @@
                     </Col>
                     <Col span="19">
                         <div class="layout-content-main">
-                            <router-view></router-view>
+                            <keep-alive><router-view v-if="$route.meta.keepAlive"></router-view>
+                            </keep-alive>
+                            <router-view v-if="!$route.meta.keepAlive"></router-view>
                         </div>
                     </Col>
                 </Row>
@@ -51,6 +49,10 @@
 export default {
   data() {
     return {};
+  },
+  mounted () {
+      console.log("tid = >" + this.$store.getters.getTid);
+      
   },
   components: {
     myHead: require("./courseHeader")

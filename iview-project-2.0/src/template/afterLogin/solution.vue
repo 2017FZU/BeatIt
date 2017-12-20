@@ -58,9 +58,7 @@ export default {
     }
     const that = this;
     var passIndex = this.$route.query.index;
-    if (passIndex >= 0) {
-      that.model1 = passIndex;
-    }
+   
     axios
       .post(
         "http://111.231.190.23/web/getHomeWorkList?cid=" +
@@ -76,6 +74,7 @@ export default {
           tmp.content = that.test[i].content;
           that.cityList.push(tmp);
         }
+        that.model1 = passIndex;
       });
   }
 };
