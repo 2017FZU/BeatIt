@@ -12,6 +12,7 @@ import com.example.homework.item.SubmissionItem
 import com.github.yamamotoj.pikkel.Pikkel
 import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
+import io.paperdb.Paper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.BehaviorProcessor
@@ -36,6 +37,7 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     var wid = -1
     var status = -1
     var score = 0
+    var sid = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,8 +78,9 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     fun loadSubmission() {
         wid = arguments.getInt("wid")
         status = arguments.getInt("status")
+        sid = Paper.book().read("sid")
 //        if (status == 0) {
-            CourseService.getSubmitEndMessage(1, wid)
+            CourseService.getSubmitEndMessage(sid, wid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
@@ -88,7 +91,7 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
                     }
 //        }
         if (submitList == null) {
-            CourseService.getHomeworkSubmissionList(1, wid)
+            CourseService.getHomeworkSubmissionList(sid, wid)
         } else {
             Observable.just(submitList)
         }
@@ -143,7 +146,7 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
         if (fileList.isEmpty()) {
             toast("当前无可提交作业")
         } else {
-            CourseService.uploadHomework(wid, 1, fileList)
+            CourseService.uploadHomework(wid, sid, fileList)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {

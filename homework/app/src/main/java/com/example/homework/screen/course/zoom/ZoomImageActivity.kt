@@ -18,7 +18,7 @@ class ZoomImageActivity : RxAppCompatActivity() {
         val url = intent.getStringExtra("url")
         Picasso.with(this)
                 .load(url)
-                .error(R.mipmap.ic_launcher)
+                .error(R.drawable.icon_logo)
                 .into(img_course_excellent_zoom)
     }
 }

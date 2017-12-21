@@ -30,12 +30,13 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
     var cid = -1
+    var sid = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreInstanceState(savedInstanceState)
 
-        initDate()
+//        initDate()
         setupCourse()
         loadCourse()
 
@@ -44,6 +45,8 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     }
 
     fun testForData() {
+        sid = Paper.book().read<Int>("sid")
+        println("====================== $sid")
         CourseService.getCourseList(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
@@ -128,7 +131,8 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     }
 
     fun loadCourse() {
-        val sid = Paper.book().read<Int>("sid")
+        sid = Paper.book().read<Int>("sid")
+        println("====================== $sid")
         if (courseList == null) {
 //            toast("null")
             CourseService.getCourseList(sid)
@@ -164,7 +168,7 @@ class CoursePresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
     }
 
     override fun onCourseAdd(courseName: String, teacherName: String) {
-        CourseService.addIntoClass(cid, 1)
+        CourseService.addIntoClass(cid, sid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
