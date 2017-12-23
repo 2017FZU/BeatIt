@@ -35,6 +35,7 @@
         android:background="@drawable/icon_feed_bk_txt_border">
         
         <EditText
+            android:id="@+id/edit_feedbk_advice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="31dp"
@@ -43,10 +44,12 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_feedbk_submit"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/icon_feed_bk_send_button"/>
+        android:background="@drawable/icon_feed_bk_send_button"
+        android:text="提交"/>
 
 </LinearLayout>

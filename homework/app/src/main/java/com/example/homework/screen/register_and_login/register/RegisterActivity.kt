@@ -49,8 +49,6 @@ class RegisterActivity : BaseActivity(), Contract.View {
 
     fun setupViewBar() {
         btn_register_getconfirmnum.setOnClickListener {
-            val mycountdowntime = MyCountDownTimer(60000, 1000)
-            mycountdowntime.start()
             NAME = text_register_name.text.toString()
             STUNUM = text_register_stunum.text.toString()
             PASSWORDS = text_register_passwords.text.toString()
@@ -64,8 +62,11 @@ class RegisterActivity : BaseActivity(), Contract.View {
                 toast("用户密码必须以字母开头，长度为16~20个字符")
             else if (!PHONENUM.matches(REGEX_MOBILE))
                 toast("请输入正确的手机号")
-            else
+            else {
+                val mycountdowntime = MyCountDownTimer(60000, 1000)
+                mycountdowntime.start()
                 prestenter!!.getVcode(PHONENUM)
+            }
         }
 
         btn_register_return.setOnClickListener {
