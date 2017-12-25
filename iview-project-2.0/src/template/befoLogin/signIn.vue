@@ -29,8 +29,8 @@ export default {
     return {
       current: 0,
       formValidate: {
-        user: "13075835808",
-        password: "123456"
+        user: " " ,
+        password: ""
       },
       ruleValidate: {
         user: [{ required: true, message: "手机号不能为空", trigger: "blur" }],
@@ -40,6 +40,9 @@ export default {
         ]
       }
     };
+  },
+  mounted () {
+    var that = this;
   },
   methods: {
     handleSubmit(name) {
@@ -55,14 +58,19 @@ export default {
             )
             .then(function(response) {
               console.log(response);
-              that.$store.commit("setToken", response.data.data.session);
-              that.$store.commit("setTid", response.data.data.tid),
-                that.$store.commit("setTName", response.data.data.tname),
-                that.$router.push({
-                  name: "detail",
-                  params: { userId: response.data.data.tid }
-                });
+              if (response.data.data.success == true) {
+                that.$store.commit("setToken", response.data.data.session);
+                that.$store.commit("setTid", response.data.data.tid),
+                  that.$store.commit("setTName", response.data.data.tname),
+                  that.$router.push({
+                    name: "detail",
+                    params: { userId: response.data.data.tid }
+                  });
                 that.$Message.success("登陆成功！");
+              }
+              else{
+                that.$Message.error("密码错误！");
+              }
             })
             .catch(function(error) {
               console.log(error);

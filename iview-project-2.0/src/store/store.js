@@ -8,8 +8,9 @@ const state = {
     courseName: 'defaultCourseName',
     cid: -1,
     teacherName:'defaultTeacherName',
-    url:'',
-    basedata:'',
+    url:'defaultUrl',
+    basedata:'defaultBasedata',
+    qcode:'defaultQcode'
 
 };
 
@@ -33,6 +34,10 @@ const mutations = {
     setCid(state, cid) {
         state.cid = cid;
         window.localStorage.setItem('currentCourse_cid', cid);
+    },
+    setQcode(state, qcode) {
+        state.qcode = qcode;
+        window.localStorage.setItem('currentCourse_qcode', qcode);
     },
     setTid(state, tid) {
         state.tid = tid;
@@ -60,6 +65,9 @@ const getters = {
     },
     getCid: state => {
         return state.cid;
+    },
+    getQcode: state => {
+        return state.qcode;
     },
     getToken: state => {
         return state.token;

@@ -115,7 +115,7 @@ export default {
               if(judge == true)
               {
                 that.current += 1;
-                javascript: location.href ='./'
+                javascript: location.href ='/'
               }
               else{
                 alert(response.data.data.error);

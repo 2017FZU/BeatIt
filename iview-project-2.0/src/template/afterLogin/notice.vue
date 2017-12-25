@@ -123,7 +123,8 @@ export default {
 }
 
 .publish {
-  margin-left: 1160px;
+  margin-left: 90%;
+  margin-bottom: 20px;
 }
 </style>
 

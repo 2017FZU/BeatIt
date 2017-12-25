@@ -76,7 +76,7 @@ export default {
   },
   mounted() {
     const that = this
-    axios.post('http://111.231.190.23/web/getAllStudent?cid=1')
+    axios.post('http://111.231.190.23/web/getAllStudent?cid='+that.$store.getters.getCid)
       .then(function(res) {
         that.stuList = res.data.data.allStudent
         that.stuLList = that.stuList

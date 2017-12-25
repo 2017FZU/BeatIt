@@ -17,7 +17,8 @@
           <!-- <p style="height:200px; width:100%; display:block;"> -->
               <Carousel v-model="value1" style="height:600px;width:488px;margin-top:20px">
                   <CarouselItem v-for="item in homeworkImg" :value="item.value" :key="item.value">
-                    <img class="demo-carousel" v-bind:src="item.label" @click="clickImg($event)">
+                    {{item.value}}
+                    <img v-bind:id="item.value" class="demo-carousel" v-bind:src="item.label" @click="clickImg($event)">
                   </CarouselItem>
               </Carousel>
           <p class="correctInform">
@@ -25,7 +26,8 @@
             <Rate v-model="value" style="margin-left:130px;" @on-change="rateChange"></Rate>
           </p>
           <p class="correctInform">
-            <Radio v-model="single">优秀作业</Radio>
+            <Checkbox v-model="single">优秀作业</Checkbox>
+
           </p>
           <p class="correctInform">
             <label for="">作业评语</label>
@@ -43,7 +45,7 @@
           <!-- <p style="height:200px; width:100%; display:block;"> -->
               <Carousel v-model="value1" style="height:600px;width:488px;margin-top:20px">
                   <CarouselItem v-for="item in homeworkImgAfter" :value="item.value" :key="item.value">
-                    <img class="demo-carousel" v-bind:src="item.label" @click="clickImg($event)">
+                    <img class="demo-carousel" v-bind:src="item.label">
                   </CarouselItem>
               </Carousel>
               <big-img  @cancelShow="cancelShow" v-if="showImg"  :imgSrc="imgSrc" :showImg="showImg"></big-img>
@@ -51,8 +53,7 @@
             <label for="">得星数</label>
             <Rate disabled v-model="valueAfter" style="margin-left:130px;"></Rate>
             <p class="correctInform">
-            <label for="">优秀作业</label>
-            <Radio disabled v-model="double"></Radio>
+            <Checkbox  disabled v-model="double">优秀作业</Checkbox>
           </p>
       </Modal>
 
@@ -70,6 +71,7 @@ import BigImg from "../afterLogin/BigImg";
 export default {
   data() {
     return {
+      sign:2,
       double: false,
       Sid: 0,
       inx: 0,
@@ -80,7 +82,7 @@ export default {
       Comment: "",
       Sname: "",
       Sno: 0,
-      value: 0,
+      value: 1,
       valueAfter: 0,
       value1: 0,
       modal1: false,
@@ -287,7 +289,7 @@ export default {
     ok() {
       var that = this;
       that.Wno = that.homeworkList[that.homework].wid;
-      axios.post(
+      axios.get(
         "http://111.231.190.23/web/CommentHomeWork?sid=" +
           that.Sid +
           "&wid=" +
@@ -296,15 +298,20 @@ export default {
           that.value +
           "&comment=" +
           that.Comment +
-          "&isview=" +
+          "&url=" +
+          that.imgSrc +
+          "&Base64Data=" +
+          that.$store.getters.getBasedata+
+          "&isshow="+
           that.single
+          
       );
       this.$Message.success("批改成功!");
-      //location.reload();
+      location.reload();
     },
     cancel() {},
     click: function(res) {
-      this.value = 0;
+      this.value = 1;
       this.single = false;
       this.Comment = "";
       this.homeworkImg = [];
@@ -312,7 +319,7 @@ export default {
       this.Sid = res.sid;
       this.Sname = res.sname;
       this.Sno = res.sno;
-      this.double = res.isshow;
+      this.double = res.isview;
       this.valueAfter = res.score;
       for (var k = 0; k < res.working.length; k++) {
         var tmp = { value: 0, label: "" };
@@ -325,9 +332,13 @@ export default {
     clickImg(e) {
       this.showImg = true;
       // 获取当前图片地址
+      this.sign = e.currentTarget.id; //获取数组索引值
       this.imgSrc = e.currentTarget.src;
     },
     cancelShow(res) {
+      // this.homeworkImg[]
+      this.homeworkImgAfter[this.sign].label = this.$store.getters.getBasedata;
+      alert(this.homeworkImgAfter[this.sign].label);
       this.showImg = res;
     },
     viewImg() {
@@ -388,8 +399,11 @@ export default {
 .box{
   z-index: 1200;
   width: 100%;
-  height: 100%;
-  display: block;
-  position: fixed;
+  height: 1000px;
+  top: 0;  
+  bottom:0;  
+  position:absolute;  
+  overflow-y:scroll;  
+  overflow-x:hidden;
 }
 </style>

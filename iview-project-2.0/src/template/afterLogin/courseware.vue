@@ -41,8 +41,9 @@ export default {
     };
   },
   mounted() {
-    axios.post("http://111.231.190.23/web/getCourseList?cid=1").then(res => {
-      this.classData = res.data.data.courseList;
+    var that = this;
+    axios.post("http://111.231.190.23/web/getCourseList?cid="+that.$store.getters.getCid).then(res => {
+      that.classData = res.data.data.courseList;
       console.log(res.data.data);
     });
   },

@@ -115,8 +115,7 @@ export default {
                   on: {
                     click: () => {
                       // this.remove(params.index);
-                      javascript: location.href =
-                        "solution?index=" + params.index;
+                      this.$Message.success("该功能正在开发中！");
                     }
                   }
                 },
@@ -303,7 +302,7 @@ export default {
 }
 
 .publish {
-  margin-left: 1160px;
+  margin-left: 90%;
 }
 </style>
 

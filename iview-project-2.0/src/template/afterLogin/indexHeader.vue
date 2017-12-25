@@ -14,10 +14,10 @@
                     </Tooltip>
                     <Dropdown-menu slot="list" class="Dropdown-menu">
                         <Dropdown-item style="padding:7px 0">
-                            <a @click="$router.push({name:'userInfoChg'})">个人资料</a>
+                            <a @click=" ">个人资料</a>
                         </Dropdown-item>
                         <Dropdown-item style="padding:7px 0">
-                            <a @click="$router.push({name:'passwdChg'})">修改密码</a>
+                            <a @click="">修改密码</a>
                         </Dropdown-item>
                         <Dropdown-item style="padding:7px 0">
                             <a @click="handleLogout()">注销</a>

@@ -14,7 +14,7 @@
                     <div class="layout-content-class">
                         <p>我的课程</p>
                         <img id="img" src="/src/images/我的课程_横线.png" alt="">
-                        <p><Button type="primary" size="large" @click="newClassButton = true">新建课堂</Button></p>
+                        <p id="btn"><Button type="primary" size="large" @click="newClassButton = true">新建课堂</Button></p>
                         <Modal v-model="newClassButton" title="新建课堂" @on-ok="createClass">
                           <p class="newClass">
                             <label for="">课程名</label>
@@ -23,7 +23,7 @@
                         </Modal>
                         <div class="layout-content-class-row">
                             <div class="layout-content-class-row-one" v-for="item in classList" :key="item.cid">
-                                <a @click="click($event,item.cid)">{{item.cname}}</a>
+                                <a @click="click($event,item.cid,item.emg)">{{item.cname}}</a>
                             </div>                            
                         </div>
                     </div>
@@ -47,7 +47,10 @@ export default {
   mounted() {
     const that = this;
     axios
-      .post("http://111.231.190.23/web/getClassList?tid=1")
+      .post(
+        "http://111.231.190.23/web/getClassList?tid=" +
+          that.$store.getters.getTid
+      )
       // .then(response => {
       //   this.classList = response.data.data.classList
       //   })
@@ -57,18 +60,21 @@ export default {
       });
   },
   methods: {
-    click(e, cid) {
+    click(e, cid, emg) {
       this.$store.commit("setCid", cid);
+      this.$store.commit("setQcode", emg);
       var cn = e.currentTarget.innerHTML;
       this.$store.commit("setCourseName", cn);
+
       this.$router.push({ name: "assignment" });
     },
     createClass() {
       axios
         .post(
-          'http://111.231.190.23/web/CreateClass?tid=1&cname="' +
-            this.courseName +
-            '"'
+          "http://111.231.190.23/web/CreateClass?tid=" +
+            this.$store.getters.getTid +
+            "&cname=" +
+            this.courseName
         )
         .then(function(response) {
           console.log(response);
@@ -200,6 +206,10 @@ export default {
   margin: auto;
   display: inherit;
 }
+.layout-content-class #btn {
+  margin-left: 90%;
+  position: relative;
+}
 .layout-content-class-row {
   margin-top: 20px;
   padding: 4px 68px 4px 68px;
@@ -212,7 +222,7 @@ export default {
   align-items: center;
   width: 20%;
   height: 186px;
-  background-image: url('/src/images/课程背景框.png');
+  background-image: url("/src/images/课程背景框.png");
   background-repeat: no-repeat;
   background-position: center;
 }

@@ -27,7 +27,7 @@ axios.defaults.baseURL = 'http://111.231.190.23';// 服务器IP地址
 // 路由配置
 const RouterConfig = {
     mode: 'history',
-    routes: Routers
+    routes: Routers,
 };
 const router = new VueRouter(RouterConfig);
 
@@ -41,6 +41,8 @@ router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
         if (!localStorage.currenUser_token) {
             store.commit('setToken', localStorage.getItem('currentUser_token'));
+            // javascript: location.href =  "/" ;
+            console.log('hhhh');
         }   
         if (store.state.token) {  // 通过vuex state获取当前的token是否存在
             next();
@@ -55,6 +57,10 @@ router.beforeEach((to, from, next) => {
     }
     else {
         next();
+    }
+    if(store.state.token=='')
+    {
+        store.commit('setToken', localStorage.getItem('currentUser_token'));
     }
     if(store.state.tid==-1)
     {
@@ -71,6 +77,18 @@ router.beforeEach((to, from, next) => {
     if(store.state.courseName=='defaultCourseName')
     {
         store.commit('setCourseName', localStorage.getItem('currentCourse_cname'));
+    }
+    if(store.state.url=='defaultUrl')
+    {
+        store.commit('setUrl', localStorage.getItem('currentUser_url'));
+    }
+    if(store.state.basedata=='defaultBasedata')
+    {
+        store.commit('setBasedata', localStorage.getItem('currentUser_basedata'));
+    }
+    if(store.state.qcode=='defaultQcode')
+    {
+        store.commit('setQcode', localStorage.getItem('currentCourse_qcode'));
     }
 });
 

@@ -47,7 +47,7 @@ export default {
   mounted() {
     const that = this;
     axios
-      .post("http://111.231.190.23/web/getClassList?tid=1")
+      .post("http://111.231.190.23/web/getClassList?tid="+that.$store.getters.getTid)
       // .then(response => {
       //   this.classList = response.data.data.classList
       //   })
@@ -66,7 +66,7 @@ export default {
     createClass() {
       axios
         .post(
-          'http://111.231.190.23/web/CreateClass?tid=1&cname="' +
+          'http://111.231.190.23/web/CreateClass?tid='+that.$store.getters.getTid+'&cname="' +
             this.courseName +
             '"'
         )
