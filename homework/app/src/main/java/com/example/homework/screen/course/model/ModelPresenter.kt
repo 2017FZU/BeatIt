@@ -57,7 +57,6 @@ class ModelPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikke
                 ModelItem.ITEM_CLICK -> {
 //                    val model = (event.data as ModelItem.VO).DO as ExcellentSubmission
 //                    view()!!.gotoZoom(model.url)
-                    toast("mmp")
                     val url = event.data as String
                     view()!!.gotoZoom(url)
                 }
