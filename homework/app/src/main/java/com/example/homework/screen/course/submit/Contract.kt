@@ -15,6 +15,8 @@ interface Contract {
         fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>)
         fun gotoDelete(position: Int, vo: SubmissionItem.VO)
         fun setSubmitEnd(score: Int, comment: String)
+        fun showProgressBar()
+        fun gotoZoom(vo: SubmissionItem.VO)
     }
 
     interface Presenter: IPresenter {

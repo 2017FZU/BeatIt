@@ -61,8 +61,8 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
         itemPool.onEvent(SubmissionItem::class.java) { event ->
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    val submission = (event.data as SubmissionItem.VO).DO as Submission
-
+                    val submission = event.data as SubmissionItem.VO
+                    view()!!.gotoZoom(submission)
                 }
                 SubmissionItem.ITEM_LONG_CLICK -> {
                     if (score == 0) {
@@ -146,6 +146,7 @@ class SubmitPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikk
         if (fileList.isEmpty()) {
             toast("当前无可提交作业")
         } else {
+            view()!!.showProgressBar()
             CourseService.uploadHomework(wid, sid, fileList)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
