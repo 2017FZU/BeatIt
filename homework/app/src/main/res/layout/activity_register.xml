@@ -72,7 +72,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textCursorDrawable="@color/colorPrimary"
-                android:hint="数字字母开头,长度在8-16"
+                android:hint="数字或字母开头,长度8-16"
                 android:inputType="textPassword"
                 android:background="@drawable/background_rectangle_round_register_input"/>
         </LinearLayout>

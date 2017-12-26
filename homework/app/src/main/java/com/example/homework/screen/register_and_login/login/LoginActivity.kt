@@ -58,6 +58,11 @@ class LoginActivity : BaseActivity(), Contract.View {
     }
 
     fun setupViewBar() {
+
+        btn_login_forgetpassword.setOnClickListener {
+            toast("开发中")
+        }
+
         btn_login_register.setOnClickListener {
                 startActivity(Intent(this, RegisterActivity::class.java))
         }
@@ -71,7 +76,7 @@ class LoginActivity : BaseActivity(), Contract.View {
                 toast("请输入正确的手机号")
 
             else if (!PASSWORDS.matches(REGEX_PASSWORDS))
-                toast("密码必须以字母开头，长度在6-18之间")
+                toast("密码不合法")
             else {
                 prestenter!!.isuserLogin(PHONENUM, PASSWORDS)
             }
