@@ -42,10 +42,36 @@ class PersonalActivity: BaseActivity(), Contract.View {
     }
 
     fun setActionBar() {
+
+        btn_personal_personal.setOnClickListener {
+            val intent = Intent(this, PersonalSettingActivity::class.java)
+            intent.putExtra("sid", sid)
+            startActivity(intent)
+            finish()
+        }
+
+        btn_personal_message.setOnClickListener{
+            toast("开发中")
+        }
+
+        btn_personal_about.setOnClickListener{
+            val intent = Intent(this, AboutUsActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_personal_setting.setOnClickListener{
+            toast("开发中")
+        }
+
+        btn_personal_advice.setOnClickListener{
+            val intent = Intent(this, FeedBKActivity::class.java)
+            startActivity(intent)
+        }
+
         btn_personal_enteraboutus.setOnClickListener{
             val intent = Intent(this, AboutUsActivity::class.java)
             startActivity(intent)
-            toast("click about")
+            toast("开发中")
         }
 
         btn_personal_enteradvice.setOnClickListener{
@@ -54,15 +80,15 @@ class PersonalActivity: BaseActivity(), Contract.View {
         }
 
         btn_personal_entermessage.setOnClickListener{
-            toast("click message")
+            toast("开发中")
         }
 
         btn_personal_entersetting.setOnClickListener{
-            toast("click setting")
+            toast("开发中")
         }
 
         btn_personal_alterimg.setOnClickListener {
-            toast("click alterimg")
+            toast("开发中")
         }
 
         btn_personal_enterpersonal.setOnClickListener {
