@@ -35,7 +35,7 @@ class PersonalSettingActivity: BaseActivity(), Contract.View {
 
     fun ActionBar() {
         btn_personal_me_return.setOnClickListener {
-            finish()
+            startActivity(Intent(this, PersonalActivity::class.java))
         }
     }
 

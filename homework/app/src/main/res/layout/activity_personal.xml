@@ -20,6 +20,7 @@
     </FrameLayout>
     
     <LinearLayout
+        android:id="@+id/btn_personal_personal"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="90dp"
@@ -78,6 +79,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/btn_personal_message"
         android:layout_width="match_parent"
         android:layout_height="51dp"
         android:layout_marginTop="3dp"
@@ -102,6 +104,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/btn_personal_setting"
         android:layout_width="match_parent"
         android:layout_height="51dp"
         android:layout_marginTop="3dp"
@@ -126,6 +129,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/btn_personal_about"
         android:layout_width="match_parent"
         android:layout_height="51dp"
         android:layout_marginTop="3dp"
@@ -150,6 +154,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/btn_personal_advice"
         android:layout_width="match_parent"
         android:layout_height="51dp"
         android:layout_marginTop="3dp"
