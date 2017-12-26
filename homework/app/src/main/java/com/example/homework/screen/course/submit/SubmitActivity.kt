@@ -36,6 +36,7 @@ class SubmitActivity : BaseActivity(), Contract.View {
     var presenter: Contract.Presenter? = null
     private val REQUEST_CODE_PICK_IMAGE = 1122
     var status = -1
+    var lastClickTime = System.currentTimeMillis()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -195,7 +196,10 @@ class SubmitActivity : BaseActivity(), Contract.View {
         }
 
         btn_course_submit_confirm.setOnClickListener {
-            presenter!!.confirm()
+            if (System.currentTimeMillis() - lastClickTime > 5000) {
+                presenter!!.confirm()
+                lastClickTime = System.currentTimeMillis()
+            }
         }
     }
 
