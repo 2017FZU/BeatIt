@@ -39,8 +39,8 @@ class ExcellentActivity : BaseActivity(), Contract.View {
 
     override fun gotoModel(wid: Int, position: Int) {
         val intent = Intent(this, ModelActivity::class.java)
-//        intent.putExtra("wid", wid)
-//        intent.putExtra("position", position)
+        intent.putExtra("wid", wid)
+        intent.putExtra("position", position)
         startActivity(intent)
     }
 

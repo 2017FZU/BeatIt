@@ -28,7 +28,7 @@ class ModelItem : Item<ModelItem.VO>() {
                     .load(vo.url)
                     .fit()
                     .centerCrop()
-                    .error(R.mipmap.ic_launcher)
+                    .error(R.drawable.icon_logo)
                     .into(img_item_submit_show)
             text_item_submit_name.text = vo.name
 

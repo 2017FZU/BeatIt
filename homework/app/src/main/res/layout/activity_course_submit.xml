@@ -85,4 +85,28 @@
         android:id="@+id/activity_submit_delete"
         android:visibility="gone"/>
 
+
+    <LinearLayout
+        android:id="@+id/progressbar_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="@drawable/background_rectangle_round_progressbar"
+        android:alpha="0.8"
+        android:visibility="gone">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="图片上传中"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
 </FrameLayout>

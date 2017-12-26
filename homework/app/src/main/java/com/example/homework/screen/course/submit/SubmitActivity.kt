@@ -21,6 +21,7 @@ import com.example.homework.R
 import com.example.homework.base.BaseActivity
 import com.example.homework.data.DO.course.Submission
 import com.example.homework.item.SubmissionItem
+import com.example.homework.screen.course.zoom.ZoomImageActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_course_submit.*
 import kotlinx.android.synthetic.main.dialog_submit_delete.*
@@ -35,6 +36,7 @@ class SubmitActivity : BaseActivity(), Contract.View {
     var presenter: Contract.Presenter? = null
     private val REQUEST_CODE_PICK_IMAGE = 1122
     var status = -1
+    var lastClickTime = System.currentTimeMillis()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,17 @@ class SubmitActivity : BaseActivity(), Contract.View {
         setupActionBar()
         setupSubmitList()
         setupView()
+    }
+
+    override fun gotoZoom(vo: SubmissionItem.VO) {
+        val intent = Intent(this, ZoomImageActivity::class.java)
+        intent.putExtra("wkid", vo.wkid)
+        intent.putExtra("url", vo.url)
+        startActivity(intent)
+    }
+
+    override fun showProgressBar() {
+        progressbar_submit.visibility = View.VISIBLE
     }
 
     override fun gotoDelete(position: Int, vo: SubmissionItem.VO) {
@@ -183,7 +196,10 @@ class SubmitActivity : BaseActivity(), Contract.View {
         }
 
         btn_course_submit_confirm.setOnClickListener {
-            presenter!!.confirm()
+            if (System.currentTimeMillis() - lastClickTime > 5000) {
+                presenter!!.confirm()
+                lastClickTime = System.currentTimeMillis()
+            }
         }
     }
 
