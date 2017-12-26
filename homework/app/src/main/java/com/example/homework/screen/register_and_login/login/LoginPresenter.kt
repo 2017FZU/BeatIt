@@ -82,6 +82,8 @@ class LoginPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikke
                         view()!!.GotoNext(it.sid)
                     }
                     else {
+                        editor!!.putBoolean("STATUE", false)
+                        editor!!.apply()
                         toast(it.error)
                     }
                 })
