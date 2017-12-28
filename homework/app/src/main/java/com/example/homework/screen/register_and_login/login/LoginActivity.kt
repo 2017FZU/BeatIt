@@ -72,7 +72,7 @@ class LoginActivity : BaseActivity(), Contract.View {
                 PHONENUM = text_login_userphone.text.toString()
                 PASSWORDS = text_login_passwords.text.toString()
             }
-            if (!PHONENUM.matches(REGEX_MOBILE))
+            if (PHONENUM.length != 11)
                 toast("请输入正确的手机号")
 
             else if (!PASSWORDS.matches(REGEX_PASSWORDS))

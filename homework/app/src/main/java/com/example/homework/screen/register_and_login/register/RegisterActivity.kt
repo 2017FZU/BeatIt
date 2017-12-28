@@ -60,7 +60,7 @@ class RegisterActivity : BaseActivity(), Contract.View {
                 toast("请输入合法的学号")
             else if (!PASSWORDS.matches(REGEX_PASSWORDS))
                 toast("请输入合法的密码")
-            else if (!PHONENUM.matches(REGEX_MOBILE))
+            else if (PHONENUM.length != 11)
                 toast("请输入合法的手机号")
             else {
                 val mycountdowntime = MyCountDownTimer(60000, 1000)
@@ -85,7 +85,7 @@ class RegisterActivity : BaseActivity(), Contract.View {
                 toast("请输入正确的学号")
             else if (!PASSWORDS.matches(REGEX_PASSWORDS))
                 toast("用户密码必须以字母开头，长度为16~20个字符")
-            else if (!PHONENUM.matches(REGEX_MOBILE))
+            else if (PHONENUM.length != 11)
                 toast("请输入正确的手机号")
             else if (VCODE.equals(""))
                 toast("请输入验证码")
