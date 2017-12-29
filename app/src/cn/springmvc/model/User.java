@@ -10,6 +10,7 @@ public class User {
 	private boolean ison;
 	private String img;
 	private String error;
+
 	public String getError() {
 		return error;
 	}

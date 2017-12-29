@@ -2,8 +2,10 @@ package cn.springmvc.business;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import cn.springmvc.MD5Util;
 import cn.springmvc.json.*;
@@ -190,15 +192,19 @@ public class StudentBusiness {
 				int wid = res.getInt("wid");
 				String title = res.getString("title");
 				String content = res.getString("content");
-				String deadline = res.getString("deadline");
+				Timestamp deadline = res.getTimestamp("deadline");
 				int online = res.getInt("online");
-				int status = res.getInt("status");
+				Timestamp d = new Timestamp(System.currentTimeMillis()); 
+				int status=1;
+				if(deadline.before(d)) {
+					status = 0;
+				}
 				HomeWork work = new HomeWork();
 				work.setWid(wid);
 				work.setTitle(title);
 				work.setStatus(status);
 				work.setOnline(online);
-				work.setDeadline(deadline);
+				work.setDeadline(deadline.toString());
 				work.setContent(content);
 				list.add(work);
 			}
@@ -416,23 +422,54 @@ public class StudentBusiness {
 		}
 		return person;
 	}
-
+	public static boolean query(String sid, String wid) {
+		// TODO Auto-generated method stub
+		String sql = null;
+		DBHelper db = null;
+		sql = "select * from homeworkstudent where sid = "+ sid + " and wid = "+wid;
+		db = new DBHelper(sql);
+		ResultSet res = null;
+		try {
+			res = db.pst.executeQuery();
+			while(res.next()) {
+				return false;
+			}
+			res.close();
+			db.close();//
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return true;
+	}
 	public static int submitHomework(String sid, String wid) {
 		// TODO Auto-generated method stub
 		String sql = null;
 		DBHelper db = null;
-		sql = "insert into homeworkstudent (sid, wid) values('"+ sid+"', '"+wid+"')";
+		sql = "delete from workimg where wid="+wid+" and sid = "+sid+";";
 		db = new DBHelper(sql);
 		int res = 0;
 		try {
 			res = db.pst.executeUpdate();
-			if(res <= 0) {
-				return 0;
-			}
 			db.close();
 		} catch (SQLException e) {
 			// 查询失败
 			e.printStackTrace();
+		}
+		if(query(sid, wid)) {
+			sql = "insert into homeworkstudent (sid, wid) values('"+ sid+"', '"+wid+"')";
+			db = new DBHelper(sql);
+			res = 0;
+			try {
+				res = db.pst.executeUpdate();
+				if(res <= 0) {
+					return 0;
+				}
+				db.close();
+			} catch (SQLException e) {
+				// 查询失败
+				e.printStackTrace();
+			}
 		}
 		return 1;
 	}
@@ -481,6 +518,11 @@ public class StudentBusiness {
 	public static User CheckLogin(String phone, String psw) {
 		User person = new User();
 		person.setSuccess(false);
+		person.setError("no error");
+		if(phone =="" || psw == "") {
+			person.setError("帐号密码不能为空");
+			return person;
+		}
 		psw = MD5Util.getMD5(psw);
 		System.out.println("密码: "+psw);
 		String sql = null;
@@ -519,7 +561,12 @@ public class StudentBusiness {
 
 	public static User CheckRegister(String phone, String psw, String sname, String stuno) {
 		User person = new User();
-		
+		person.setSuccess(false);
+		person.setError("no error");
+		if(phone == "" || psw =="" || sname =="" || stuno == "") {
+			person.setError("infomation can't be empty!");
+			return person;
+		}
 		String sql = null;
 		DBHelper db = null;
 		sql = "insert into student (stuno, sname, psw, tel) values('"+stuno+"', '"+sname+"','"+MD5Util.getMD5(psw)+"',"+phone+")";
@@ -539,5 +586,74 @@ public class StudentBusiness {
 			e.printStackTrace();
 		}
 		return person;
+	}
+
+	public static boolean ModifyQuery(String phone) {
+		String sql = null;
+		DBHelper db = null;
+		sql = "select * from student where tel = "+phone;
+		db = new DBHelper(sql);
+		ResultSet res = null;
+		try {
+			res = db.pst.executeQuery();
+			int check = 0;
+			while(res.next()) {
+				check++;
+			}
+			if(check == 0) {
+				return true;
+			}
+			db.close();//
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static StatusObject SaveAdvice(String sid, String adv) {
+		StatusObject status = new StatusObject();
+		status.setStatus(0);
+		String sql = null;
+		DBHelper db = null;
+		sql = "insert into advice (sid, adv) values("+sid+",'"+adv+"')";
+		db = new DBHelper(sql);
+		int res = 0;
+		try {
+			res = db.pst.executeUpdate();
+			if(res > 0) {
+				status.setStatus(1);
+			}
+			db.close();
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return status;
+	}
+
+	public static boolean CheckWork(String wid) {
+		// TODO Auto-generated method stub
+		String sql = null;
+		DBHelper db = null;
+		sql = "select * from homework where wid = "+ wid;
+		db = new DBHelper(sql);
+		ResultSet res = null;
+		try {
+			res = db.pst.executeQuery();
+			while(res.next()) {
+				Timestamp deadline = res.getTimestamp("deadline");
+				Timestamp d = new Timestamp(System.currentTimeMillis()); 
+				if(deadline.before(d)) {
+					return true;
+				}
+			}
+			res.close();
+			db.close();//
+		} catch (SQLException e) {
+			// 查询失败
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
